@@ -436,19 +436,34 @@ button{
 
   estado.textContent='⏳ Comprobando conexión...';
 
-  const { data, error } = await supabase
-    .from('products')
-    .select('code')
-    .limit(1);
+  try{
+    const consulta=supabase
+      .from('products')
+      .select('code')
+      .limit(1);
 
-  if(error){
-    estado.textContent='❌ Error de conexión con Supabase';
+    const timeout=new Promise((_,reject)=>{
+      setTimeout(()=>reject(new Error('Tiempo de espera agotado')),8000);
+    });
+
+    const { data, error } = await Promise.race([
+      consulta,
+      timeout
+    ]);
+
+    if(error){
+      estado.textContent='❌ Error de conexión con Supabase';
+      console.error('Supabase:', error);
+      return;
+    }
+
+    estado.textContent='✅ Supabase conectado correctamente';
+    console.log('Supabase conectado:', data);
+
+  }catch(error){
+    estado.textContent='❌ Supabase no responde';
     console.error('Supabase:', error);
-    return;
   }
-
-  estado.textContent='✅ Supabase conectado correctamente';
-  console.log('Supabase conectado:', data);
 }
 
 probarConexionSupabase();
