@@ -471,13 +471,11 @@ async function probarConexionSupabase(){
       try{
         const json=JSON.parse(texto);
 
-        if(json.code || json.message){
-          detalle=
-            (json.code || 'Sin código') +
-            (json.message ? ' — ' + json.message : '') +
-            (json.details ? ' — ' + json.details : '') +
-            (json.hint ? ' — ' + json.hint : '');
-        }
+        detalle=
+          (json.code || 'Sin código') +
+          (json.message ? ' — ' + json.message : '') +
+          (json.details ? ' — ' + json.details : '') +
+          (json.hint ? ' — ' + json.hint : '');
 
       }catch(e){}
 
