@@ -431,42 +431,60 @@ button{
 </main>
 
 <script>
-  async function probarConexionSupabase(){
+async function probarConexionSupabase(){
   const estado=document.querySelector('.status');
 
-  estado.textContent='⏳ Comprobando conexión...';
+  estado.textContent='⏳ Probando API de Supabase...';
+
+  const controlador=new AbortController();
+
+  const temporizador=setTimeout(()=>{
+    controlador.abort();
+  },10000);
 
   try{
-    const consulta=supabase
-      .from('products')
-      .select('code')
-      .limit(1);
+    const respuesta=await fetch(
+      SUPABASE_URL + '/rest/v1/products?select=code&active=eq.true&limit=1',
+      {
+        method:'GET',
+        headers:{
+          'apikey':SUPABASE_PUBLISHABLE_KEY,
+          'Authorization':'Bearer ' + SUPABASE_PUBLISHABLE_KEY
+        },
+        signal:controlador.signal
+      }
+    );
 
-    const timeout=new Promise((_,reject)=>{
-      setTimeout(()=>reject(new Error('Tiempo de espera agotado')),8000);
-    });
+    clearTimeout(temporizador);
 
-    const { data, error } = await Promise.race([
-      consulta,
-      timeout
-    ]);
+    const texto=await respuesta.text();
 
-    if(error){
-      estado.textContent='❌ Error de conexión con Supabase';
-      console.error('Supabase:', error);
+    console.log('Supabase HTTP:',respuesta.status);
+    console.log('Supabase respuesta:',texto);
+
+    if(!respuesta.ok){
+      estado.textContent='❌ Supabase HTTP ' + respuesta.status;
       return;
     }
 
-    estado.textContent='✅ Supabase conectado correctamente';
-    console.log('Supabase conectado:', data);
+    estado.textContent='✅ Supabase responde correctamente';
 
   }catch(error){
-    estado.textContent='❌ Supabase no responde';
-    console.error('Supabase:', error);
+
+    clearTimeout(temporizador);
+
+    console.error('Supabase diagnóstico:',error);
+
+    if(error.name==='AbortError'){
+      estado.textContent='❌ API de Supabase agotó el tiempo';
+    }else{
+      estado.textContent='❌ Error de red: ' + error.message;
+    }
   }
 }
 
 probarConexionSupabase();
+
 function abrirModulo(nombre){
   mostrarAviso(
     nombre +
