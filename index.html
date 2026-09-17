@@ -431,6 +431,27 @@ button{
 </main>
 
 <script>
+  async function probarConexionSupabase(){
+  const estado=document.querySelector('.status');
+
+  estado.textContent='⏳ Comprobando conexión...';
+
+  const { data, error } = await supabase
+    .from('products')
+    .select('code')
+    .limit(1);
+
+  if(error){
+    estado.textContent='❌ Error de conexión con Supabase';
+    console.error('Supabase:', error);
+    return;
+  }
+
+  estado.textContent='✅ Supabase conectado correctamente';
+  console.log('Supabase conectado:', data);
+}
+
+probarConexionSupabase();
 function abrirModulo(nombre){
   mostrarAviso(
     nombre +
