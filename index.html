@@ -8,12 +8,12 @@
 <title>RoXThal Universo Esotérico</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SUPABASE_URL = "https://osmkgbffvwnymvbhygzf.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_vct46uox_vnlXdry4LZeWQ_bC_-ITow";
+window.SUPABASE_URL = "https://osmkgbffvwnymvbhygzf.supabase.co";
+window.SUPABASE_PUBLISHABLE_KEY = "sb_publishable_vct46uox_vnlXdry4LZeWQ_bC_-ITow";
 
 const supabase = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
+  window.SUPABASE_URL,
+  window.SUPABASE_PUBLISHABLE_KEY
 );
 </script>
 <style>
@@ -432,6 +432,7 @@ button{
 
 <script>
 async function probarConexionSupabase(){
+
   const estado=document.querySelector('.status');
 
   estado.textContent='⏳ Probando API de Supabase...';
@@ -443,13 +444,14 @@ async function probarConexionSupabase(){
   },10000);
 
   try{
+
     const respuesta=await fetch(
-      SUPABASE_URL + '/rest/v1/products?select=code&active=eq.true&limit=1',
+      window.SUPABASE_URL + '/rest/v1/products?select=code&active=eq.true&limit=1',
       {
         method:'GET',
         headers:{
-          'apikey':SUPABASE_PUBLISHABLE_KEY,
-          'Authorization':'Bearer ' + SUPABASE_PUBLISHABLE_KEY
+          'apikey':window.SUPABASE_PUBLISHABLE_KEY,
+          'Authorization':'Bearer ' + window.SUPABASE_PUBLISHABLE_KEY
         },
         signal:controlador.signal
       }
