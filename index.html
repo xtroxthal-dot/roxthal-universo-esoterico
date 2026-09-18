@@ -1958,7 +1958,1106 @@ window.rxLeerCompatibilidad=function(){
 <!-- =========================================================
      FIN REPARADOR
      ========================================================= -->
+<!-- =========================================================
+     ROXTHAL UNIVERSO ESOTÉRICO
+     TAROT PROFESIONAL V1
+     SOBRESCRIBE ÚNICAMENTE EL MOTOR DEL TAROT
+     ========================================================= -->
 
+<style>
+
+.rx-tarot-profesional{
+  margin-top:18px;
+}
+
+.rx-tarot-baraja{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:18px;
+}
+
+.rx-tarot-carta{
+  position:relative;
+  min-height:245px;
+  padding:13px;
+  border:1px solid rgba(215,173,85,.30);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 50% 15%,rgba(215,173,85,.13),transparent 42%),
+    linear-gradient(145deg,#21182b,#100b16);
+  box-shadow:
+    0 15px 35px rgba(0,0,0,.42),
+    inset 0 0 0 1px rgba(255,255,255,.025);
+  overflow:hidden;
+  animation:rxTarotEntrada .45s ease both;
+}
+
+.rx-tarot-carta::before{
+  content:"";
+  position:absolute;
+  inset:7px;
+  border:1px solid rgba(215,173,85,.14);
+  border-radius:13px;
+  pointer-events:none;
+}
+
+.rx-tarot-carta.invertida{
+  background:
+    radial-gradient(circle at 50% 85%,rgba(215,173,85,.13),transparent 42%),
+    linear-gradient(145deg,#21182b,#100b16);
+}
+
+.rx-tarot-numero{
+  position:relative;
+  text-align:center;
+  color:#9d8759;
+  font-size:10px;
+  letter-spacing:1.5px;
+  margin-bottom:8px;
+}
+
+.rx-tarot-simbolo{
+  position:relative;
+  width:78px;
+  height:78px;
+  margin:4px auto 11px;
+  border:1px solid rgba(215,173,85,.45);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle,rgba(215,173,85,.12),transparent 70%);
+  color:#f1d78b;
+  font-size:34px;
+}
+
+.rx-tarot-carta h4{
+  position:relative;
+  text-align:center;
+  color:#f1d78b;
+  font-size:14px;
+  margin-bottom:5px;
+}
+
+.rx-tarot-orientacion{
+  position:relative;
+  text-align:center;
+  color:#aaa0b2;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.rx-tarot-carta.invertida
+.rx-tarot-simbolo{
+  transform:rotate(180deg);
+}
+
+.rx-tarot-carta.invertida h4,
+.rx-tarot-carta.invertida .rx-tarot-numero,
+.rx-tarot-carta.invertida .rx-tarot-orientacion{
+  transform:rotate(180deg);
+}
+
+.rx-tarot-lectura{
+  margin-top:14px;
+  padding:15px;
+  border:1px solid rgba(215,173,85,.18);
+  border-radius:15px;
+  background:rgba(0,0,0,.18);
+}
+
+.rx-tarot-lectura h3{
+  color:#f1d78b;
+  margin-bottom:7px;
+  font-size:16px;
+}
+
+.rx-tarot-lectura p{
+  color:#aaa0b2;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.rx-tarot-posicion{
+  margin-top:15px;
+  padding-top:13px;
+  border-top:1px solid rgba(215,173,85,.12);
+}
+
+.rx-tarot-posicion strong{
+  display:block;
+  color:#fff;
+  font-size:13px;
+  margin-bottom:5px;
+}
+
+.rx-tarot-clave{
+  margin-top:8px;
+  color:#d7ad55 !important;
+  font-size:12px !important;
+}
+
+.rx-tarot-sintesis{
+  margin-top:18px;
+  padding:17px;
+  border:1px solid rgba(215,173,85,.35);
+  border-radius:16px;
+  background:
+    linear-gradient(145deg,rgba(215,173,85,.08),rgba(0,0,0,.18));
+}
+
+.rx-tarot-sintesis h3{
+  color:#f1d78b;
+  margin-bottom:8px;
+}
+
+.rx-tarot-acciones{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:17px;
+}
+
+.rx-tarot-acciones button{
+  flex:1;
+  min-width:130px;
+  padding:11px;
+  border:1px solid rgba(215,173,85,.30);
+  border-radius:12px;
+  background:#21182b;
+  color:#f5f0e7;
+  font-weight:700;
+}
+
+.rx-tarot-acciones button.principal{
+  background:linear-gradient(135deg,#b88c37,#e0bd69);
+  color:#17100a;
+}
+
+.rx-tarot-nota{
+  margin-top:15px;
+  padding-top:13px;
+  border-top:1px solid rgba(215,173,85,.12);
+  color:#817789 !important;
+  font-size:11px !important;
+}
+
+@keyframes rxTarotEntrada{
+  from{
+    opacity:0;
+    transform:translateY(15px) scale(.97);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+@media(max-width:480px){
+
+  .rx-tarot-baraja{
+    grid-template-columns:1fr;
+  }
+
+  .rx-tarot-carta{
+    min-height:220px;
+  }
+
+}
+
+</style>
+
+<script>
+
+(function(){
+
+"use strict";
+
+/* =========================================================
+   BARAJA COMPLETA — 78 CARTAS
+   ========================================================= */
+
+const RX_TAROT_PRO=[
+  
+  /* ARCANOS MAYORES */
+
+  {
+    n:"0",
+    nombre:"El Loco",
+    simbolo:"✦",
+    palo:"Arcano Mayor",
+    derecho:"libertad, comienzo, espontaneidad y apertura a lo desconocido.",
+    inverso:"impulsividad, falta de preparación o dificultad para valorar las consecuencias."
+  },
+
+  {
+    n:"I",
+    nombre:"El Mago",
+    simbolo:"✧",
+    palo:"Arcano Mayor",
+    derecho:"iniciativa, recursos, creatividad y capacidad de transformar una intención en acción.",
+    inverso:"dispersión, manipulación o utilización poco clara de los propios recursos."
+  },
+
+  {
+    n:"II",
+    nombre:"La Sacerdotisa",
+    simbolo:"☾",
+    palo:"Arcano Mayor",
+    derecho:"intuición, observación, silencio y conocimiento interior.",
+    inverso:"bloqueo intuitivo, información oculta o dificultad para escuchar el mundo interior."
+  },
+
+  {
+    n:"III",
+    nombre:"La Emperatriz",
+    simbolo:"♀",
+    palo:"Arcano Mayor",
+    derecho:"creatividad, crecimiento, expresión y capacidad de nutrir proyectos.",
+    inverso:"estancamiento creativo, exceso de comodidad o dificultad para cuidar los propios procesos."
+  },
+
+  {
+    n:"IV",
+    nombre:"El Emperador",
+    simbolo:"♔",
+    palo:"Arcano Mayor",
+    derecho:"estructura, autoridad, estabilidad y organización.",
+    inverso:"rigidez, control excesivo o resistencia a modificar estructuras."
+  },
+
+  {
+    n:"V",
+    nombre:"El Hierofante",
+    simbolo:"☿",
+    palo:"Arcano Mayor",
+    derecho:"tradición, enseñanza, valores y transmisión de conocimiento.",
+    inverso:"cuestionamiento de normas, dogmatismo o necesidad de encontrar una perspectiva propia."
+  },
+
+  {
+    n:"VI",
+    nombre:"Los Enamorados",
+    simbolo:"♡",
+    palo:"Arcano Mayor",
+    derecho:"elección, vínculo, valores compartidos y decisiones conscientes.",
+    inverso:"ambivalencia, conflicto de valores o dificultad para elegir."
+  },
+
+  {
+    n:"VII",
+    nombre:"El Carro",
+    simbolo:"⚔",
+    palo:"Arcano Mayor",
+    derecho:"dirección, voluntad, avance y concentración de fuerzas.",
+    inverso:"pérdida de dirección, precipitación o fuerzas contradictorias."
+  },
+
+  {
+    n:"VIII",
+    nombre:"La Fuerza",
+    simbolo:"♘",
+    palo:"Arcano Mayor",
+    derecho:"coraje, autocontrol, paciencia y gestión consciente de la energía.",
+    inverso:"agotamiento, inseguridad o dificultad para regular los impulsos."
+  },
+
+  {
+    n:"IX",
+    nombre:"El Ermitaño",
+    simbolo:"☼",
+    palo:"Arcano Mayor",
+    derecho:"introspección, búsqueda, prudencia y conocimiento adquirido mediante experiencia.",
+    inverso:"aislamiento, exceso de introspección o dificultad para pedir orientación."
+  },
+
+  {
+    n:"X",
+    nombre:"La Rueda de la Fortuna",
+    simbolo:"◉",
+    palo:"Arcano Mayor",
+    derecho:"cambio, ciclos, movimiento y transformación de circunstancias.",
+    inverso:"resistencia al cambio, repetición de patrones o sensación de falta de control."
+  },
+
+  {
+    n:"XI",
+    nombre:"La Justicia",
+    simbolo:"⚖",
+    palo:"Arcano Mayor",
+    derecho:"equilibrio, responsabilidad, claridad y consecuencias de las decisiones.",
+    inverso:"desequilibrio, falta de perspectiva o dificultad para asumir responsabilidades."
+  },
+
+  {
+    n:"XII",
+    nombre:"El Colgado",
+    simbolo:"△",
+    palo:"Arcano Mayor",
+    derecho:"pausa, perspectiva diferente, aceptación y revisión de prioridades.",
+    inverso:"estancamiento, sacrificio improductivo o resistencia a cambiar de perspectiva."
+  },
+
+  {
+    n:"XIII",
+    nombre:"La Muerte",
+    simbolo:"☠",
+    palo:"Arcano Mayor",
+    derecho:"transformación, cierre de etapa y apertura de un nuevo ciclo.",
+    inverso:"resistencia al cambio, apego a una etapa terminada o dificultad para cerrar."
+  },
+
+  {
+    n:"XIV",
+    nombre:"La Templanza",
+    simbolo:"∞",
+    palo:"Arcano Mayor",
+    derecho:"equilibrio, integración, moderación y adaptación.",
+    inverso:"exceso, desajuste o dificultad para encontrar un ritmo sostenible."
+  },
+
+  {
+    n:"XV",
+    nombre:"El Diablo",
+    simbolo:"♄",
+    palo:"Arcano Mayor",
+    derecho:"deseos, apegos, intensidad, poder personal y vínculos con lo material.",
+    inverso:"toma de conciencia sobre dependencias, límites o patrones repetitivos."
+  },
+
+  {
+    n:"XVI",
+    nombre:"La Torre",
+    simbolo:"⚡",
+    palo:"Arcano Mayor",
+    derecho:"ruptura de estructuras, revelación y transformación de una base existente.",
+    inverso:"resistencia a una transformación necesaria o intento de conservar una estructura inestable."
+  },
+
+  {
+    n:"XVII",
+    nombre:"La Estrella",
+    simbolo:"✦",
+    palo:"Arcano Mayor",
+    derecho:"esperanza, inspiración, autenticidad y recuperación de confianza.",
+    inverso:"desánimo, pérdida temporal de inspiración o dificultad para reconocer recursos disponibles."
+  },
+
+  {
+    n:"XVIII",
+    nombre:"La Luna",
+    simbolo:"☾",
+    palo:"Arcano Mayor",
+    derecho:"imaginación, sensibilidad, sueños y exploración de lo incierto.",
+    inverso:"confusión, temores proyectados o dificultad para diferenciar percepción y realidad."
+  },
+
+  {
+    n:"XIX",
+    nombre:"El Sol",
+    simbolo:"☀",
+    palo:"Arcano Mayor",
+    derecho:"claridad, vitalidad, expresión y reconocimiento.",
+    inverso:"falta de confianza, expectativas excesivas o dificultad para disfrutar de lo conseguido."
+  },
+
+  {
+    n:"XX",
+    nombre:"El Juicio",
+    simbolo:"♢",
+    palo:"Arcano Mayor",
+    derecho:"revisión, despertar, comprensión del pasado y renovación.",
+    inverso:"autocrítica excesiva, dificultad para cerrar asuntos anteriores o resistencia a revisar decisiones."
+  },
+
+  {
+    n:"XXI",
+    nombre:"El Mundo",
+    simbolo:"◎",
+    palo:"Arcano Mayor",
+    derecho:"integración, culminación, aprendizaje y cierre de ciclo.",
+    inverso:"proceso inconcluso, sensación de falta de cierre o dificultad para reconocer un logro."
+  }
+
+];
+
+
+/* =========================================================
+   ARCANOS MENORES
+   ========================================================= */
+
+const RX_TAROT_MENORES=[];
+
+const palos=[
+  {
+    nombre:"Bastos",
+    simbolo:"🔥",
+    conceptos:[
+      ["As de Bastos","inicio, energía creativa y potencial de acción","bloqueo inicial, energía dispersa o falta de dirección"],
+      ["Dos de Bastos","planificación, visión y elección de dirección","dudas sobre el camino o planificación insuficiente"],
+      ["Tres de Bastos","expansión, perspectiva y desarrollo","espera frustrante o dificultad para ampliar perspectivas"],
+      ["Cuatro de Bastos","celebración, estabilidad y comunidad","inestabilidad en un entorno o celebración incompleta"],
+      ["Cinco de Bastos","competencia, intercambio y tensión creativa","conflicto improductivo o rivalidad excesiva"],
+      ["Seis de Bastos","reconocimiento, avance y confianza","necesidad de aprobación o reconocimiento demorado"],
+      ["Siete de Bastos","defensa de posiciones, límites y perseverancia","cansancio, inseguridad o dificultad para sostener una posición"],
+      ["Ocho de Bastos","movimiento rápido, comunicación y avance","demoras, mensajes confusos o precipitación"],
+      ["Nueve de Bastos","resistencia, experiencia y preparación","agotamiento o actitud excesivamente defensiva"],
+      ["Diez de Bastos","responsabilidad, esfuerzo y carga acumulada","sobrecarga, dificultad para delegar o exceso de obligaciones"],
+      ["Sota de Bastos","curiosidad, entusiasmo y exploración","impulsividad, entusiasmo inconstante o falta de preparación"],
+      ["Caballero de Bastos","acción, aventura y determinación","impulsividad, precipitación o energía irregular"],
+      ["Reina de Bastos","seguridad, creatividad y expresión","inseguridad, comparación o necesidad de reconocimiento"],
+      ["Rey de Bastos","liderazgo, visión y iniciativa","autoridad excesiva, impaciencia o control"]
+    ]
+  },
+
+  {
+    nombre:"Copas",
+    simbolo:"💧",
+    conceptos:[
+      ["As de Copas","apertura emocional, sensibilidad y renovación afectiva","bloqueo emocional o dificultad para expresar sentimientos"],
+      ["Dos de Copas","encuentro, reciprocidad y vínculo","desacuerdo, distancia o falta de reciprocidad"],
+      ["Tres de Copas","celebración, amistad y comunidad","excesos, dispersión o conflictos dentro de un grupo"],
+      ["Cuatro de Copas","introspección, pausa y revisión emocional","apatía, desconexión o dificultad para reconocer oportunidades"],
+      ["Cinco de Copas","pérdida, duelo y procesamiento emocional","recuperación, aceptación y reconocimiento de lo que permanece"],
+      ["Seis de Copas","memoria, nostalgia y vínculos del pasado","idealización del pasado o dificultad para avanzar"],
+      ["Siete de Copas","posibilidades, imaginación y elección","confusión, fantasía excesiva o dificultad para priorizar"],
+      ["Ocho de Copas","retirada consciente, búsqueda y cambio emocional","miedo a abandonar algo o apego a una situación agotada"],
+      ["Nueve de Copas","satisfacción, disfrute y valoración personal","insatisfacción, exceso o expectativas poco realistas"],
+      ["Diez de Copas","armonía, pertenencia y bienestar compartido","idealización, tensiones familiares o expectativas rígidas"],
+      ["Sota de Copas","sensibilidad, imaginación y apertura emocional","inmadurez emocional o dificultad para comunicar sentimientos"],
+      ["Caballero de Copas","propuesta, romanticismo y movimiento emocional","idealización, promesas poco concretas o inestabilidad afectiva"],
+      ["Reina de Copas","empatía, intuición y profundidad emocional","hipersensibilidad, absorción emocional o límites débiles"],
+      ["Rey de Copas","madurez emocional, equilibrio y comprensión","represión emocional, control afectivo o dificultad para expresarse"]
+    ]
+  },
+
+  {
+    nombre:"Espadas",
+    simbolo:"⚔️",
+    conceptos:[
+      ["As de Espadas","claridad, verdad, decisión y pensamiento","confusión, falta de claridad o comunicación problemática"],
+      ["Dos de Espadas","pausa, equilibrio y decisión pendiente","indecisión, negación o dificultad para afrontar información"],
+      ["Tres de Espadas","dolor, comprensión difícil y separación","procesamiento del dolor, recuperación o dificultad para soltar"],
+      ["Cuatro de Espadas","descanso, recuperación y pausa mental","agotamiento, inquietud o incapacidad para detenerse"],
+      ["Cinco de Espadas","conflicto, estrategia y consecuencias","reconciliación, aprendizaje o conflicto todavía pendiente"],
+      ["Seis de Espadas","transición, distancia y cambio gradual","dificultad para dejar atrás una etapa"],
+      ["Siete de Espadas","estrategia, autonomía y cautela","exposición, sinceridad necesaria o consecuencias de ocultar información"],
+      ["Ocho de Espadas","limitación percibida, miedo y bloqueo mental","liberación, nueva perspectiva o reconocimiento de opciones"],
+      ["Nueve de Espadas","preocupación, pensamiento repetitivo y ansiedad","procesamiento de temores y recuperación de perspectiva"],
+      ["Diez de Espadas","final, agotamiento y cierre de una etapa","recuperación, resistencia o dificultad para aceptar un final"],
+      ["Sota de Espadas","curiosidad, observación y búsqueda de información","rumores, vigilancia excesiva o comunicación precipitada"],
+      ["Caballero de Espadas","decisión, velocidad y confrontación intelectual","impulsividad, agresividad verbal o precipitación"],
+      ["Reina de Espadas","claridad, criterio, independencia y límites","dureza, distancia o juicio excesivamente severo"],
+      ["Rey de Espadas","razón, autoridad intelectual y estrategia","rigidez mental, frialdad o abuso de autoridad"]
+    ]
+  },
+
+  {
+    nombre:"Oros",
+    simbolo:"🪙",
+    conceptos:[
+      ["As de Oros","oportunidad concreta, recursos y comienzo material","oportunidad desaprovechada o falta de planificación"],
+      ["Dos de Oros","adaptación, organización y equilibrio práctico","desorganización, sobrecarga o prioridades incompatibles"],
+      ["Tres de Oros","colaboración, aprendizaje y trabajo bien realizado","falta de coordinación o dificultad para valorar el trabajo ajeno"],
+      ["Cuatro de Oros","estabilidad, conservación y seguridad","apego, miedo a perder o exceso de control material"],
+      ["Cinco de Oros","carencia, vulnerabilidad y necesidad de apoyo","recuperación, ayuda disponible o cambio de perspectiva"],
+      ["Seis de Oros","intercambio, ayuda y reciprocidad","desequilibrio entre dar y recibir"],
+      ["Siete de Oros","paciencia, evaluación y crecimiento gradual","impaciencia, resultados menores a lo esperado o revisión necesaria"],
+      ["Ocho de Oros","disciplina, práctica y perfeccionamiento","perfeccionismo, monotonía o falta de motivación"],
+      ["Nueve de Oros","autonomía, logro y valoración del propio esfuerzo","dependencia, inseguridad o dificultad para disfrutar del logro"],
+      ["Diez de Oros","estabilidad, legado y estructura duradera","conflictos de valores o inseguridad respecto al futuro"],
+      ["Sota de Oros","aprendizaje, oportunidad y aplicación práctica","falta de compromiso o dificultad para materializar planes"],
+      ["Caballero de Oros","constancia, responsabilidad y progreso sostenido","lentitud excesiva, rutina o resistencia al cambio"],
+      ["Reina de Oros","cuidado, practicidad, estabilidad y recursos","sobreprotección, exceso de carga o descuido personal"],
+      ["Rey de Oros","gestión, estabilidad, experiencia y construcción material","rigidez, materialismo o exceso de control"]
+    ]
+  }
+];
+
+palos.forEach(function(palo){
+
+  palo.conceptos.forEach(function(carta){
+
+    RX_TAROT_MENORES.push({
+      n:"",
+      nombre:carta[0],
+      simbolo:palo.simbolo,
+      palo:palo.nombre,
+      derecho:carta[1],
+      inverso:carta[2]
+    });
+
+  });
+
+});
+
+const RX_TAROT_COMPLETO=[
+  ...RX_TAROT_PRO,
+  ...RX_TAROT_MENORES
+];
+
+
+/* =========================================================
+   POSICIONES
+   ========================================================= */
+
+const posicionesTarot={
+
+  1:[
+    "Mensaje central"
+  ],
+
+  3:[
+    "Situación",
+    "Desarrollo",
+    "Reflexión"
+  ],
+
+  5:[
+    "Origen",
+    "Situación actual",
+    "Desafío",
+    "Tendencia",
+    "Integración"
+  ]
+
+};
+
+
+/* =========================================================
+   GENERADOR DE TIRADA
+   ========================================================= */
+
+function sacarCartas(cantidad){
+
+  const copia=[...RX_TAROT_COMPLETO];
+
+  const resultado=[];
+
+  while(
+    resultado.length<cantidad &&
+    copia.length
+  ){
+
+    const indice=
+      Math.floor(
+        Math.random()*copia.length
+      );
+
+    const carta=
+      copia.splice(indice,1)[0];
+
+    resultado.push({
+      carta:carta,
+      invertida:Math.random()<0.30
+    });
+
+  }
+
+  return resultado;
+}
+
+
+/* =========================================================
+   SÍNTESIS
+   ========================================================= */
+
+function crearSintesis(cartas){
+
+  let derechas=0;
+  let invertidas=0;
+
+  cartas.forEach(function(item){
+
+    if(item.invertida){
+      invertidas++;
+    }else{
+      derechas++;
+    }
+
+  });
+
+  if(cartas.length===1){
+
+    return "La carta obtenida puede utilizarse como símbolo central para observar tu pregunta desde una perspectiva diferente. La interpretación adquiere sentido al relacionarla con tu situación concreta.";
+
+  }
+
+  if(invertidas===0){
+
+    return "La tirada presenta una orientación predominantemente directa. Simbólicamente puede leerse como un proceso en el que los temas representados por las cartas aparecen con relativa claridad y pueden observarse de manera consciente.";
+
+  }
+
+  if(derechas===0){
+
+    return "Todas las cartas aparecen invertidas. Desde una lectura simbólica, esto puede utilizarse para explorar bloqueos, aspectos internos, resistencias o cuestiones que necesitan una revisión más profunda.";
+
+  }
+
+  return "La combinación presenta cartas derechas e invertidas. Simbólicamente puede representar una interacción entre recursos disponibles y aspectos que requieren revisión, integración o mayor conciencia.";
+
+}
+
+
+/* =========================================================
+   APERTURA DEL TAROT
+   ========================================================= */
+
+window.abrirTarotProfesional=function(){
+
+  const contenido=
+    document.getElementById(
+      "rxModuloContenido"
+    );
+
+  if(!contenido){
+    return;
+  }
+
+  contenido.innerHTML=`
+
+    <div class="rx-esoterico-icono">🃏</div>
+
+    <h2>Tarot</h2>
+
+    <p class="rx-esoterico-intro">
+      Realiza una lectura simbólica utilizando las
+      78 cartas del Tarot. Formula una pregunta,
+      elige la extensión de la tirada y observa
+      la relación entre las cartas.
+    </p>
+
+    <label>
+      Tu pregunta
+      <textarea
+        id="rxTarotPregunta"
+        rows="4"
+        placeholder="¿Qué deseas explorar?"></textarea>
+    </label>
+
+    <label>
+      Tipo de tirada
+
+      <select id="rxTarotCantidad">
+
+        <option value="1">
+          1 carta · Mensaje central
+        </option>
+
+        <option value="3">
+          3 cartas · Situación · Desarrollo · Reflexión
+        </option>
+
+        <option value="5">
+          5 cartas · Lectura ampliada
+        </option>
+
+      </select>
+
+    </label>
+
+    <button
+      class="rx-esoterico-boton"
+      onclick="window.rxLeerTarotProfesional()">
+
+      🃏 Realizar tirada
+
+    </button>
+
+    <div id="rxTarotResultado"></div>
+
+  `;
+
+};
+
+
+/* =========================================================
+   LECTURA PROFESIONAL
+   ========================================================= */
+
+window.rxLeerTarotProfesional=function(){
+
+  const preguntaElement=
+    document.getElementById(
+      "rxTarotPregunta"
+    );
+
+  const cantidadElement=
+    document.getElementById(
+      "rxTarotCantidad"
+    );
+
+  const resultado=
+    document.getElementById(
+      "rxTarotResultado"
+    );
+
+  if(!preguntaElement ||
+     !cantidadElement ||
+     !resultado){
+
+    return;
+  }
+
+  const pregunta=
+    preguntaElement.value.trim() ||
+    "Consulta general";
+
+  const cantidad=
+    Number(
+      cantidadElement.value
+    );
+
+  const cartas=
+    sacarCartas(cantidad);
+
+  const posiciones=
+    posicionesTarot[cantidad];
+
+  let html=`
+
+    <div class="rx-tarot-profesional">
+
+      <div class="rx-tarot-lectura">
+
+        <h3>✦ Lectura realizada</h3>
+
+        <p>
+          <strong>Consulta:</strong>
+          ${rxEsc(pregunta)}
+        </p>
+
+        <p style="margin-top:7px">
+          Se han seleccionado
+          ${cantidad}
+          ${cantidad===1?"carta":"cartas"}
+          de una baraja completa de 78 cartas,
+          sin repetir cartas dentro de esta tirada.
+        </p>
+
+      </div>
+
+      <div class="rx-tarot-baraja">
+  `;
+
+
+  cartas.forEach(function(item,index){
+
+    const carta=
+      item.carta;
+
+    const invertida=
+      item.invertida;
+
+    html+=`
+
+      <article
+        class="rx-tarot-carta
+        ${invertida?"invertida":""}"
+        style="animation-delay:${index*80}ms">
+
+        <div class="rx-tarot-numero">
+          ${rxEsc(posiciones[index])}
+        </div>
+
+        <div class="rx-tarot-simbolo">
+          ${carta.simbolo}
+        </div>
+
+        <h4>
+          ${rxEsc(carta.nombre)}
+        </h4>
+
+        <div class="rx-tarot-orientacion">
+          ${
+            invertida
+              ? "Invertida"
+              : "Derecha"
+          }
+        </div>
+
+      </article>
+
+    `;
+
+  });
+
+
+  html+=`
+
+      </div>
+
+  `;
+
+
+  cartas.forEach(function(item,index){
+
+    const carta=
+      item.carta;
+
+    const invertida=
+      item.invertida;
+
+    const significado=
+      invertida
+        ? carta.inverso
+        : carta.derecho;
+
+    html+=`
+
+      <div class="rx-tarot-lectura">
+
+        <div class="rx-tarot-posicion">
+
+          <strong>
+            ${index+1}.
+            ${rxEsc(posiciones[index])}
+            ·
+            ${rxEsc(carta.nombre)}
+          </strong>
+
+          <p>
+            ${
+              invertida
+                ? "Lectura invertida: "
+                : "Lectura directa: "
+            }
+
+            ${rxEsc(significado)}
+          </p>
+
+          <p class="rx-tarot-clave">
+            ✦ Observación:
+            ${
+              invertida
+                ? "explora qué puede estar bloqueando, ocultando o modificando este aspecto."
+                : "explora cómo este aspecto aparece de forma consciente y disponible en tu experiencia."
+            }
+          </p>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+
+  html+=`
+
+      <div class="rx-tarot-sintesis">
+
+        <h3>🔮 Síntesis de la tirada</h3>
+
+        <p>
+          ${crearSintesis(cartas)}
+        </p>
+
+      </div>
+
+      <div class="rx-tarot-lectura">
+
+        <h3>✦ Integración</h3>
+
+        <p>
+          La lectura no determina acontecimientos futuros.
+          Utilízala como una herramienta narrativa y simbólica
+          para formular preguntas, identificar perspectivas
+          y reflexionar sobre tu propia experiencia.
+        </p>
+
+      </div>
+
+      <div class="rx-tarot-acciones">
+
+        <button
+          class="principal"
+          onclick="window.rxNuevaTiradaTarot()">
+
+          🃏 Nueva tirada
+
+        </button>
+
+        <button
+          onclick="window.rxCompartirTarot()">
+
+          ↗ Compartir
+
+        </button>
+
+      </div>
+
+      <p class="rx-tarot-nota">
+        Las interpretaciones del Tarot son simbólicas y
+        recreativas. No constituyen predicciones científicas
+        ni sustituyen asesoramiento profesional.
+      </p>
+
+    </div>
+
+  `;
+
+  resultado.innerHTML=
+    html;
+
+};
+
+
+/* =========================================================
+   NUEVA TIRADA
+   ========================================================= */
+
+window.rxNuevaTiradaTarot=function(){
+
+  const resultado=
+    document.getElementById(
+      "rxTarotResultado"
+    );
+
+  if(resultado){
+
+    resultado.innerHTML="";
+
+  }
+
+};
+
+
+/* =========================================================
+   COMPARTIR
+   ========================================================= */
+
+window.rxCompartirTarot=async function(){
+
+  const resultado=
+    document.getElementById(
+      "rxTarotResultado"
+    );
+
+  if(!resultado){
+
+    return;
+  }
+
+  const texto=
+    resultado.innerText.trim();
+
+  if(!texto){
+
+    return;
+  }
+
+  try{
+
+    if(
+      navigator.share
+    ){
+
+      await navigator.share({
+        title:
+          "RoXThal Universo Esotérico · Tarot",
+        text:
+          texto
+      });
+
+      return;
+
+    }
+
+    if(
+      navigator.clipboard
+    ){
+
+      await navigator.clipboard.writeText(
+        texto
+      );
+
+      mostrarAviso(
+        "✦ Lectura copiada al portapapeles."
+      );
+
+    }
+
+  }catch(error){
+
+    console.log(
+      "Compartir cancelado:",
+      error
+    );
+
+  }
+
+};
+
+
+/* =========================================================
+   SOBRESCRIBIR ABRIR MÓDULO
+   ========================================================= */
+
+const abrirModuloAnterior=
+  window.abrirModulo;
+
+window.abrirModulo=function(nombre){
+
+  if(nombre==="Tarot"){
+
+    rxCrearVentana();
+
+    const modal=
+      document.getElementById(
+        "rx-esoterico-modal"
+      );
+
+    if(!modal){
+
+      return;
+    }
+
+    modal.classList.add(
+      "activo"
+    );
+
+    document.body.style.overflow=
+      "hidden";
+
+    window.abrirTarotProfesional();
+
+    return;
+  }
+
+  if(
+    typeof abrirModuloAnterior===
+    "function"
+  ){
+
+    abrirModuloAnterior(
+      nombre
+    );
+
+  }
+
+};
+
+
+/* =========================================================
+   COMPATIBILIDAD CON EL SISTEMA ANTERIOR
+   ========================================================= */
+
+window.rxLeerTarot=
+  window.rxLeerTarotProfesional;
+
+})();
+
+</script>
+
+<!-- =========================================================
+     FIN TAROT PROFESIONAL
+     ========================================================= -->
    <!-- =========================================================
      ROXTHAL — MOTOR ASTROLÓGICO
      CARGA ÚNICA AL FINAL DEL DOCUMENTO
