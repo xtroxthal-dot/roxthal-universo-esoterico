@@ -1472,64 +1472,7 @@ window.rxLeerZodiaco=function(){
   `);
 };
 
-/* =========================================================
-   TAROT
-   ========================================================= */
 
-window.rxLeerTarot=function(){
-
-  const pregunta=document
-    .getElementById("rxTarotPregunta")
-    .value
-    .trim() || "tu consulta";
-
-  const cantidad=Number(
-    document.getElementById("rxTarotCantidad").value
-  );
-
-  const posiciones=
-    cantidad===1
-      ? ["Mensaje central"]
-      : cantidad===3
-        ? ["Situación","Tendencia","Reflexión"]
-        : ["Origen","Situación","Desafío","Tendencia","Integración"];
-
-  const cartas=[];
-
-  while(cartas.length<cantidad){
-
-    const carta=rxAleatorio(RX_TAROT);
-
-    if(!cartas.includes(carta)){
-      cartas.push(carta);
-    }
-  }
-
-  rxResultado(`
-    <h3>Tu tirada</h3>
-
-    <p>
-      <strong>Consulta:</strong>
-      ${rxEsc(pregunta)}
-    </p>
-
-    ${cartas.map(function(carta,i){
-      return `
-        <div class="rx-esoterico-item">
-          <strong>${posiciones[i]} · ${rxEsc(carta)}</strong>
-          <p>
-            Esta carta representa simbólicamente un aspecto
-            que puedes observar en relación con tu consulta.
-          </p>
-        </div>
-      `;
-    }).join("")}
-
-    <p>
-      ✦ Esta tirada es simbólica y recreativa.
-    </p>
-  `);
-};
 
 /* =========================================================
    RUNAS
