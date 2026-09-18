@@ -2175,7 +2175,17 @@ window.rxLeerCompatibilidad=function(){
 (function(){
 
 "use strict";
-
+function rxEsc(texto){
+  return String(texto || "").replace(/[&<>"']/g,function(c){
+    return {
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    }[c];
+  });
+}
 /* =========================================================
    BARAJA COMPLETA — 78 CARTAS
    ========================================================= */
