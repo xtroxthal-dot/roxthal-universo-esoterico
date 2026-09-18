@@ -1958,5 +1958,80 @@ window.rxLeerCompatibilidad=function(){
 <!-- =========================================================
      FIN REPARADOR
      ========================================================= -->
+
+   <!-- =========================================================
+     ROXTHAL — CARGADOR DEL MOTOR ASTROLÓGICO
+     ========================================================= -->
+<script>
+(function () {
+  'use strict';
+
+  /*
+   * Carga el motor astronómico/astrológico DESPUÉS
+   * de todos los reparadores existentes.
+   *
+   * Esto es importante porque el motor necesita ser
+   * el último que controle abrirModulo('Zodíaco').
+   */
+
+  if (window.RoXThalAstro) {
+    console.log(
+      'RoXThal Astro: el motor ya estaba cargado.'
+    );
+    return;
+  }
+
+  const existente = document.querySelector(
+    'script[data-roxthal-astrology-engine]'
+  );
+
+  if (existente) {
+    console.log(
+      'RoXThal Astro: el cargador ya existe.'
+    );
+    return;
+  }
+
+  const script = document.createElement('script');
+
+  script.src = 'roxthal-astrology-engine.js';
+
+  script.async = false;
+
+  script.dataset.roxthalAstrologyEngine = '1';
+
+  script.onload = function () {
+
+    console.log(
+      'RoXThal Astro: motor astrológico cargado correctamente.',
+      window.RoXThalAstro || 'API todavía no disponible'
+    );
+
+  };
+
+  script.onerror = function () {
+
+    console.error(
+      'RoXThal Astro: NO se pudo cargar roxthal-astrology-engine.js'
+    );
+
+    if (typeof window.mostrarAviso === 'function') {
+
+      window.mostrarAviso(
+        '❌ No se pudo cargar el motor astrológico.'
+      );
+
+    }
+
+  };
+
+  document.body.appendChild(script);
+
+})();
+</script>
+
+<!-- =========================================================
+     FIN CARGADOR DEL MOTOR ASTROLÓGICO
+     ========================================================= -->
 </body>
 </html>
