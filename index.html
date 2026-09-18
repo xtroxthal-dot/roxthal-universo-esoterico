@@ -6494,5 +6494,2268 @@ window.rxRunasProDisponible =
 <!-- =========================================================
      FIN RUNAS PROFESIONAL V2
      ========================================================= -->
+   <!-- =========================================================
+     ROXTHAL UNIVERSO ESOTÉRICO
+     PREMIUM VISUAL SYSTEM V1
+     CAPA VISUAL GLOBAL — NO MODIFICA LOS MOTORES
+     ========================================================= -->
+
+<style>
+
+:root{
+
+  --rx-bg-deep:#05040a;
+  --rx-bg:#09070d;
+  --rx-bg-soft:#100b17;
+
+  --rx-panel:rgba(20,14,28,.86);
+  --rx-panel-strong:rgba(25,17,34,.96);
+
+  --rx-gold:#d7ad55;
+  --rx-gold-light:#f4dc98;
+  --rx-gold-soft:rgba(215,173,85,.16);
+
+  --rx-white:#faf7f0;
+  --rx-text:#e9e3d8;
+  --rx-muted:#9e96a5;
+
+  --rx-line:rgba(215,173,85,.20);
+  --rx-line-strong:rgba(215,173,85,.42);
+
+  --rx-shadow:
+    0 25px 70px rgba(0,0,0,.58);
+
+  --rx-radius:22px;
+
+}
+
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+html{
+  background:var(--rx-bg-deep);
+}
+
+body{
+
+  position:relative;
+
+  min-height:100vh;
+
+  overflow-x:hidden;
+
+  background:
+    radial-gradient(
+      ellipse at 50% -12%,
+      rgba(142,91,190,.18),
+      transparent 42%
+    ),
+    radial-gradient(
+      ellipse at 0% 35%,
+      rgba(215,173,85,.055),
+      transparent 30%
+    ),
+    radial-gradient(
+      ellipse at 100% 65%,
+      rgba(103,62,142,.07),
+      transparent 32%
+    ),
+    linear-gradient(
+      180deg,
+      #07050b 0%,
+      #09070d 45%,
+      #05040a 100%
+    );
+
+}
+
+
+/* atmósfera */
+
+body::before{
+
+  content:"";
+
+  position:fixed;
+
+  inset:0;
+
+  pointer-events:none;
+
+  z-index:0;
+
+  opacity:.42;
+
+  background-image:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(255,255,255,.7) 0 1px,
+      transparent 1.5px
+    ),
+    radial-gradient(
+      circle at 70% 30%,
+      rgba(215,173,85,.65) 0 1px,
+      transparent 1.5px
+    ),
+    radial-gradient(
+      circle at 35% 75%,
+      rgba(255,255,255,.45) 0 1px,
+      transparent 1.5px
+    );
+
+  background-size:
+    180px 180px,
+    240px 240px,
+    310px 310px;
+
+  animation:
+    rxStarsDrift 22s linear infinite;
+
+}
+
+
+@keyframes rxStarsDrift{
+
+  from{
+    transform:translate3d(0,0,0);
+  }
+
+  to{
+    transform:translate3d(-25px,18px,0);
+  }
+
+}
+
+
+/* =========================================================
+   APP
+   ========================================================= */
+
+.app{
+
+  position:relative;
+
+  z-index:1;
+
+  width:100%;
+
+  max-width:860px;
+
+  margin:0 auto;
+
+  padding-bottom:70px;
+
+}
+
+
+/* =========================================================
+   HEADER / PORTADA
+   ========================================================= */
+
+.header{
+
+  position:relative;
+
+  min-height:430px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:
+    58px 22px
+    48px;
+
+  overflow:hidden;
+
+  border-bottom:
+    1px solid
+    rgba(215,173,85,.16);
+
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(215,173,85,.105),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(120,72,160,.18),
+      transparent 52%
+    );
+
+}
+
+
+/* halo central */
+
+.header::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:420px;
+  height:420px;
+
+  left:50%;
+  top:50%;
+
+  transform:
+    translate(-50%,-52%);
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(215,173,85,.08);
+
+  box-shadow:
+    0 0 90px
+    rgba(215,173,85,.055),
+    inset 0 0 70px
+    rgba(215,173,85,.025);
+
+  pointer-events:none;
+
+}
+
+
+.header::after{
+
+  content:"✦";
+
+  position:absolute;
+
+  left:50%;
+
+  bottom:17px;
+
+  transform:translateX(-50%);
+
+  color:
+    rgba(215,173,85,.45);
+
+  font-size:13px;
+
+}
+
+
+/* estrellas existentes */
+
+.stars{
+
+  opacity:.30;
+
+}
+
+
+/* =========================================================
+   SÍMBOLO
+   ========================================================= */
+
+.symbol{
+
+  position:relative;
+
+  z-index:2;
+
+  width:108px;
+  height:108px;
+
+  margin-bottom:23px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.72);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(215,173,85,.13),
+      rgba(9,7,13,.15) 58%,
+      transparent 70%
+    );
+
+  box-shadow:
+    0 0 0 7px
+    rgba(215,173,85,.025),
+
+    0 0 50px
+    rgba(215,173,85,.13),
+
+    inset 0 0 30px
+    rgba(215,173,85,.06);
+
+  color:var(--rx-gold-light);
+
+  font-size:49px;
+
+  animation:
+    rxSymbolFloat 5s ease-in-out infinite;
+
+}
+
+
+@keyframes rxSymbolFloat{
+
+  0%,100%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-5px);
+  }
+
+}
+
+
+/* =========================================================
+   MARCA
+   ========================================================= */
+
+.brand{
+
+  position:relative;
+
+  z-index:2;
+
+  color:var(--rx-gold-light);
+
+  font-size:
+    clamp(36px,9vw,56px);
+
+  font-weight:800;
+
+  letter-spacing:
+    .16em;
+
+  line-height:1;
+
+  text-shadow:
+    0 0 25px
+    rgba(215,173,85,.14);
+
+}
+
+
+.subtitle{
+
+  position:relative;
+
+  z-index:2;
+
+  margin-top:11px;
+
+  color:#fff;
+
+  font-size:
+    clamp(14px,3.5vw,19px);
+
+  font-weight:500;
+
+  letter-spacing:
+    .38em;
+
+  opacity:.92;
+
+}
+
+
+.tagline{
+
+  position:relative;
+
+  z-index:2;
+
+  max-width:610px;
+
+  margin:
+    20px auto 0;
+
+  color:
+    rgba(233,227,216,.72);
+
+  font-size:13px;
+
+  line-height:1.75;
+
+}
+
+
+.status{
+
+  position:relative;
+
+  z-index:2;
+
+  margin-top:25px;
+
+  padding:
+    8px 17px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.25);
+
+  border-radius:999px;
+
+  background:
+    rgba(215,173,85,.045);
+
+  box-shadow:
+    inset 0 0 20px
+    rgba(215,173,85,.025);
+
+  color:var(--rx-gold-light);
+
+  letter-spacing:.06em;
+
+}
+
+
+/* =========================================================
+   SECCIONES
+   ========================================================= */
+
+.section{
+
+  padding:
+    38px 17px 0;
+
+}
+
+
+.section-title{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+  margin:
+    0 3px 18px;
+
+  color:var(--rx-gold-light);
+
+  font-size:15px;
+
+  font-weight:700;
+
+  letter-spacing:.13em;
+
+  text-transform:uppercase;
+
+}
+
+
+.section-title::after{
+
+  content:"";
+
+  flex:1;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(215,173,85,.28),
+      transparent
+    );
+
+}
+
+
+/* =========================================================
+   GRID DE SERVICIOS
+   ========================================================= */
+
+.grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:13px;
+
+}
+
+
+/* =========================================================
+   TARJETAS
+   ========================================================= */
+
+.card{
+
+  position:relative;
+
+  min-height:178px;
+
+  padding:21px 18px 18px;
+
+  overflow:hidden;
+
+  border:
+    1px solid
+    rgba(215,173,85,.15);
+
+  border-radius:
+    var(--rx-radius);
+
+  background:
+
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.035),
+      transparent 38%
+    ),
+
+    linear-gradient(
+      180deg,
+      rgba(27,19,36,.94),
+      rgba(13,9,19,.98)
+    );
+
+  box-shadow:
+    0 15px 38px
+    rgba(0,0,0,.30);
+
+  transition:
+    transform .28s ease,
+    border-color .28s ease,
+    box-shadow .28s ease,
+    background .28s ease;
+
+}
+
+
+/* brillo superior */
+
+.card::before{
+
+  content:"";
+
+  position:absolute;
+
+  left:18px;
+  right:18px;
+  top:0;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(215,173,85,.55),
+      transparent
+    );
+
+  opacity:.55;
+
+}
+
+
+/* halo */
+
+.card::after{
+
+  content:"";
+
+  position:absolute;
+
+  width:130px;
+  height:130px;
+
+  right:-75px;
+  bottom:-75px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(215,173,85,.12),
+      transparent 70%
+    );
+
+  transition:
+    transform .4s ease;
+
+}
+
+
+.card:active{
+
+  transform:
+    scale(.975);
+
+}
+
+
+.card:hover{
+
+  transform:
+    translateY(-4px);
+
+  border-color:
+    rgba(215,173,85,.34);
+
+  box-shadow:
+    0 22px 50px
+    rgba(0,0,0,.48),
+    0 0 25px
+    rgba(215,173,85,.045);
+
+}
+
+
+.card:hover::after{
+
+  transform:scale(1.35);
+
+}
+
+
+/* =========================================================
+   ICONOS
+   ========================================================= */
+
+.icon{
+
+  position:relative;
+
+  width:51px;
+  height:51px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  margin-bottom:17px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.25);
+
+  border-radius:15px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(215,173,85,.10),
+      transparent 72%
+    );
+
+  color:var(--rx-gold-light);
+
+  font-size:26px;
+
+  box-shadow:
+    inset 0 0 18px
+    rgba(215,173,85,.035);
+
+}
+
+
+.card h3{
+
+  position:relative;
+
+  color:
+    var(--rx-white);
+
+  font-size:16px;
+
+  font-weight:700;
+
+  letter-spacing:.02em;
+
+}
+
+
+.card p{
+
+  margin-top:7px;
+
+  color:
+    rgba(233,227,216,.57);
+
+  font-size:11.5px;
+
+  line-height:1.55;
+
+}
+
+
+.card .enter{
+
+  position:relative;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  margin-top:15px;
+
+  padding:
+    7px 10px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.16);
+
+  border-radius:8px;
+
+  color:
+    var(--rx-gold-light);
+
+  background:
+    rgba(215,173,85,.035);
+
+  font-size:10px;
+
+  letter-spacing:.1em;
+
+  transition:
+    background .2s ease,
+    border-color .2s ease;
+
+}
+
+
+.card:hover .enter{
+
+  border-color:
+    rgba(215,173,85,.32);
+
+  background:
+    rgba(215,173,85,.07);
+
+}
+
+
+/* =========================================================
+   PANELES
+   ========================================================= */
+
+.panel{
+
+  position:relative;
+
+  margin:
+    18px 17px 0;
+
+  padding:
+    23px 20px;
+
+  overflow:hidden;
+
+  border:
+    1px solid
+    rgba(215,173,85,.15);
+
+  border-radius:
+    var(--rx-radius);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.025),
+      transparent 45%
+    ),
+    rgba(17,11,24,.90);
+
+  box-shadow:
+    0 17px 42px
+    rgba(0,0,0,.30);
+
+}
+
+
+.panel::before{
+
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+
+  width:80px;
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--rx-gold),
+      transparent
+    );
+
+  opacity:.65;
+
+}
+
+
+.panel h2{
+
+  color:
+    var(--rx-gold-light);
+
+  font-size:17px;
+
+  letter-spacing:.02em;
+
+}
+
+
+.panel p{
+
+  color:
+    rgba(233,227,216,.62);
+
+  font-size:12px;
+
+  line-height:1.7;
+
+}
+
+
+/* =========================================================
+   BOTONES
+   ========================================================= */
+
+.actions{
+
+  margin-top:18px;
+
+  gap:9px;
+
+}
+
+
+.btn{
+
+  min-height:42px;
+
+  padding:
+    10px 15px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.18);
+
+  border-radius:12px;
+
+  background:
+    rgba(255,255,255,.035);
+
+  color:
+    var(--rx-text);
+
+  font-size:12px;
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    background .2s ease;
+
+}
+
+
+.btn:hover{
+
+  border-color:
+    rgba(215,173,85,.40);
+
+  background:
+    rgba(215,173,85,.07);
+
+}
+
+
+.btn.primary{
+
+  border-color:
+    rgba(215,173,85,.65);
+
+  background:
+    linear-gradient(
+      135deg,
+      #a77c2e,
+      #e3c36e
+    );
+
+  box-shadow:
+    0 8px 22px
+    rgba(215,173,85,.10);
+
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer{
+
+  position:relative;
+
+  margin-top:40px;
+
+  padding:
+    34px 20px 24px;
+
+  border-top:
+    1px solid
+    rgba(215,173,85,.10);
+
+  color:
+    rgba(158,150,165,.60);
+
+}
+
+
+.footer strong{
+
+  display:inline-block;
+
+  margin-bottom:8px;
+
+  color:
+    rgba(215,173,85,.78);
+
+  letter-spacing:.08em;
+
+}
+
+
+/* =========================================================
+   MODAL GENERAL
+   ========================================================= */
+
+#rx-esoterico-modal{
+
+  backdrop-filter:
+    blur(2px);
+
+}
+
+
+.rx-esoterico-fondo{
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(44,26,59,.28),
+      rgba(0,0,0,.91)
+    );
+
+  backdrop-filter:
+    blur(11px);
+
+}
+
+
+.rx-esoterico-ventana{
+
+  width:
+    min(760px,calc(100% - 18px));
+
+  max-height:
+    calc(100vh - 18px);
+
+  margin:
+    9px auto;
+
+  padding:
+    29px 21px 34px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.27);
+
+  border-radius:
+    26px;
+
+  background:
+
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(215,173,85,.095),
+      transparent 32%
+    ),
+
+    radial-gradient(
+      circle at 100% 50%,
+      rgba(112,61,150,.08),
+      transparent 35%
+    ),
+
+    linear-gradient(
+      180deg,
+      rgba(19,12,27,.98),
+      rgba(8,6,12,.99)
+    );
+
+  box-shadow:
+    0 35px 100px
+    rgba(0,0,0,.80);
+
+}
+
+
+/* cerrar */
+
+.rx-esoterico-cerrar{
+
+  width:42px;
+  height:42px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.22);
+
+  background:
+    rgba(255,255,255,.035);
+
+  color:
+    var(--rx-gold-light);
+
+  transition:
+    transform .2s ease,
+    background .2s ease;
+
+}
+
+
+.rx-esoterico-cerrar:hover{
+
+  transform:rotate(90deg);
+
+  background:
+    rgba(215,173,85,.09);
+
+}
+
+
+/* títulos */
+
+.rx-esoterico-icono{
+
+  width:58px;
+  height:58px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  margin-bottom:12px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.28);
+
+  border-radius:17px;
+
+  background:
+    rgba(215,173,85,.045);
+
+  color:
+    var(--rx-gold-light);
+
+  font-size:29px;
+
+}
+
+
+.rx-esoterico-ventana h2{
+
+  font-size:24px;
+
+  letter-spacing:.01em;
+
+}
+
+
+.rx-esoterico-intro{
+
+  max-width:620px;
+
+  color:
+    rgba(233,227,216,.60);
+
+  line-height:1.7;
+
+}
+
+
+/* =========================================================
+   FORMULARIOS
+   ========================================================= */
+
+.rx-esoterico-ventana label{
+
+  color:
+    var(--rx-gold-light);
+
+  letter-spacing:.04em;
+
+}
+
+
+.rx-esoterico-ventana input,
+.rx-esoterico-ventana textarea,
+.rx-esoterico-ventana select{
+
+  min-height:44px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.17);
+
+  border-radius:13px;
+
+  background:
+    rgba(0,0,0,.28);
+
+  color:
+    var(--rx-white);
+
+  box-shadow:
+    inset 0 1px 8px
+    rgba(0,0,0,.20);
+
+  transition:
+    border-color .2s ease,
+    box-shadow .2s ease;
+
+}
+
+
+.rx-esoterico-ventana textarea{
+
+  min-height:110px;
+
+}
+
+
+.rx-esoterico-ventana input:focus,
+.rx-esoterico-ventana textarea:focus,
+.rx-esoterico-ventana select:focus{
+
+  border-color:
+    rgba(215,173,85,.52);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(215,173,85,.055);
+
+}
+
+
+/* =========================================================
+   BOTÓN PRINCIPAL DE LOS MÓDULOS
+   ========================================================= */
+
+.rx-esoterico-boton{
+
+  min-height:46px;
+
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #9d742a,
+      #e5c66f
+    );
+
+  box-shadow:
+    0 10px 25px
+    rgba(215,173,85,.10);
+
+  letter-spacing:.04em;
+
+}
+
+
+/* =========================================================
+   RESULTADOS GENERALES
+   ========================================================= */
+
+.rx-esoterico-resultado{
+
+  margin-top:22px;
+
+  padding:20px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.18);
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(215,173,85,.035),
+      rgba(0,0,0,.18)
+    );
+
+}
+
+
+/* =========================================================
+   RUNAS PROFESIONALES
+   ========================================================= */
+
+#rxRunasPro{
+
+  position:relative;
+
+}
+
+
+.rxr-pro-intro{
+
+  position:relative;
+
+  padding:
+    22px 20px 23px;
+
+  margin-bottom:22px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.15);
+
+  border-radius:20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(215,173,85,.055),
+      transparent 55%
+    );
+
+}
+
+
+.rxr-pro-kicker,
+.rxr-pro-reading-kicker{
+
+  color:
+    rgba(215,173,85,.65);
+
+  font-size:9px;
+
+  font-weight:800;
+
+  letter-spacing:.18em;
+
+}
+
+
+.rxr-pro-intro h3,
+.rxr-pro-reading-head h3{
+
+  margin-top:8px;
+
+  color:
+    var(--rx-gold-light);
+
+  font-size:24px;
+
+  letter-spacing:.01em;
+
+}
+
+
+.rxr-pro-intro p{
+
+  margin-top:10px;
+
+  color:
+    rgba(233,227,216,.61);
+
+  font-size:12px;
+
+  line-height:1.75;
+
+}
+
+
+/* pregunta */
+
+.rxr-pro-question{
+
+  padding:
+    19px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.13);
+
+  border-radius:19px;
+
+  background:
+    rgba(255,255,255,.018);
+
+}
+
+
+.rxr-pro-label{
+
+  display:block;
+
+  margin-bottom:8px;
+
+  color:
+    var(--rx-gold-light);
+
+  font-size:11px;
+
+  font-weight:800;
+
+  letter-spacing:.08em;
+
+  text-transform:uppercase;
+
+}
+
+
+.rxr-pro-question textarea{
+
+  width:100%;
+
+  min-height:112px;
+
+  padding:14px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.18);
+
+  border-radius:14px;
+
+  background:
+    rgba(0,0,0,.27);
+
+  color:
+    var(--rx-white);
+
+  resize:vertical;
+
+  outline:none;
+
+}
+
+
+.rxr-pro-question textarea:focus{
+
+  border-color:
+    rgba(215,173,85,.48);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(215,173,85,.045);
+
+}
+
+
+/* títulos de sección */
+
+.rxr-pro-section-title{
+
+  margin:
+    25px 0 12px;
+
+  color:
+    rgba(215,173,85,.78);
+
+  font-size:10px;
+
+  font-weight:800;
+
+  letter-spacing:.14em;
+
+  text-transform:uppercase;
+
+}
+
+
+/* tiradas */
+
+.rxr-pro-spreads{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,minmax(0,1fr));
+
+  gap:10px;
+
+}
+
+
+.rxr-pro-spread{
+
+  min-height:132px;
+
+  padding:15px 10px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.14);
+
+  border-radius:17px;
+
+  background:
+    linear-gradient(
+      160deg,
+      rgba(255,255,255,.025),
+      rgba(0,0,0,.18)
+    );
+
+  color:
+    var(--rx-text);
+
+  text-align:left;
+
+  transition:
+    transform .22s ease,
+    border-color .22s ease,
+    background .22s ease,
+    box-shadow .22s ease;
+
+}
+
+
+.rxr-pro-spread:hover{
+
+  transform:
+    translateY(-2px);
+
+  border-color:
+    rgba(215,173,85,.35);
+
+}
+
+
+.rxr-pro-spread.activo{
+
+  border-color:
+    rgba(215,173,85,.64);
+
+  background:
+    linear-gradient(
+      160deg,
+      rgba(215,173,85,.10),
+      rgba(215,173,85,.025)
+    );
+
+  box-shadow:
+    0 10px 28px
+    rgba(0,0,0,.25),
+    inset 0 0 25px
+    rgba(215,173,85,.025);
+
+}
+
+
+.rxr-pro-spread-num{
+
+  color:
+    var(--rx-gold-light);
+
+  font-size:27px;
+
+  font-weight:800;
+
+}
+
+
+.rxr-pro-spread-name{
+
+  margin-top:9px;
+
+  color:#fff;
+
+  font-size:10px;
+
+  font-weight:800;
+
+  letter-spacing:.09em;
+
+}
+
+
+.rxr-pro-spread-desc{
+
+  margin-top:6px;
+
+  color:
+    rgba(233,227,216,.47);
+
+  font-size:9px;
+
+  line-height:1.45;
+
+}
+
+
+/* áreas */
+
+.rxr-pro-area-wrap{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:8px;
+
+}
+
+
+.rxr-pro-area{
+
+  padding:
+    9px 12px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.13);
+
+  border-radius:999px;
+
+  background:
+    rgba(255,255,255,.025);
+
+  color:
+    rgba(233,227,216,.68);
+
+  font-size:10px;
+
+  transition:
+    border-color .2s ease,
+    background .2s ease,
+    color .2s ease;
+
+}
+
+
+.rxr-pro-area.activo{
+
+  border-color:
+    rgba(215,173,85,.50);
+
+  background:
+    rgba(215,173,85,.08);
+
+  color:
+    var(--rx-gold-light);
+
+}
+
+
+/* inicio */
+
+.rxr-pro-start{
+
+  width:100%;
+
+  min-height:52px;
+
+  margin-top:25px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.66);
+
+  border-radius:15px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #9f752b,
+      #e4c46c
+    );
+
+  color:#171009;
+
+  font-size:11px;
+
+  font-weight:900;
+
+  letter-spacing:.10em;
+
+  box-shadow:
+    0 12px 30px
+    rgba(215,173,85,.10);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+
+}
+
+
+.rxr-pro-start:active{
+
+  transform:
+    scale(.985);
+
+}
+
+
+/* encabezado lectura */
+
+.rxr-pro-reading-head{
+
+  padding:
+    20px;
+
+  margin-bottom:16px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.14);
+
+  border-radius:19px;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(215,173,85,.075),
+      transparent 55%
+    );
+
+}
+
+
+.rxr-pro-query{
+
+  margin-top:10px;
+
+  padding-top:11px;
+
+  border-top:
+    1px solid
+    rgba(215,173,85,.10);
+
+  color:
+    rgba(233,227,216,.53);
+
+  font-size:11px;
+
+  line-height:1.65;
+
+}
+
+
+/* tarjetas de runa */
+
+.rxr-pro-card{
+
+  position:relative;
+
+  overflow:hidden;
+
+  margin-top:14px;
+
+  padding:20px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.19);
+
+  border-radius:21px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(215,173,85,.045),
+      rgba(12,8,18,.95)
+    );
+
+  box-shadow:
+    0 16px 38px
+    rgba(0,0,0,.30);
+
+}
+
+
+.rxr-pro-card::before{
+
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+
+  width:3px;
+  height:100%;
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--rx-gold),
+      transparent
+    );
+
+  opacity:.65;
+
+}
+
+
+.rxr-pro-card-symbol{
+
+  width:70px;
+  height:70px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  margin-bottom:14px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.34);
+
+  border-radius:20px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(215,173,85,.11),
+      rgba(0,0,0,.18)
+    );
+
+  color:
+    var(--rx-gold-light);
+
+  font-size:39px;
+
+  box-shadow:
+    0 0 28px
+    rgba(215,173,85,.06);
+
+}
+
+
+.rxr-pro-card-position{
+
+  color:
+    rgba(215,173,85,.66);
+
+  font-size:9px;
+
+  font-weight:900;
+
+  letter-spacing:.16em;
+
+  text-transform:uppercase;
+
+}
+
+
+.rxr-pro-card h4{
+
+  margin-top:5px;
+
+  color:#fff;
+
+  font-size:21px;
+
+}
+
+
+.rxr-pro-card-keywords{
+
+  margin-top:6px;
+
+  color:
+    rgba(215,173,85,.82);
+
+  font-size:10px;
+
+  line-height:1.5;
+
+}
+
+
+.rxr-pro-card p{
+
+  margin-top:12px;
+
+  color:
+    rgba(233,227,216,.62);
+
+  font-size:11px;
+
+  line-height:1.72;
+
+}
+
+
+/* bloques de análisis */
+
+.rxr-pro-analysis{
+
+  margin-top:14px;
+
+  padding:
+    15px 16px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.055);
+
+  border-radius:15px;
+
+  background:
+    rgba(255,255,255,.018);
+
+}
+
+
+.rxr-pro-analysis-title{
+
+  color:
+    var(--rx-gold-light);
+
+  font-size:9px;
+
+  font-weight:900;
+
+  letter-spacing:.12em;
+
+  text-transform:uppercase;
+
+}
+
+
+.rxr-pro-analysis p{
+
+  margin-top:7px;
+
+  color:
+    rgba(233,227,216,.59);
+
+  font-size:11px;
+
+  line-height:1.7;
+
+}
+
+
+/* síntesis */
+
+.rxr-pro-relation,
+.rxr-pro-synthesis{
+
+  position:relative;
+
+  margin-top:18px;
+
+  padding:
+    20px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.16);
+
+  border-radius:19px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(215,173,85,.035),
+      rgba(255,255,255,.012)
+    );
+
+}
+
+
+.rxr-pro-relation h3,
+.rxr-pro-synthesis h3{
+
+  color:
+    var(--rx-gold-light);
+
+  font-size:14px;
+
+}
+
+
+.rxr-pro-relation p,
+.rxr-pro-synthesis p{
+
+  margin-top:10px;
+
+  color:
+    rgba(233,227,216,.63);
+
+  font-size:11px;
+
+  line-height:1.75;
+
+}
+
+
+/* acciones */
+
+.rxr-pro-actions{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:9px;
+
+  margin-top:19px;
+
+}
+
+
+.rxr-pro-action{
+
+  min-height:44px;
+
+  padding:10px;
+
+  border:
+    1px solid
+    rgba(215,173,85,.17);
+
+  border-radius:12px;
+
+  background:
+    rgba(255,255,255,.025);
+
+  color:
+    var(--rx-text);
+
+  font-size:10px;
+
+  font-weight:800;
+
+  letter-spacing:.04em;
+
+}
+
+
+.rxr-pro-action.primary{
+
+  border-color:
+    rgba(215,173,85,.50);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(215,173,85,.17),
+      rgba(215,173,85,.06)
+    );
+
+  color:
+    var(--rx-gold-light);
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:560px){
+
+  .header{
+
+    min-height:400px;
+
+    padding:
+      48px 19px 42px;
+
+  }
+
+
+  .grid{
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+    gap:10px;
+
+  }
+
+
+  .card{
+
+    min-height:166px;
+
+    padding:
+      17px 14px 15px;
+
+    border-radius:18px;
+
+  }
+
+
+  .icon{
+
+    width:46px;
+    height:46px;
+
+    margin-bottom:14px;
+
+    border-radius:13px;
+
+    font-size:23px;
+
+  }
+
+
+  .card h3{
+
+    font-size:14px;
+
+  }
+
+
+  .card p{
+
+    font-size:10.5px;
+
+  }
+
+
+  .card .enter{
+
+    margin-top:12px;
+
+    padding:
+      6px 8px;
+
+    font-size:9px;
+
+  }
+
+
+  .panel{
+
+    margin-left:13px;
+    margin-right:13px;
+
+    padding:
+      20px 17px;
+
+  }
+
+
+  .section{
+
+    padding-left:13px;
+    padding-right:13px;
+
+  }
+
+
+  .rx-esoterico-ventana{
+
+    width:
+      calc(100% - 12px);
+
+    margin:6px auto;
+
+    max-height:
+      calc(100vh - 12px);
+
+    padding:
+      25px 14px 28px;
+
+    border-radius:22px;
+
+  }
+
+
+  .rxr-pro-spreads{
+
+    grid-template-columns:1fr;
+
+  }
+
+
+  .rxr-pro-spread{
+
+    min-height:92px;
+
+  }
+
+
+  .rxr-pro-actions{
+
+    grid-template-columns:1fr 1fr;
+
+  }
+
+}
+
+
+@media(min-width:700px){
+
+  .grid{
+
+    grid-template-columns:
+      repeat(3,minmax(0,1fr));
+
+  }
+
+}
+
+
+/* =========================================================
+   ANIMACIÓN DE ENTRADA
+   ========================================================= */
+
+.header,
+.section,
+.panel{
+
+  animation:
+    rxPremiumEnter .65s ease both;
+
+}
+
+
+@keyframes rxPremiumEnter{
+
+  from{
+
+    opacity:0;
+
+    transform:
+      translateY(12px);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:
+      translateY(0);
+
+  }
+
+}
+
+
+</style>
+
+
+<script>
+
+/* =========================================================
+   MICROINTERACCIONES VISUALES
+   NO MODIFICA FUNCIONALIDAD
+   ========================================================= */
+
+(function(){
+
+  "use strict";
+
+
+  function prepararTarjetas(){
+
+    const tarjetas =
+      document.querySelectorAll(
+        ".card"
+      );
+
+
+    tarjetas.forEach(
+      function(card,indice){
+
+        card.style.animationDelay =
+          (indice * 45) + "ms";
+
+        card.style.animation =
+          "rxPremiumCardEnter .55s ease both";
+
+      }
+    );
+
+  }
+
+
+  if(
+    document.readyState ===
+    "loading"
+  ){
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      prepararTarjetas
+    );
+
+  }else{
+
+    prepararTarjetas();
+
+  }
+
+
+})();
+
+</script>
+
+
+<style>
+
+@keyframes rxPremiumCardEnter{
+
+  from{
+
+    opacity:0;
+
+    transform:
+      translateY(14px)
+      scale(.985);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+  }
+
+}
+
+</style>
+
+<!-- =========================================================
+     FIN ROXTHAL PREMIUM VISUAL SYSTEM V1
+     ========================================================= -->
 </body>
 </html>
