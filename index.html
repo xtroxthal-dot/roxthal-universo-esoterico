@@ -3069,7 +3069,129 @@ window.rxLeerTarot=
 <!-- =========================================================
      FIN MOTOR ASTROLÓGICO
      ========================================================= -->
+<script>
+/* =========================================================
+   REPARADOR DEFINITIVO — APERTURA DEL TAROT
+   Corrige el problema de alcance de rxCrearVentana()
+   sin modificar los demás módulos.
+   ========================================================= */
 
+(function(){
+
+  "use strict";
+
+  window.abrirModuloTarotSeguro = function(){
+
+    let modal = document.getElementById("rx-esoterico-modal");
+
+    /*
+     * Si la ventana todavía no existe, la creamos aquí
+     * directamente. No dependemos de rxCrearVentana().
+     */
+    if(!modal){
+
+      modal = document.createElement("div");
+
+      modal.id = "rx-esoterico-modal";
+
+      modal.innerHTML = `
+        <div class="rx-esoterico-fondo"
+             onclick="window.rxCerrarModulo()"></div>
+
+        <section class="rx-esoterico-ventana">
+
+          <button
+            class="rx-esoterico-cerrar"
+            onclick="window.rxCerrarModulo()"
+            aria-label="Cerrar">×</button>
+
+          <div id="rxModuloContenido"></div>
+
+        </section>
+      `;
+
+      document.body.appendChild(modal);
+    }
+
+    /*
+     * Abrimos el modal.
+     */
+    modal.classList.add("activo");
+
+    document.body.style.overflow = "hidden";
+
+    /*
+     * Utilizamos el Tarot profesional que ya existe
+     * en el archivo.
+     */
+    if(typeof window.abrirTarotProfesional === "function"){
+
+      window.abrirTarotProfesional();
+
+      return;
+    }
+
+    /*
+     * Si por alguna razón el bloque profesional no estuviera
+     * disponible, mostramos un diagnóstico en lugar de fallar
+     * silenciosamente.
+     */
+    const contenido =
+      document.getElementById("rxModuloContenido");
+
+    if(contenido){
+
+      contenido.innerHTML = `
+        <div class="rx-esoterico-icono">🃏</div>
+
+        <h2>Tarot</h2>
+
+        <p class="rx-esoterico-intro">
+          El módulo Tarot se ha abierto, pero su sistema
+          profesional no está disponible en este momento.
+        </p>
+
+        <p style="
+          margin-top:15px;
+          color:#aaa0b2;
+          font-size:12px;
+        ">
+          Diagnóstico: no se encontró
+          <strong style="color:#f1d78b">
+            abrirTarotProfesional()
+          </strong>.
+        </p>
+      `;
+    }
+
+  };
+
+
+  /*
+   * Sustituimos solamente la apertura del módulo Tarot.
+   * Los demás módulos conservan su funcionamiento actual.
+   */
+  const abrirModuloActual = window.abrirModulo;
+
+  window.abrirModulo = function(nombre){
+
+    if(nombre === "Tarot"){
+
+      window.abrirModuloTarotSeguro();
+
+      return;
+    }
+
+    if(typeof abrirModuloActual === "function"){
+
+      abrirModuloActual(nombre);
+
+    }
+
+  };
+
+})();
+</script>
 
 </body>
 </html>
