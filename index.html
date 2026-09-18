@@ -3202,6 +3202,543 @@ window.rxLeerTarot=
 
 })();
 </script>
+<!-- =========================================================
+     ROXTHAL RUNAS — REPARACIÓN Y AMPLIACIÓN FINAL
+     Aislado del resto de módulos
+     ========================================================= -->
+<script>
+(function () {
+  "use strict";
 
+  const RUNAS_ROXTHAL = [
+    ["Fehu","recursos, comienzos y movimiento"],
+    ["Uruz","fuerza, transformación y resistencia"],
+    ["Thurisaz","protección, desafío y defensa"],
+    ["Ansuz","comunicación, conocimiento e intuición"],
+    ["Raidho","movimiento, dirección y recorrido"],
+    ["Kenaz","claridad, creatividad y comprensión"],
+    ["Gebo","intercambio, vínculo y reciprocidad"],
+    ["Wunjo","armonía, alegría y bienestar"],
+    ["Hagalaz","cambio inesperado y transformación"],
+    ["Nauthiz","necesidad, límites y aprendizaje"],
+    ["Isa","pausa, concentración y quietud"],
+    ["Jera","ciclo, proceso y cosecha"],
+    ["Eihwaz","resistencia, transición y transformación"],
+    ["Perthro","misterio, posibilidad y descubrimiento"],
+    ["Algiz","protección, límites y conciencia"],
+    ["Sowilo","claridad, energía y realización"],
+    ["Tiwaz","decisión, voluntad y dirección"],
+    ["Berkano","crecimiento, cuidado y renovación"],
+    ["Ehwaz","movimiento, confianza y adaptación"],
+    ["Mannaz","identidad, conciencia y relación"],
+    ["Laguz","fluidez, emociones e intuición"],
+    ["Ingwaz","gestación, cierre y renovación"],
+    ["Dagaz","despertar, cambio y claridad"],
+    ["Othala","raíces, pertenencia y legado"]
+  ];
+
+  function escapar(texto) {
+    return String(texto == null ? "" : texto)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function obtenerElementos() {
+    return {
+      pregunta: document.getElementById("rxRunaPregunta"),
+      cantidad: document.getElementById("rxRunaCantidad"),
+      resultado: document.getElementById("rxResultado")
+    };
+  }
+
+  function elegirRunas(cantidad) {
+    const indices = [];
+
+    while (indices.length < cantidad) {
+      const indice = Math.floor(
+        Math.random() * RUNAS_ROXTHAL.length
+      );
+
+      if (!indices.includes(indice)) {
+        indices.push(indice);
+      }
+    }
+
+    return indices.map(function (indice) {
+      return RUNAS_ROXTHAL[indice];
+    });
+  }
+
+  function obtenerPosiciones(cantidad) {
+    if (cantidad === 1) {
+      return ["Mensaje central"];
+    }
+
+    if (cantidad === 3) {
+      return [
+        "Pasado",
+        "Presente",
+        "Tendencia"
+      ];
+    }
+
+    return [
+      "Origen",
+      "Situación",
+      "Desafío",
+      "Consejo",
+      "Integración"
+    ];
+  }
+
+  function interpretacion(runa, posicion, pregunta) {
+
+    const nombre = runa[0];
+    const significado = runa[1];
+
+    const textos = {
+
+      "Fehu":
+        "Esta runa señala movimiento de recursos, iniciativa y posibilidades de crecimiento. Puede invitar a reconocer aquello que ya está disponible y utilizarlo de manera consciente.",
+
+      "Uruz":
+        "Habla de fuerza, resistencia y transformación. La situación puede requerir constancia y disposición para atravesar un cambio sin abandonar aquello que consideras esencial.",
+
+      "Thurisaz":
+        "Se relaciona con protección, límites y desafíos. Antes de reaccionar, conviene observar qué necesita ser protegido y qué respuesta sería realmente útil.",
+
+      "Ansuz":
+        "Se vincula con comunicación, conocimiento e intuición. Una conversación, una información o una nueva comprensión puede modificar la manera de interpretar la situación.",
+
+      "Raidho":
+        "Representa movimiento, dirección y recorrido. La cuestión puede estar relacionada con elegir un rumbo y avanzar de manera consciente en lugar de permanecer inmóvil.",
+
+      "Kenaz":
+        "Se asocia con claridad, creatividad y comprensión. Algo que estaba poco definido puede comenzar a hacerse visible cuando se observa desde una perspectiva diferente.",
+
+      "Gebo":
+        "Habla de intercambio, vínculos y reciprocidad. Invita a revisar qué das, qué recibes y si existe un equilibrio saludable entre ambas partes.",
+
+      "Wunjo":
+        "Se relaciona con armonía, bienestar y satisfacción. Puede señalar la importancia de reconocer aquello que funciona y permitir que una experiencia positiva tenga su lugar.",
+
+      "Hagalaz":
+        "Representa cambios inesperados y transformación. Cuando una estructura deja de funcionar, la experiencia puede exigir adaptación y una nueva manera de organizar las cosas.",
+
+      "Nauthiz":
+        "Se vincula con necesidad, límites y aprendizaje. Puede ser un momento para distinguir entre un deseo inmediato y aquello que realmente necesita atención.",
+
+      "Isa":
+        "Representa pausa, concentración y quietud. No todo requiere una respuesta inmediata; detenerse puede permitir observar con mayor claridad antes de actuar.",
+
+      "Jera":
+        "Habla de ciclos, procesos y cosecha. Los resultados pueden depender de un proceso que necesita tiempo, continuidad y paciencia.",
+
+      "Eihwaz":
+        "Se relaciona con resistencia, transición y transformación profunda. Puede señalar una etapa intermedia en la que todavía no se ve completamente el resultado del cambio.",
+
+      "Perthro":
+        "Representa misterio, posibilidades y descubrimiento. Hay elementos que todavía no están completamente visibles y que pueden revelarse a medida que avance el proceso.",
+
+      "Algiz":
+        "Se asocia con protección, conciencia y límites. Invita a prestar atención a las señales del entorno y a establecer límites cuando sean necesarios.",
+
+      "Sowilo":
+        "Representa claridad, energía y realización. Puede señalar una mayor comprensión del objetivo y una oportunidad para actuar con confianza y coherencia.",
+
+      "Tiwaz":
+        "Habla de decisión, voluntad y dirección. La situación puede requerir elegir con claridad y sostener la decisión con responsabilidad.",
+
+      "Berkano":
+        "Se vincula con crecimiento, cuidado y renovación. Algo puede necesitar tiempo, atención y condiciones adecuadas para desarrollarse.",
+
+      "Ehwaz":
+        "Representa movimiento, confianza y adaptación. Puede indicar que avanzar junto a otras personas o aceptar un cambio de ritmo resulta importante.",
+
+      "Mannaz":
+        "Se relaciona con identidad, conciencia y relaciones humanas. Invita a observar qué papel estás ocupando dentro de la situación y cómo interactúas con los demás.",
+
+      "Laguz":
+        "Habla de fluidez, emociones e intuición. Puede ser útil prestar atención a aquello que sientes sin dejar de contrastarlo con la realidad concreta.",
+
+      "Ingwaz":
+        "Representa gestación, cierre y renovación. Algo puede estar desarrollándose internamente antes de convertirse en una nueva etapa.",
+
+      "Dagaz":
+        "Se asocia con despertar, cambio y claridad. Puede simbolizar un punto de comprensión que permite observar una situación de una manera diferente.",
+
+      "Othala":
+        "Habla de raíces, pertenencia y legado. Invita a revisar aquello que recibiste del pasado y decidir conscientemente qué deseas conservar y qué deseas transformar."
+    };
+
+    return textos[nombre] ||
+      "La runa señala un proceso de reflexión relacionado con " +
+      significado + ".";
+  }
+
+  function sintesis(runas, posiciones, pregunta) {
+
+    const nombres = runas.map(function (runa) {
+      return runa[0];
+    }).join(", ");
+
+    if (runas.length === 1) {
+      return (
+        "La lectura concentra el mensaje en " +
+        nombres +
+        ". El significado asociado a " +
+        runas[0][1] +
+        " puede utilizarse como eje de reflexión para tu consulta."
+      );
+    }
+
+    if (runas.length === 3) {
+      return (
+        "La secuencia " +
+        nombres +
+        " muestra un recorrido simbólico entre el pasado, " +
+        "la situación presente y la tendencia. " +
+        "La lectura invita a observar cómo la experiencia anterior " +
+        "se relaciona con el momento actual y qué dirección puede " +
+        "tomar el proceso si se mantienen las condiciones actuales."
+      );
+    }
+
+    return (
+      "La secuencia " +
+      nombres +
+      " construye un recorrido desde el origen de la situación " +
+      "hasta su integración. El conjunto invita a observar qué " +
+      "elementos la iniciaron, qué está ocurriendo ahora, qué " +
+      "dificultad necesita atención, qué actitud puede resultar " +
+      "constructiva y cómo integrar la experiencia."
+    );
+  }
+
+  function crearLectura() {
+
+    const elementos = obtenerElementos();
+
+    if (
+      !elementos.pregunta ||
+      !elementos.cantidad ||
+      !elementos.resultado
+    ) {
+      return;
+    }
+
+    const pregunta =
+      elementos.pregunta.value.trim() ||
+      "tu consulta";
+
+    let cantidad =
+      Number(elementos.cantidad.value);
+
+    if (
+      cantidad !== 1 &&
+      cantidad !== 3 &&
+      cantidad !== 5
+    ) {
+      cantidad = 1;
+    }
+
+    const posiciones =
+      obtenerPosiciones(cantidad);
+
+    const runas =
+      elegirRunas(cantidad);
+
+    let html = "";
+
+    html += `
+      <div class="rx-esoterico-item"
+           style="
+             margin-top:18px;
+             padding:16px;
+             border:1px solid rgba(215,173,85,.25);
+             border-radius:14px;
+             background:rgba(215,173,85,.04);
+           ">
+
+        <h3 style="margin-top:0;">
+          ᚱ Lectura de Runas
+        </h3>
+
+        <p>
+          <strong>Consulta:</strong>
+          ${escapar(pregunta)}
+        </p>
+
+      </div>
+    `;
+
+    runas.forEach(function (runa, indice) {
+
+      html += `
+        <div class="rx-esoterico-item"
+             style="
+               margin-top:12px;
+               padding:15px;
+               border-radius:14px;
+               border:1px solid rgba(215,173,85,.18);
+             ">
+
+          <div style="
+            color:#f1d78b;
+            font-weight:800;
+            font-size:16px;
+            margin-bottom:7px;
+          ">
+            ᚱ ${escapar(posiciones[indice])}
+          </div>
+
+          <div style="
+            font-size:20px;
+            font-weight:900;
+            margin-bottom:8px;
+          ">
+            ${escapar(runa[0])}
+          </div>
+
+          <p>
+            <strong>Asociación simbólica:</strong>
+            ${escapar(runa[1])}.
+          </p>
+
+          <p>
+            <strong>Interpretación:</strong>
+            ${escapar(
+              interpretacion(
+                runa,
+                posiciones[indice],
+                pregunta
+              )
+            )}
+          </p>
+
+        </div>
+      `;
+    });
+
+    html += `
+      <div class="rx-esoterico-item"
+           style="
+             margin-top:14px;
+             padding:16px;
+             border-radius:14px;
+             border:1px solid rgba(215,173,85,.28);
+             background:rgba(215,173,85,.06);
+           ">
+
+        <h3 style="
+          color:#f1d78b;
+          margin-top:0;
+        ">
+          ✦ Síntesis de la lectura
+        </h3>
+
+        <p>
+          ${escapar(
+            sintesis(
+              runas,
+              posiciones,
+              pregunta
+            )
+          )}
+        </p>
+
+      </div>
+    `;
+
+    html += `
+      <div style="
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+        margin-top:14px;
+      ">
+
+        <button
+          type="button"
+          class="rx-esoterico-boton"
+          onclick="window.rxNuevaLecturaRunas()"
+        >
+          ᚱ Nueva lectura
+        </button>
+
+        <button
+          type="button"
+          class="rx-esoterico-boton"
+          onclick="window.rxCompartirRunas()"
+        >
+          ↗ Compartir
+        </button>
+
+      </div>
+    `;
+
+    elementos.resultado.innerHTML = html;
+  }
+
+  window.rxLeerRunas = function () {
+    crearLectura();
+  };
+
+  window.rxNuevaLecturaRunas = function () {
+
+    const elementos = obtenerElementos();
+
+    if (
+      !elementos.resultado
+    ) {
+      return;
+    }
+
+    /*
+     * Genera inmediatamente una nueva tirada.
+     * Mantiene la consulta y la cantidad seleccionadas.
+     */
+    crearLectura();
+
+    if (elementos.resultado) {
+      elementos.resultado.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  };
+
+  window.rxCompartirRunas = async function () {
+
+    const elementos = obtenerElementos();
+
+    if (
+      !elementos.resultado
+    ) {
+      return;
+    }
+
+    const texto =
+      elementos.resultado.innerText.trim();
+
+    if (!texto) {
+      return;
+    }
+
+    const titulo =
+      "RoXThal Universo Esotérico — Lectura de Runas";
+
+    if (
+      navigator.share
+    ) {
+
+      try {
+
+        await navigator.share({
+          title: titulo,
+          text: texto
+        });
+
+        return;
+
+      } catch (error) {
+
+        /*
+         * Si el usuario cancela el diálogo
+         * de compartir, no mostramos error.
+         */
+        if (
+          error &&
+          error.name === "AbortError"
+        ) {
+          return;
+        }
+
+      }
+    }
+
+    if (
+      navigator.clipboard &&
+      typeof navigator.clipboard.writeText === "function"
+    ) {
+
+      try {
+
+        await navigator.clipboard.writeText(texto);
+
+        if (
+          typeof window.mostrarAviso === "function"
+        ) {
+
+          window.mostrarAviso(
+            "Lectura copiada al portapapeles."
+          );
+
+        } else {
+
+          alert(
+            "Lectura copiada al portapapeles."
+          );
+
+        }
+
+        return;
+
+      } catch (error) {
+        /* continúa con el método alternativo */
+      }
+    }
+
+    /*
+     * Último recurso para navegadores que no
+     * permiten navigator.share ni clipboard.
+     */
+    const area =
+      document.createElement("textarea");
+
+    area.value = texto;
+
+    area.style.position = "fixed";
+    area.style.left = "-9999px";
+    area.style.top = "0";
+
+    document.body.appendChild(area);
+
+    area.focus();
+    area.select();
+
+    try {
+      document.execCommand("copy");
+
+      if (
+        typeof window.mostrarAviso === "function"
+      ) {
+
+        window.mostrarAviso(
+          "Lectura copiada al portapapeles."
+        );
+
+      } else {
+
+        alert(
+          "Lectura copiada al portapapeles."
+        );
+
+      }
+
+    } catch (error) {
+
+      alert(texto);
+
+    }
+
+    area.remove();
+  };
+
+})();
+</script>
 </body>
 </html>
