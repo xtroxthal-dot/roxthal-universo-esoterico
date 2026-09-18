@@ -3069,5 +3069,408 @@ window.rxLeerTarot=
 <!-- =========================================================
      FIN MOTOR ASTROLÓGICO
      ========================================================= -->
+
+   <!-- =========================================================
+     ROXTHAL — REPARADOR TAROT
+     V2 — APERTURA SEGURA
+     PEGAR JUSTO ANTES DE </body>
+     ========================================================= -->
+<script>
+(function () {
+  "use strict";
+
+  function abrirTarotSeguro() {
+
+    /* -------------------------------------------------------
+       1. Buscar el sistema de ventana existente
+       ------------------------------------------------------- */
+    var modal = document.getElementById("rx-esoterico-modal");
+    var contenido = document.getElementById("rxModuloContenido");
+
+    /*
+     * Si el sistema original todavía no creó la ventana,
+     * intentamos utilizar su función pública.
+     */
+    if (!modal || !contenido) {
+
+      if (typeof window.rxCrearVentana === "function") {
+        try {
+          window.rxCrearVentana();
+        } catch (e) {
+          console.error("RoXThal Tarot: error creando ventana", e);
+        }
+      }
+    }
+
+    /* Volver a buscar después de crearla */
+    modal = document.getElementById("rx-esoterico-modal");
+    contenido = document.getElementById("rxModuloContenido");
+
+    /*
+     * Si existe el modal pero no el contenido, no seguimos
+     * ejecutando código que pueda romper la aplicación.
+     */
+    if (!modal || !contenido) {
+      console.error(
+        "RoXThal Tarot: no se encontró la ventana del módulo."
+      );
+      return;
+    }
+
+    /* -------------------------------------------------------
+       2. Abrir modal
+       ------------------------------------------------------- */
+    modal.classList.add("activo");
+
+    document.body.style.overflow = "hidden";
+
+    /* -------------------------------------------------------
+       3. Intentar utilizar el Tarot profesional existente
+       ------------------------------------------------------- */
+    if (
+      typeof window.abrirTarotProfesional === "function"
+    ) {
+
+      window.abrirTarotProfesional();
+
+      return;
+    }
+
+    /*
+     * Si el bloque profesional quedó encerrado y su función
+     * no está disponible, creamos una interfaz funcional
+     * mínima de emergencia.
+     */
+    contenido.innerHTML = `
+      <div class="rx-esoterico-icono">🃏</div>
+
+      <h2>Tarot</h2>
+
+      <p class="rx-esoterico-intro">
+        Realiza una lectura simbólica del Tarot.
+      </p>
+
+      <label>
+        Tu pregunta
+        <textarea
+          id="rxTarotPregunta"
+          rows="4"
+          placeholder="¿Qué deseas explorar?"></textarea>
+      </label>
+
+      <label>
+        Tipo de tirada
+
+        <select id="rxTarotCantidad">
+          <option value="1">1 carta · Mensaje central</option>
+          <option value="3">3 cartas · Situación · Desarrollo · Reflexión</option>
+          <option value="5">5 cartas · Lectura ampliada</option>
+        </select>
+      </label>
+
+      <button
+        class="rx-esoterico-boton"
+        type="button"
+        id="rxTarotBotonSeguro">
+        🃏 Realizar tirada
+      </button>
+
+      <div id="rxTarotResultado"></div>
+    `;
+
+    var boton = document.getElementById("rxTarotBotonSeguro");
+
+    if (boton) {
+      boton.addEventListener("click", function () {
+        lecturaEmergencia();
+      });
+    }
+  }
+
+
+  /* ---------------------------------------------------------
+     LECTURA DE EMERGENCIA
+     --------------------------------------------------------- */
+
+  function lecturaEmergencia() {
+
+    var pregunta =
+      document.getElementById("rxTarotPregunta");
+
+    var cantidad =
+      document.getElementById("rxTarotCantidad");
+
+    var resultado =
+      document.getElementById("rxTarotResultado");
+
+    if (!pregunta || !cantidad || !resultado) {
+      return;
+    }
+
+    var preguntaTexto =
+      pregunta.value.trim() || "Consulta general";
+
+    var numero =
+      parseInt(cantidad.value, 10) || 1;
+
+    var cartas = [
+      ["El Loco", "✦", "libertad, comienzo y apertura a lo desconocido"],
+      ["El Mago", "✧", "iniciativa, creatividad y capacidad de acción"],
+      ["La Sacerdotisa", "☾", "intuición, observación y conocimiento interior"],
+      ["La Emperatriz", "♀", "creatividad, crecimiento y expresión"],
+      ["El Emperador", "♔", "estructura, estabilidad y organización"],
+      ["Los Enamorados", "♡", "elección, vínculo y decisiones conscientes"],
+      ["El Carro", "⚔", "dirección, voluntad y avance"],
+      ["La Fuerza", "♘", "coraje, paciencia y autocontrol"],
+      ["El Ermitaño", "☼", "introspección, búsqueda y prudencia"],
+      ["La Rueda de la Fortuna", "◉", "cambio, ciclos y transformación"],
+      ["La Justicia", "⚖", "equilibrio, responsabilidad y claridad"],
+      ["El Colgado", "△", "pausa y cambio de perspectiva"],
+      ["La Muerte", "☠", "transformación y cierre de etapa"],
+      ["La Templanza", "∞", "equilibrio, integración y adaptación"],
+      ["El Diablo", "♄", "deseos, apegos e intensidad"],
+      ["La Torre", "⚡", "ruptura de estructuras y transformación"],
+      ["La Estrella", "✦", "esperanza, inspiración y autenticidad"],
+      ["La Luna", "☾", "imaginación, sensibilidad y exploración"],
+      ["El Sol", "☀", "claridad, vitalidad y expresión"],
+      ["El Juicio", "♢", "revisión, comprensión y renovación"],
+      ["El Mundo", "◎", "integración, culminación y cierre"]
+    ];
+
+    var usadas = [];
+
+    while (usadas.length < numero) {
+
+      var indice =
+        Math.floor(Math.random() * cartas.length);
+
+      if (usadas.indexOf(indice) === -1) {
+        usadas.push(indice);
+      }
+    }
+
+    var posiciones =
+      numero === 1
+        ? ["Mensaje central"]
+        : numero === 3
+          ? ["Situación", "Desarrollo", "Reflexión"]
+          : ["Origen", "Situación actual", "Desafío", "Tendencia", "Integración"];
+
+    var html = `
+      <div class="rx-tarot-profesional">
+
+        <div class="rx-tarot-lectura">
+          <h3>✦ Lectura realizada</h3>
+
+          <p>
+            <strong>Consulta:</strong>
+            ${escaparTarot(preguntaTexto)}
+          </p>
+        </div>
+
+        <div class="rx-tarot-baraja">
+    `;
+
+    usadas.forEach(function (indice, posicion) {
+
+      var carta = cartas[indice];
+
+      html += `
+        <article class="rx-tarot-carta">
+
+          <div class="rx-tarot-numero">
+            ${posiciones[posicion]}
+          </div>
+
+          <div class="rx-tarot-simbolo">
+            ${carta[1]}
+          </div>
+
+          <h4>
+            ${carta[0]}
+          </h4>
+
+          <div class="rx-tarot-orientacion">
+            Derecha
+          </div>
+
+        </article>
+      `;
+    });
+
+    html += `
+        </div>
+    `;
+
+    usadas.forEach(function (indice, posicion) {
+
+      var carta = cartas[indice];
+
+      html += `
+        <div class="rx-tarot-lectura">
+
+          <div class="rx-tarot-posicion">
+
+            <strong>
+              ${posicion + 1}. ${posiciones[posicion]}
+              · ${carta[0]}
+            </strong>
+
+            <p>
+              ${carta[2]}.
+            </p>
+
+          </div>
+
+        </div>
+      `;
+    });
+
+    html += `
+        <div class="rx-tarot-sintesis">
+
+          <h3>🔮 Síntesis de la tirada</h3>
+
+          <p>
+            La tirada presenta símbolos que pueden utilizarse
+            como herramienta de reflexión sobre la pregunta
+            planteada y sobre las distintas perspectivas
+            relacionadas con ella.
+          </p>
+
+        </div>
+
+        <div class="rx-tarot-acciones">
+
+          <button
+            class="principal"
+            type="button"
+            id="rxTarotNuevaSeguro">
+            🃏 Nueva tirada
+          </button>
+
+          <button
+            type="button"
+            id="rxTarotCompartirSeguro">
+            ↗ Compartir
+          </button>
+
+        </div>
+
+        <p class="rx-tarot-nota">
+          Interpretación simbólica y recreativa.
+          No constituye una predicción científica.
+        </p>
+
+      </div>
+    `;
+
+    resultado.innerHTML = html;
+
+    var nueva =
+      document.getElementById("rxTarotNuevaSeguro");
+
+    if (nueva) {
+      nueva.addEventListener("click", function () {
+        resultado.innerHTML = "";
+      });
+    }
+
+    var compartir =
+      document.getElementById("rxTarotCompartirSeguro");
+
+    if (compartir) {
+      compartir.addEventListener("click", function () {
+
+        var texto = resultado.innerText.trim();
+
+        if (
+          navigator.share
+        ) {
+
+          navigator.share({
+            title: "RoXThal Universo Esotérico · Tarot",
+            text: texto
+          }).catch(function () {});
+
+        } else if (
+          navigator.clipboard
+        ) {
+
+          navigator.clipboard
+            .writeText(texto)
+            .then(function () {
+
+              if (
+                typeof window.mostrarAviso === "function"
+              ) {
+                window.mostrarAviso(
+                  "✦ Lectura copiada al portapapeles."
+                );
+              }
+
+            })
+            .catch(function () {});
+
+        }
+      });
+    }
+  }
+
+
+  function escaparTarot(texto) {
+
+    return String(texto)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+
+  /* ---------------------------------------------------------
+     REPARACIÓN FINAL
+     ---------------------------------------------------------
+     En lugar de reemplazar todo el sistema de módulos,
+     conservamos la función original y solo interceptamos
+     Tarot.
+     --------------------------------------------------------- */
+
+  var abrirOriginal = window.abrirModulo;
+
+  window.abrirModulo = function (nombre) {
+
+    if (
+      String(nombre).trim().toLowerCase() === "tarot"
+    ) {
+
+      abrirTarotSeguro();
+
+      return;
+    }
+
+    if (
+      typeof abrirOriginal === "function"
+    ) {
+
+      return abrirOriginal.apply(
+        this,
+        arguments
+      );
+    }
+  };
+
+
+  /*
+   * También dejamos disponible el nombre que utiliza
+   * el botón del Tarot profesional.
+   */
+  window.rxAbrirTarotSeguro =
+    abrirTarotSeguro;
+
+
+})();
+</script>
 </body>
 </html>
