@@ -1,18 +1,44 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#09070d">
 <meta name="description" content="RoXThal Universo Esotérico — Tarot, Runas, Zodíaco, Carta Astral, Numerología, I Ching, Péndulo y Sueños.">
-<title>RoXThal Universo Esotérico</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
-window.SUPABASE_URL = "https://osmkgbffvwnymvbhygzf.supabase.co";
-window.SUPABASE_PUBLISHABLE_KEY = "sb_publishable_vct46uox_vnlXdry4LZeWQ_bC_-ITow";
+<title>RoXThal Universo Esotérico</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+/* =========================================================
+   CONFIGURACIÓN SUPABASE
+   ========================================================= */
+
+const ROXTHAL_SUPABASE_URL =
+  "https://osmkgbffvwnymvbhygzf.supabase.co";
+
+const ROXTHAL_SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_vct46uox_vnlXdry4LZeWQ_bC_-ITow";
+
+/*
+ * También dejamos disponibles estas variables globales
+ * por compatibilidad con el resto de la aplicación.
+ */
+window.SUPABASE_URL = ROXTHAL_SUPABASE_URL;
+window.SUPABASE_PUBLISHABLE_KEY =
+  ROXTHAL_SUPABASE_PUBLISHABLE_KEY;
+
+/*
+ * Cliente oficial de Supabase.
+ */
 const supabase = window.supabase.createClient(
-  window.SUPABASE_URL,
-  window.SUPABASE_PUBLISHABLE_KEY
+  ROXTHAL_SUPABASE_URL,
+  ROXTHAL_SUPABASE_PUBLISHABLE_KEY
 );
-</script><style>
+</script>
+
+<style>
 :root{
   --bg:#09070d;
   --bg2:#110d19;
@@ -293,152 +319,258 @@ button{
     grid-template-columns:repeat(3,1fr);
   }
 }
-</style></head><body><main class="app"><header class="header">  <div class="stars"></div>  <div class="symbol">☾</div>  <div class="brand">RoXThal</div>  <div class="subtitle">UNIVERSO ESOTÉRICO</div>  <p class="tagline">
+</style>
+
+</head>
+
+<body>
+
+<main class="app">
+
+<header class="header">
+
+  <div class="stars"></div>
+
+  <div class="symbol">☾</div>
+
+  <div class="brand">RoXThal</div>
+
+  <div class="subtitle">UNIVERSO ESOTÉRICO</div>
+
+  <p class="tagline">
     Un espacio de exploración simbólica, introspección y conocimiento
     alrededor de las grandes tradiciones esotéricas.
-  </p>  <div class="status">✦ Universo en construcción</div></header><section class="section">  <div class="section-title">✦ Explora tu universo</div>  <div class="grid"><article class="card" onclick="abrirModulo('Zodíaco')">
-  <div class="icon">♈</div>
-  <h3>Zodíaco</h3>
-  <p>Signos, ciclos, compatibilidad y lecturas personalizadas.</p>
-  <div class="enter">ENTRAR →</div>
-</article>
+  </p>
 
-<article class="card" onclick="abrirModulo('Tarot')">
-  <div class="icon">🃏</div>
-  <h3>Tarot</h3>
-  <p>Cartas, tiradas y lecturas detalladas para distintas preguntas.</p>
-  <div class="enter">ENTRAR →</div>
-</article>
+  <div class="status">✦ Universo en construcción</div>
 
-<article class="card" onclick="abrirModulo('Runas')">
-  <div class="icon">ᚱ</div>
-  <h3>Runas</h3>
-  <p>Lecturas de una, tres o cinco runas y análisis combinado.</p>
-  <div class="enter">ENTRAR →</div>
-</article>
+</header>
 
-<article class="card" onclick="abrirModulo('Carta Astral')">
-  <div class="icon">🌌</div>
-  <h3>Carta Astral</h3>
-  <p>Planetas, casas, aspectos, ascendente y análisis natal.</p>
-  <div class="enter">ENTRAR →</div>
-</article>
 
-<article class="card" onclick="abrirModulo('Numerología')">
-  <div class="icon">🔢</div>
-  <h3>Numerología</h3>
-  <p>Camino de vida, destino, ciclos y año personal.</p>
-  <div class="enter">ENTRAR →</div>
-</article>
+<section class="section">
 
-<article class="card" onclick="abrirModulo('I Ching')">
-  <div class="icon">☯</div>
-  <h3>I Ching</h3>
-  <p>Hexagramas, líneas mutantes e interpretación de la consulta.</p>
-  <div class="enter">ENTRAR →</div>
-</article>
+  <div class="section-title">
+    ✦ Explora tu universo
+  </div>
 
-<article class="card" onclick="abrirModulo('Péndulo')">
-  <div class="icon">🧿</div>
-  <h3>Péndulo</h3>
-  <p>Consultas simbólicas de respuesta sí, no o incertidumbre.</p>
-  <div class="enter">ENTRAR →</div>
-</article>
+  <div class="grid">
 
-<article class="card" onclick="abrirModulo('Sueños')">
-  <div class="icon">🌙</div>
-  <h3>Sueños</h3>
-  <p>Explora símbolos, emociones y elementos presentes en tus sueños.</p>
-  <div class="enter">ENTRAR →</div>
-</article>
+    <article class="card" onclick="abrirModulo('Zodíaco')">
+      <div class="icon">♈</div>
+      <h3>Zodíaco</h3>
+      <p>Signos, ciclos, compatibilidad y lecturas personalizadas.</p>
+      <div class="enter">ENTRAR →</div>
+    </article>
 
-<article class="card" onclick="abrirModulo('Compatibilidad')">
-  <div class="icon">❤️</div>
-  <h3>Compatibilidad</h3>
-  <p>Comparación simbólica mediante astrología y numerología.</p>
-  <div class="enter">ENTRAR →</div>
-</article>
+    <article class="card" onclick="abrirModulo('Tarot')">
+      <div class="icon">🃏</div>
+      <h3>Tarot</h3>
+      <p>Cartas, tiradas y lecturas detalladas para distintas preguntas.</p>
+      <div class="enter">ENTRAR →</div>
+    </article>
 
-  </div></section><section class="panel">  <h2>🔮 Tu espacio personal</h2>  <p>
+    <article class="card" onclick="abrirModulo('Runas')">
+      <div class="icon">ᚱ</div>
+      <h3>Runas</h3>
+      <p>Lecturas de una, tres o cinco runas y análisis combinado.</p>
+      <div class="enter">ENTRAR →</div>
+    </article>
+
+    <article class="card" onclick="abrirModulo('Carta Astral')">
+      <div class="icon">🌌</div>
+      <h3>Carta Astral</h3>
+      <p>Planetas, casas, aspectos, ascendente y análisis natal.</p>
+      <div class="enter">ENTRAR →</div>
+    </article>
+
+    <article class="card" onclick="abrirModulo('Numerología')">
+      <div class="icon">🔢</div>
+      <h3>Numerología</h3>
+      <p>Camino de vida, destino, ciclos y año personal.</p>
+      <div class="enter">ENTRAR →</div>
+    </article>
+
+    <article class="card" onclick="abrirModulo('I Ching')">
+      <div class="icon">☯</div>
+      <h3>I Ching</h3>
+      <p>Hexagramas, líneas mutantes e interpretación de la consulta.</p>
+      <div class="enter">ENTRAR →</div>
+    </article>
+
+    <article class="card" onclick="abrirModulo('Péndulo')">
+      <div class="icon">🧿</div>
+      <h3>Péndulo</h3>
+      <p>Consultas simbólicas de respuesta sí, no o incertidumbre.</p>
+      <div class="enter">ENTRAR →</div>
+    </article>
+
+    <article class="card" onclick="abrirModulo('Sueños')">
+      <div class="icon">🌙</div>
+      <h3>Sueños</h3>
+      <p>Explora símbolos, emociones y elementos presentes en tus sueños.</p>
+      <div class="enter">ENTRAR →</div>
+    </article>
+
+    <article class="card" onclick="abrirModulo('Compatibilidad')">
+      <div class="icon">❤️</div>
+      <h3>Compatibilidad</h3>
+      <p>Comparación simbólica mediante astrología y numerología.</p>
+      <div class="enter">ENTRAR →</div>
+    </article>
+
+  </div>
+
+</section>
+
+
+<section class="panel">
+
+  <h2>🔮 Tu espacio personal</h2>
+
+  <p>
     Las lecturas podrán guardarse en un historial personal para consultar
     posteriormente sus interpretaciones y descargar cada lectura completa.
-  </p>  <div class="actions"><button
-  class="btn primary"
-  onclick="mostrarAviso('La cuenta personal será incorporada en el siguiente módulo.')">
-  👤 Mi cuenta
-</button>
+  </p>
 
-<button
-  class="btn"
-  onclick="mostrarAviso('El historial será habilitado junto con las lecturas.')">
-  📜 Historial
-</button>
+  <div class="actions">
 
-  </div></section><section class="panel">  <h2>💫 Acceso al Universo</h2>  <p>
+    <button
+      class="btn primary"
+      onclick="mostrarAviso('La cuenta personal será incorporada en el siguiente módulo.')">
+      👤 Mi cuenta
+    </button>
+
+    <button
+      class="btn"
+      onclick="mostrarAviso('El historial será habilitado junto con las lecturas.')">
+      📜 Historial
+    </button>
+
+  </div>
+
+</section>
+
+
+<section class="panel">
+
+  <h2>💫 Acceso al Universo</h2>
+
+  <p>
     El sistema permitirá elegir un acceso, realizar el pago y desbloquear
     automáticamente las funciones correspondientes. Los precios y condiciones
     se administrarán desde el panel de administración.
-  </p>  <div class="actions"><button
-  class="btn primary"
-  onclick="mostrarAviso('El sistema de abonos se conectará en la siguiente etapa.')">
-  ✦ Ver abonos
-</button>
+  </p>
 
-  </div></section><footer class="footer"><strong>RoXThal Universo Esotérico</strong><br>
+  <div class="actions">
 
-Tarot · Runas · Zodíaco · Carta Astral · Numerología · I Ching · Sueños<br>
+    <button
+      class="btn primary"
+      onclick="mostrarAviso('El sistema de abonos se conectará en la siguiente etapa.')">
+      ✦ Ver abonos
+    </button>
+
+  </div>
+
+</section>
+
+
+<footer class="footer">
+
+  <strong>RoXThal Universo Esotérico</strong><br>
+
+  Tarot · Runas · Zodíaco · Carta Astral · Numerología · I Ching · Sueños<br>
 
   <span>
     Las interpretaciones son de carácter simbólico y recreativo.
-  </span></footer></main><script>
+  </span>
+
+</footer>
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   PRUEBA DIRECTA DE SUPABASE
+   ========================================================= */
 
 async function probarConexionSupabase(){
 
-  const estado=document.querySelector('.status');
+  const estado =
+    document.querySelector('.status');
 
+  /*
+   * IMPORTANTE:
+   * Ya no dependemos de window.SUPABASE_URL
+   * para construir la petición.
+   */
   const urlSupabase =
-    window.SUPABASE_URL ||
-    '';
+    ROXTHAL_SUPABASE_URL;
+
+  const claveSupabase =
+    ROXTHAL_SUPABASE_PUBLISHABLE_KEY;
 
   const urlPeticion =
     urlSupabase +
     '/rest/v1/products?select=code&active=eq.true&limit=1';
 
   estado.style.whiteSpace='normal';
-  estado.textContent='⏳ Probando API de Supabase...';
 
-  const controlador=new AbortController();
+  estado.textContent =
+    '⏳ Probando API de Supabase...';
 
-  const temporizador=setTimeout(()=>{
-    controlador.abort();
-  },10000);
+  const controlador =
+    new AbortController();
+
+  const temporizador =
+    setTimeout(()=>{
+      controlador.abort();
+    },10000);
 
   try{
 
-    const respuesta=await fetch(
-      urlPeticion,
-      {
-        method:'GET',
-        cache:'no-store',
-        headers:{
-          'apikey':window.SUPABASE_PUBLISHABLE_KEY,
-          'Authorization':
-            'Bearer ' +
-            window.SUPABASE_PUBLISHABLE_KEY
-        },
-        signal:controlador.signal
-      }
+    const respuesta =
+      await fetch(
+        urlPeticion,
+        {
+          method:'GET',
+          cache:'no-store',
+
+          headers:{
+            'apikey':
+              claveSupabase,
+
+            'Authorization':
+              'Bearer ' +
+              claveSupabase
+          },
+
+          signal:
+            controlador.signal
+        }
+      );
+
+    clearTimeout(
+      temporizador
     );
 
-    clearTimeout(temporizador);
-
-    const texto=await respuesta.text();
-
-    console.log('Supabase HTTP:',respuesta.status);
+    const texto =
+      await respuesta.text();
 
     console.log(
-      'Supabase URL configurada:',
+      'Supabase HTTP:',
+      respuesta.status
+    );
+
+    console.log(
+      'Supabase URL fija:',
       urlSupabase
+    );
+
+    console.log(
+      'URL solicitada:',
+      urlPeticion
     );
 
     console.log(
@@ -456,121 +588,189 @@ async function probarConexionSupabase(){
       texto
     );
 
+
     if(!respuesta.ok){
 
-      let detalle=texto;
+      let detalle =
+        texto;
 
       try{
 
-        const json=JSON.parse(texto);
+        const json =
+          JSON.parse(texto);
 
         detalle =
           (json.code || 'Sin código') +
+
           (json.message
-            ? ' — ' + json.message
+            ? ' — ' +
+              json.message
             : '') +
+
           (json.details
-            ? ' — ' + json.details
+            ? ' — ' +
+              json.details
             : '') +
+
           (json.hint
-            ? ' — ' + json.hint
+            ? ' — ' +
+              json.hint
             : '');
 
       }catch(e){
 
         /*
-         * Si la respuesta no es JSON,
-         * mostramos el texto original.
+         * La respuesta no es JSON.
+         * Se conserva el texto original.
          */
 
       }
 
-      estado.style.whiteSpace='pre-wrap';
-      estado.style.width='calc(100% - 32px)';
-      estado.style.maxWidth='720px';
-      estado.style.borderRadius='12px';
-      estado.style.textAlign='left';
+
+      estado.style.whiteSpace =
+        'pre-wrap';
+
+      estado.style.width =
+        'calc(100% - 32px)';
+
+      estado.style.maxWidth =
+        '720px';
+
+      estado.style.borderRadius =
+        '12px';
+
+      estado.style.textAlign =
+        'left';
+
 
       estado.textContent =
         '❌ Supabase HTTP ' +
         respuesta.status +
+
         '\n\n' +
 
         'URL Supabase configurada:\n' +
         urlSupabase +
+
         '\n\n' +
 
         'URL solicitada:\n' +
         urlPeticion +
+
         '\n\n' +
 
         'URL final de la petición:\n' +
-        (respuesta.url || 'No disponible') +
+        (respuesta.url ||
+          'No disponible') +
+
         '\n\n' +
 
         '¿Hubo redirección?: ' +
-        (respuesta.redirected ? 'SÍ' : 'NO') +
+        (
+          respuesta.redirected
+            ? 'SÍ'
+            : 'NO'
+        ) +
+
         '\n\n' +
 
         'Respuesta:\n' +
         detalle;
 
+
       console.error(
         'Supabase diagnóstico detallado:',
         {
-          supabaseUrl:urlSupabase,
-          requestUrl:urlPeticion,
-          finalUrl:respuesta.url,
-          redirected:respuesta.redirected,
-          status:respuesta.status,
-          body:texto
+          supabaseUrl:
+            urlSupabase,
+
+          requestUrl:
+            urlPeticion,
+
+          finalUrl:
+            respuesta.url,
+
+          redirected:
+            respuesta.redirected,
+
+          status:
+            respuesta.status,
+
+          body:
+            texto
         }
       );
 
       return;
     }
 
-    estado.style.whiteSpace='normal';
-    estado.style.width='max-content';
-    estado.style.maxWidth='100%';
-    estado.style.textAlign='center';
+
+    estado.style.whiteSpace =
+      'normal';
+
+    estado.style.width =
+      'max-content';
+
+    estado.style.maxWidth =
+      '100%';
+
+    estado.style.textAlign =
+      'center';
 
     estado.textContent =
       '✅ Supabase responde correctamente';
 
   }catch(error){
 
-    clearTimeout(temporizador);
+    clearTimeout(
+      temporizador
+    );
 
     console.error(
       'Supabase diagnóstico:',
       error
     );
 
-    estado.style.whiteSpace='pre-wrap';
-    estado.style.textAlign='left';
 
-    if(error.name==='AbortError'){
+    estado.style.whiteSpace =
+      'pre-wrap';
+
+    estado.style.textAlign =
+      'left';
+
+
+    if(error.name === 'AbortError'){
 
       estado.textContent =
         '❌ API de Supabase agotó el tiempo\n\n' +
+
         'URL:\n' +
+
         urlPeticion;
 
     }else{
 
       estado.textContent =
         '❌ Error de red:\n' +
+
         error.message +
+
         '\n\n' +
+
         'URL solicitada:\n' +
+
         urlPeticion;
     }
   }
 }
 
+
 probarConexionSupabase();
 
+
+/* =========================================================
+   MÓDULOS
+   ========================================================= */
 
 function abrirModulo(nombre){
 
@@ -582,21 +782,33 @@ function abrirModulo(nombre){
 }
 
 
+/* =========================================================
+   AVISOS
+   ========================================================= */
+
 function mostrarAviso(texto){
 
   const existente =
-    document.getElementById('roxthalAviso');
+    document.getElementById(
+      'roxthalAviso'
+    );
 
   if(existente){
+
     existente.remove();
   }
 
+
   const aviso =
-    document.createElement('div');
+    document.createElement(
+      'div'
+    );
 
-  aviso.id='roxthalAviso';
+  aviso.id =
+    'roxthalAviso';
 
-  aviso.style.cssText=`
+
+  aviso.style.cssText = `
     position:fixed;
     left:16px;
     right:16px;
@@ -612,13 +824,20 @@ function mostrarAviso(texto){
     line-height:1.5;
   `;
 
-  aviso.textContent=texto;
 
-  document.body.appendChild(aviso);
+  aviso.textContent =
+    texto;
+
+
+  document.body.appendChild(
+    aviso
+  );
+
 
   setTimeout(()=>{
 
     if(aviso.parentNode){
+
       aviso.remove();
     }
 
@@ -626,5 +845,7 @@ function mostrarAviso(texto){
 
 }
 
-</script></body>
+</script>
+
+</body>
 </html>
