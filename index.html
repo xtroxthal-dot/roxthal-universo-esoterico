@@ -3740,5 +3740,2759 @@ window.rxLeerTarot=
 
 })();
 </script>
+
+   <!-- =========================================================
+     ROXTHAL UNIVERSO ESOTÉRICO
+     RUNAS — MOTOR PROFESIONAL V2
+     Aislado del resto de módulos
+     ========================================================= -->
+
+<style>
+/* =========================================================
+   RUNAS PRO — INTERFAZ
+   ========================================================= */
+
+#rxRunasPro{
+  color:#f5f0e7;
+}
+
+.rxr-pro-intro{
+  padding:18px;
+  border:1px solid rgba(215,173,85,.20);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(215,173,85,.10),transparent 60%),
+    rgba(0,0,0,.16);
+  margin-bottom:16px;
+}
+
+.rxr-pro-kicker{
+  color:#d7ad55;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:7px;
+}
+
+.rxr-pro-intro h3{
+  margin:0 0 8px;
+  color:#f1d78b;
+  font-size:22px;
+}
+
+.rxr-pro-intro p{
+  margin:0;
+  color:#aaa0b2;
+  font-size:13px;
+  line-height:1.65;
+}
+
+.rxr-pro-question{
+  margin-top:16px;
+}
+
+.rxr-pro-label{
+  display:block;
+  margin-bottom:7px;
+  color:#f1d78b;
+  font-size:12px;
+  font-weight:800;
+}
+
+.rxr-pro-question textarea{
+  width:100%;
+  min-height:100px;
+  padding:14px;
+  border:1px solid rgba(215,173,85,.25);
+  border-radius:14px;
+  background:#09070d;
+  color:#f5f0e7;
+  resize:vertical;
+  outline:none;
+  line-height:1.55;
+}
+
+.rxr-pro-question textarea:focus{
+  border-color:rgba(215,173,85,.65);
+  box-shadow:0 0 0 3px rgba(215,173,85,.07);
+}
+
+.rxr-pro-section-title{
+  margin:20px 0 10px;
+  color:#f1d78b;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.4px;
+}
+
+.rxr-pro-spreads{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+}
+
+.rxr-pro-spread{
+  position:relative;
+  min-height:112px;
+  padding:13px 9px;
+  border:1px solid rgba(215,173,85,.18);
+  border-radius:14px;
+  background:#17111f;
+  color:#aaa0b2;
+  text-align:center;
+  cursor:pointer;
+  transition:.18s ease;
+}
+
+.rxr-pro-spread:hover{
+  border-color:rgba(215,173,85,.45);
+}
+
+.rxr-pro-spread.activo{
+  border-color:#d7ad55;
+  background:
+    linear-gradient(145deg,rgba(215,173,85,.12),rgba(215,173,85,.025)),
+    #17111f;
+  box-shadow:
+    0 0 0 1px rgba(215,173,85,.12),
+    0 12px 30px rgba(0,0,0,.25);
+}
+
+.rxr-pro-spread-num{
+  color:#f1d78b;
+  font-size:23px;
+  font-weight:900;
+}
+
+.rxr-pro-spread-name{
+  margin-top:4px;
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+}
+
+.rxr-pro-spread-desc{
+  margin-top:5px;
+  color:#8e8495;
+  font-size:9px;
+  line-height:1.35;
+}
+
+.rxr-pro-area-wrap{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+}
+
+.rxr-pro-area{
+  padding:11px;
+  border:1px solid rgba(215,173,85,.16);
+  border-radius:12px;
+  background:#17111f;
+  color:#aaa0b2;
+  font-size:11px;
+  font-weight:700;
+  text-align:center;
+  cursor:pointer;
+}
+
+.rxr-pro-area.activo{
+  color:#17100a;
+  border-color:#d7ad55;
+  background:linear-gradient(135deg,#b88c37,#e0bd69);
+}
+
+.rxr-pro-start{
+  width:100%;
+  margin-top:17px;
+  padding:15px;
+  border:1px solid #d7ad55;
+  border-radius:14px;
+  background:linear-gradient(135deg,#b88c37,#e0bd69);
+  color:#17100a;
+  font-weight:900;
+  letter-spacing:.3px;
+  box-shadow:0 12px 28px rgba(0,0,0,.28);
+}
+
+.rxr-pro-start:active{
+  transform:scale(.985);
+}
+
+.rxr-pro-loading{
+  padding:30px 15px;
+  text-align:center;
+  color:#aaa0b2;
+}
+
+.rxr-pro-loading-symbol{
+  width:64px;
+  height:64px;
+  margin:0 auto 14px;
+  border:1px solid rgba(215,173,85,.40);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#f1d78b;
+  font-size:29px;
+  animation:rxrRunePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes rxrRunePulse{
+  0%,100%{
+    transform:scale(1);
+    box-shadow:0 0 0 rgba(215,173,85,0);
+  }
+  50%{
+    transform:scale(1.06);
+    box-shadow:0 0 28px rgba(215,173,85,.18);
+  }
+}
+
+.rxr-pro-reading-head{
+  padding:17px;
+  border:1px solid rgba(215,173,85,.22);
+  border-radius:17px;
+  background:
+    radial-gradient(circle at top,rgba(215,173,85,.10),transparent 65%),
+    #17111f;
+}
+
+.rxr-pro-reading-kicker{
+  color:#d7ad55;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1.7px;
+  text-transform:uppercase;
+}
+
+.rxr-pro-reading-head h3{
+  margin:5px 0 9px;
+  color:#f1d78b;
+  font-size:21px;
+}
+
+.rxr-pro-query{
+  padding:11px 12px;
+  border-left:2px solid #d7ad55;
+  background:rgba(215,173,85,.045);
+  color:#aaa0b2;
+  font-size:12px;
+  line-height:1.55;
+}
+
+.rxr-pro-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:12px;
+}
+
+.rxr-pro-pill{
+  padding:6px 9px;
+  border:1px solid rgba(215,173,85,.18);
+  border-radius:999px;
+  color:#d7ad55;
+  background:rgba(215,173,85,.045);
+  font-size:9px;
+  font-weight:800;
+}
+
+.rxr-pro-cards{
+  margin-top:12px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.rxr-pro-rune{
+  position:relative;
+  overflow:hidden;
+  padding:17px;
+  border:1px solid rgba(215,173,85,.20);
+  border-radius:18px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.025),transparent),
+    #17111f;
+  box-shadow:0 14px 32px rgba(0,0,0,.22);
+}
+
+.rxr-pro-rune::after{
+  content:"";
+  position:absolute;
+  width:130px;
+  height:130px;
+  right:-65px;
+  top:-65px;
+  border-radius:50%;
+  border:1px solid rgba(215,173,85,.07);
+  pointer-events:none;
+}
+
+.rxr-pro-position{
+  color:#d7ad55;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+
+.rxr-pro-rune-main{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  margin-top:10px;
+}
+
+.rxr-pro-glyph{
+  flex:0 0 64px;
+  width:64px;
+  height:64px;
+  border:1px solid rgba(215,173,85,.42);
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#f1d78b;
+  background:
+    radial-gradient(circle,rgba(215,173,85,.10),transparent 65%);
+  font-size:34px;
+}
+
+.rxr-pro-rune-name{
+  color:#fff;
+  font-size:22px;
+  font-weight:900;
+}
+
+.rxr-pro-rune-keywords{
+  margin-top:3px;
+  color:#aaa0b2;
+  font-size:11px;
+  line-height:1.45;
+}
+
+.rxr-pro-block{
+  margin-top:14px;
+  padding-top:13px;
+  border-top:1px solid rgba(215,173,85,.10);
+}
+
+.rxr-pro-block-title{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-bottom:6px;
+  color:#f1d78b;
+  font-size:11px;
+  font-weight:900;
+}
+
+.rxr-pro-block p{
+  margin:0;
+  color:#aaa0b2;
+  font-size:12px;
+  line-height:1.65;
+}
+
+.rxr-pro-two{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:12px;
+}
+
+.rxr-pro-mini{
+  padding:12px;
+  border:1px solid rgba(215,173,85,.11);
+  border-radius:13px;
+  background:rgba(0,0,0,.14);
+}
+
+.rxr-pro-mini-title{
+  margin-bottom:5px;
+  color:#d7ad55;
+  font-size:10px;
+  font-weight:900;
+}
+
+.rxr-pro-mini p{
+  color:#99909f;
+  font-size:11px;
+  line-height:1.55;
+}
+
+.rxr-pro-synthesis{
+  margin-top:14px;
+  padding:18px;
+  border:1px solid rgba(215,173,85,.30);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(215,173,85,.12),transparent 65%),
+    #17111f;
+}
+
+.rxr-pro-synthesis h3{
+  margin:0 0 9px;
+  color:#f1d78b;
+  font-size:17px;
+}
+
+.rxr-pro-synthesis p{
+  margin:0;
+  color:#c0b7c5;
+  font-size:12px;
+  line-height:1.72;
+}
+
+.rxr-pro-relation{
+  margin-top:12px;
+  padding:16px;
+  border:1px solid rgba(215,173,85,.16);
+  border-radius:17px;
+  background:rgba(0,0,0,.14);
+}
+
+.rxr-pro-relation h3{
+  margin:0 0 8px;
+  color:#f1d78b;
+  font-size:15px;
+}
+
+.rxr-pro-relation p{
+  color:#aaa0b2;
+  font-size:12px;
+  line-height:1.7;
+}
+
+.rxr-pro-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:13px;
+}
+
+.rxr-pro-action{
+  min-height:45px;
+  padding:10px;
+  border:1px solid rgba(215,173,85,.25);
+  border-radius:12px;
+  background:#21182b;
+  color:#f1d78b;
+  font-size:11px;
+  font-weight:800;
+}
+
+.rxr-pro-action.primary{
+  background:linear-gradient(135deg,#b88c37,#e0bd69);
+  color:#17100a;
+  border-color:#d7ad55;
+}
+
+.rxr-pro-disclaimer{
+  margin-top:12px;
+  padding:11px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:11px;
+  color:#756d7b;
+  font-size:9px;
+  line-height:1.5;
+  text-align:center;
+}
+
+@media(max-width:420px){
+
+  .rxr-pro-spreads{
+    gap:6px;
+  }
+
+  .rxr-pro-spread{
+    min-height:105px;
+    padding:11px 6px;
+  }
+
+  .rxr-pro-spread-desc{
+    font-size:8px;
+  }
+
+  .rxr-pro-two{
+    grid-template-columns:1fr;
+  }
+
+  .rxr-pro-rune{
+    padding:14px;
+  }
+
+  .rxr-pro-glyph{
+    flex-basis:57px;
+    width:57px;
+    height:57px;
+    font-size:29px;
+  }
+
+  .rxr-pro-rune-name{
+    font-size:20px;
+  }
+}
+</style>
+
+<script>
+(function(){
+
+"use strict";
+
+/* =========================================================
+   DATOS PROFESIONALES DE LAS 24 RUNAS
+   ========================================================= */
+
+const RX_RUNAS_PRO = {
+
+  Fehu:{
+    nombre:"Fehu",
+    glyph:"ᚠ",
+    keywords:"recursos · comienzo · movimiento",
+    esencia:"Se asocia simbólicamente con recursos disponibles, circulación, iniciativa, prosperidad y aquello que puede ponerse en movimiento.",
+    potencial:"Reconocer recursos, capacidades y oportunidades ya disponibles para utilizarlos con criterio.",
+    sombra:"Apego, exceso de acumulación, ansiedad por obtener resultados o confundir valor con posesión.",
+    aprendizaje:"Aprender a administrar lo que se recibe y comprender que todo recurso también implica responsabilidad.",
+    amor:"Puede llevar la atención hacia la reciprocidad, la disponibilidad afectiva y la forma en que se intercambian cuidado y atención.",
+    trabajo:"Favorece la reflexión sobre recursos, oportunidades, iniciativa y capacidad de convertir una posibilidad en acción.",
+    economia:"Invita a observar cómo se administran los recursos y dónde existe circulación o bloqueo.",
+    interior:"Plantea qué capacidades personales ya existen y todavía no están siendo aprovechadas.",
+    consejo:"Reconoce lo que ya tienes antes de buscar fuera aquello que crees necesitar."
+  },
+
+  Uruz:{
+    nombre:"Uruz",
+    glyph:"ᚢ",
+    keywords:"fuerza · transformación · resistencia",
+    esencia:"Representa fuerza vital, resistencia, transformación y capacidad de atravesar procesos exigentes.",
+    potencial:"Desarrollar fortaleza, autonomía y capacidad de adaptación.",
+    sombra:"Forzar procesos, actuar desde la dureza o interpretar resistencia como obligación de soportarlo todo.",
+    aprendizaje:"Distinguir entre perseverancia saludable y resistencia innecesaria.",
+    amor:"Puede señalar la necesidad de fortalecer una relación desde la autenticidad y no desde el control.",
+    trabajo:"Invita a sostener procesos exigentes sin perder de vista los propios límites.",
+    economia:"Sugiere revisar la capacidad de sostener y reorganizar recursos durante una etapa de transformación.",
+    interior:"Pone el foco en la relación con la propia fuerza y vulnerabilidad.",
+    consejo:"Utiliza tu fuerza con dirección; no todo obstáculo debe enfrentarse de la misma manera."
+  },
+
+  Thurisaz:{
+    nombre:"Thurisaz",
+    glyph:"ᚦ",
+    keywords:"protección · límite · desafío",
+    esencia:"Se relaciona con protección, fuerza defensiva, límites y la necesidad de responder conscientemente ante una tensión.",
+    potencial:"Establecer límites claros y actuar con discernimiento.",
+    sombra:"Reacción impulsiva, confrontación innecesaria o defensa permanente.",
+    aprendizaje:"Comprender cuándo responder y cuándo detenerse antes de reaccionar.",
+    amor:"Puede señalar la importancia de límites, conversaciones difíciles y protección emocional.",
+    trabajo:"Invita a identificar conflictos y responder con estrategia en lugar de impulsividad.",
+    economia:"Puede representar prudencia frente a riesgos y necesidad de proteger recursos.",
+    interior:"Pone atención en aquello que genera reacción, tensión o sensación de amenaza.",
+    consejo:"Antes de reaccionar, identifica exactamente qué necesita ser protegido."
+  },
+
+  Ansuz:{
+    nombre:"Ansuz",
+    glyph:"ᚨ",
+    keywords:"comunicación · conocimiento · inspiración",
+    esencia:"Se asocia con palabra, comunicación, aprendizaje, comprensión e intercambio de conocimiento.",
+    potencial:"Escuchar, comprender y comunicar con mayor claridad.",
+    sombra:"Malentendidos, exceso de palabras, información poco fiable o dificultad para escuchar.",
+    aprendizaje:"La información adquiere valor cuando también existe discernimiento.",
+    amor:"Favorece revisar conversaciones, silencios, mensajes pendientes y capacidad de escuchar.",
+    trabajo:"Puede señalar información importante, aprendizaje, negociación o comunicación profesional.",
+    economia:"Invita a informarse antes de tomar decisiones materiales.",
+    interior:"Pone el foco en la voz interna y en la manera de interpretar lo que sucede.",
+    consejo:"Busca comprender antes de responder."
+  },
+
+  Raidho:{
+    nombre:"Raidho",
+    glyph:"ᚱ",
+    keywords:"camino · movimiento · dirección",
+    esencia:"Representa recorrido, movimiento, dirección y la relación entre el punto de partida y el destino elegido.",
+    potencial:"Encontrar dirección y avanzar de manera consciente.",
+    sombra:"Moverse sin propósito, apresuramiento o dificultad para aceptar cambios de recorrido.",
+    aprendizaje:"No todo avance consiste en velocidad; también importa la dirección.",
+    amor:"Puede señalar evolución de una relación, cambio de etapa o necesidad de definir hacia dónde se dirige el vínculo.",
+    trabajo:"Invita a revisar objetivos, trayectoria y próximos pasos.",
+    economia:"Puede relacionarse con movimiento de recursos y decisiones sobre el rumbo material.",
+    interior:"Plantea si el camino actual coincide con aquello que realmente se desea construir.",
+    consejo:"Define el rumbo antes de acelerar."
+  },
+
+  Kenaz:{
+    nombre:"Kenaz",
+    glyph:"ᚲ",
+    keywords:"claridad · creatividad · comprensión",
+    esencia:"Se vincula simbólicamente con luz, comprensión, creatividad y aquello que comienza a hacerse visible.",
+    potencial:"Comprender, crear y revelar aquello que estaba oculto o poco definido.",
+    sombra:"Obsesión por encontrar respuestas inmediatas o utilizar conocimiento sin criterio.",
+    aprendizaje:"La claridad también requiere tiempo y observación.",
+    amor:"Puede iluminar aspectos de un vínculo que antes permanecían confusos.",
+    trabajo:"Favorece creatividad, aprendizaje y resolución de problemas.",
+    economia:"Invita a identificar con claridad dónde existen oportunidades y dónde existen fugas.",
+    interior:"Representa una comprensión que permite reinterpretar una experiencia.",
+    consejo:"No fuerces la respuesta: permite que la claridad se construya."
+  },
+
+  Gebo:{
+    nombre:"Gebo",
+    glyph:"ᚷ",
+    keywords:"intercambio · vínculo · reciprocidad",
+    esencia:"Representa intercambio, reciprocidad, acuerdos y relaciones en las que dar y recibir adquieren importancia.",
+    potencial:"Construir vínculos equilibrados y acuerdos conscientes.",
+    sombra:"Dependencia, intercambio desigual o dar esperando una devolución determinada.",
+    aprendizaje:"Reciprocidad no significa contabilidad; implica equilibrio y libertad.",
+    amor:"Pone el foco en lo que cada persona aporta y recibe dentro del vínculo.",
+    trabajo:"Puede señalar colaboración, acuerdos, alianzas y cooperación.",
+    economia:"Invita a observar compromisos, intercambios y equilibrio de recursos.",
+    interior:"Pregunta qué das por elección y qué das por necesidad de reconocimiento.",
+    consejo:"Revisa si tus intercambios nacen de la libertad o de la obligación."
+  },
+
+  Wunjo:{
+    nombre:"Wunjo",
+    glyph:"ᚹ",
+    keywords:"armonía · alegría · bienestar",
+    esencia:"Se asocia con armonía, satisfacción, bienestar y la integración de elementos que encuentran un punto de equilibrio.",
+    potencial:"Reconocer bienestar y construir espacios de satisfacción auténtica.",
+    sombra:"Buscar aprobación externa o confundir comodidad con plenitud.",
+    aprendizaje:"El bienestar sostenible requiere coherencia, no solamente placer momentáneo.",
+    amor:"Puede señalar afinidad, alegría compartida y necesidad de valorar lo que funciona.",
+    trabajo:"Invita a observar ambientes, relaciones laborales y actividades que generan satisfacción.",
+    economia:"Sugiere revisar qué significa realmente prosperidad más allá de acumular.",
+    interior:"Pone el foco en aquello que produce una sensación genuina de integración.",
+    consejo:"Reconoce lo que sí está funcionando."
+  },
+
+  Hagalaz:{
+    nombre:"Hagalaz",
+    glyph:"ᚺ",
+    keywords:"cambio · ruptura · transformación",
+    esencia:"Representa cambios que alteran una estructura existente y obligan a reconsiderar la manera de continuar.",
+    potencial:"Adaptarse y reconstruir desde una comprensión nueva.",
+    sombra:"Resistencia al cambio, sensación de pérdida o interpretar toda ruptura como fracaso.",
+    aprendizaje:"No todo lo que se rompe debe reconstruirse de la misma manera.",
+    amor:"Puede señalar una transformación importante en la dinámica de un vínculo.",
+    trabajo:"Invita a revisar estructuras profesionales que ya no responden a las necesidades actuales.",
+    economia:"Sugiere prudencia frente a cambios inesperados y capacidad de reorganización.",
+    interior:"Pone atención en estructuras internas que necesitan transformarse.",
+    consejo:"Cuando una estructura cambia, observa primero qué necesita realmente ser reconstruido."
+  },
+
+  Nauthiz:{
+    nombre:"Nauthiz",
+    glyph:"ᚾ",
+    keywords:"necesidad · límite · aprendizaje",
+    esencia:"Se relaciona con necesidad, restricción, carencia, disciplina y aprendizaje nacido de circunstancias que exigen atención.",
+    potencial:"Desarrollar criterio, autocontrol y capacidad de distinguir necesidad de deseo.",
+    sombra:"Frustración, sensación de bloqueo, dependencia o permanecer atrapado en la carencia.",
+    aprendizaje:"Reconocer un límite puede ser el comienzo de una estrategia más consciente.",
+    amor:"Puede llevar la atención hacia necesidades emocionales, límites y aquello que no está siendo expresado.",
+    trabajo:"Invita a distinguir entre una dificultad temporal y una estructura que necesita cambiar.",
+    economia:"Pide observar necesidades reales, prioridades y administración.",
+    interior:"Plantea qué necesidad está intentando llamar la atención.",
+    consejo:"Antes de preguntarte qué quieres, pregúntate qué necesitas realmente."
+  },
+
+  Isa:{
+    nombre:"Isa",
+    glyph:"ᛁ",
+    keywords:"pausa · quietud · concentración",
+    esencia:"Representa quietud, concentración, pausa y momentos en los que actuar inmediatamente puede no ser lo más conveniente.",
+    potencial:"Observar con claridad y recuperar centro.",
+    sombra:"Estancamiento, aislamiento o convertir una pausa necesaria en inmovilidad permanente.",
+    aprendizaje:"Pausar no significa abandonar.",
+    amor:"Puede indicar necesidad de espacio, observación o tiempo para comprender emociones.",
+    trabajo:"Invita a no precipitar decisiones cuando falta información.",
+    economia:"Sugiere prudencia y conservación antes de movimientos importantes.",
+    interior:"Pone el foco en la capacidad de permanecer presente sin reaccionar.",
+    consejo:"No confundas movimiento con progreso."
+  },
+
+  Jera:{
+    nombre:"Jera",
+    glyph:"ᛃ",
+    keywords:"ciclo · proceso · cosecha",
+    esencia:"Se vincula con ciclos, procesos, continuidad y resultados que aparecen después de un período de desarrollo.",
+    potencial:"Comprender los tiempos de un proceso y sostener aquello que se cultiva.",
+    sombra:"Impaciencia, querer resultados antes de tiempo o abandonar demasiado pronto.",
+    aprendizaje:"Los procesos tienen ritmos que no siempre coinciden con nuestras expectativas.",
+    amor:"Puede señalar evolución progresiva y necesidad de permitir que un vínculo se desarrolle.",
+    trabajo:"Invita a valorar continuidad, esfuerzo acumulado y resultados graduales.",
+    economia:"Se relaciona simbólicamente con cosecha, administración y resultados de acciones anteriores.",
+    interior:"Pregunta qué estás cultivando con tus decisiones actuales.",
+    consejo:"Evalúa el proceso, no solamente el resultado inmediato."
+  },
+
+  Eihwaz:{
+    nombre:"Eihwaz",
+    glyph:"ᛇ",
+    keywords:"transición · resistencia · transformación profunda",
+    esencia:"Representa transición, resistencia y procesos profundos en los que una etapa todavía no terminó de convertirse en la siguiente.",
+    potencial:"Atravesar transformaciones con estabilidad interior.",
+    sombra:"Resistencia excesiva, temor al cambio o permanecer demasiado tiempo en una etapa intermedia.",
+    aprendizaje:"Las transiciones requieren paciencia y capacidad de adaptación.",
+    amor:"Puede señalar una relación atravesando una transformación profunda.",
+    trabajo:"Invita a sostener una transición sin tomar decisiones impulsivas.",
+    economia:"Sugiere prudencia durante períodos de reorganización.",
+    interior:"Pone el foco en aquello que está cambiando profundamente.",
+    consejo:"No exijas una respuesta definitiva mientras el proceso todavía está transformándose."
+  },
+
+  Perthro:{
+    nombre:"Perthro",
+    glyph:"ᛈ",
+    keywords:"misterio · posibilidad · descubrimiento",
+    esencia:"Se asocia con lo desconocido, posibilidades abiertas, descubrimiento y elementos que todavía no están completamente definidos.",
+    potencial:"Mantener apertura ante información nueva.",
+    sombra:"Especulación, obsesión por conocer lo desconocido o proyectar respuestas donde todavía no existen.",
+    aprendizaje:"No conocer todo también forma parte del proceso.",
+    amor:"Puede señalar aspectos de un vínculo todavía por descubrir.",
+    trabajo:"Invita a investigar antes de cerrar una interpretación.",
+    economia:"Sugiere prudencia frente a escenarios inciertos.",
+    interior:"Pone atención en aquello que todavía no puede nombrarse claramente.",
+    consejo:"Deja espacio para lo que todavía no sabes."
+  },
+
+  Algiz:{
+    nombre:"Algiz",
+    glyph:"ᛉ",
+    keywords:"protección · conciencia · límites",
+    esencia:"Representa protección, vigilancia, conciencia del entorno y capacidad de establecer límites.",
+    potencial:"Proteger lo valioso sin caer en el aislamiento.",
+    sombra:"Desconfianza permanente, hipervigilancia o construir barreras innecesarias.",
+    aprendizaje:"Un límite sano protege sin impedir el vínculo.",
+    amor:"Invita a cuidar límites emocionales y preservar aquello que resulta valioso.",
+    trabajo:"Puede señalar necesidad de protección frente a conflictos o sobrecarga.",
+    economia:"Sugiere prudencia y protección de recursos.",
+    interior:"Pregunta qué aspecto de ti necesita mayor cuidado.",
+    consejo:"Protege sin cerrar todas las puertas."
+  },
+
+  Sowilo:{
+    nombre:"Sowilo",
+    glyph:"ᛋ",
+    keywords:"claridad · energía · realización",
+    esencia:"Se relaciona con claridad, vitalidad, dirección y sensación de avance hacia una mayor comprensión.",
+    potencial:"Actuar desde claridad y coherencia.",
+    sombra:"Exceso de confianza, necesidad de reconocimiento o confundir seguridad con certeza absoluta.",
+    aprendizaje:"La claridad también requiere responsabilidad.",
+    amor:"Puede simbolizar mayor claridad sobre sentimientos o dinámica de una relación.",
+    trabajo:"Favorece enfoque, dirección y reconocimiento de objetivos.",
+    economia:"Invita a ordenar prioridades y utilizar recursos con claridad.",
+    interior:"Representa una comprensión que reorganiza la perspectiva.",
+    consejo:"Cuando tengas claridad, úsala para actuar con coherencia."
+  },
+
+  Tiwaz:{
+    nombre:"Tiwaz",
+    glyph:"ᛏ",
+    keywords:"decisión · voluntad · dirección",
+    esencia:"Se asocia con decisión, voluntad, principios y capacidad de sostener una dirección elegida.",
+    potencial:"Actuar con integridad y determinación.",
+    sombra:"Rigidez, necesidad de ganar o convertir toda decisión en confrontación.",
+    aprendizaje:"La verdadera voluntad también sabe cuándo modificar el rumbo.",
+    amor:"Invita a revisar compromiso, honestidad y dirección del vínculo.",
+    trabajo:"Puede señalar decisiones importantes y necesidad de actuar según principios.",
+    economia:"Sugiere disciplina y responsabilidad en decisiones materiales.",
+    interior:"Pregunta qué principio no deseas traicionar.",
+    consejo:"Decide desde tus valores, no solamente desde la presión del momento."
+  },
+
+  Berkano:{
+    nombre:"Berkano",
+    glyph:"ᛒ",
+    keywords:"crecimiento · cuidado · renovación",
+    esencia:"Representa crecimiento, cuidado, renovación y procesos que necesitan protección para desarrollarse.",
+    potencial:"Crear condiciones adecuadas para que algo pueda crecer.",
+    sombra:"Sobreprotección, dependencia o dificultad para permitir autonomía.",
+    aprendizaje:"Cuidar también implica saber cuándo dejar espacio.",
+    amor:"Puede señalar cuidado, crecimiento afectivo y renovación del vínculo.",
+    trabajo:"Invita a desarrollar proyectos gradualmente y cuidar sus fundamentos.",
+    economia:"Sugiere crecimiento progresivo y administración paciente.",
+    interior:"Pone atención en aquello que necesita cuidado dentro de ti.",
+    consejo:"No fuerces el crecimiento; crea las condiciones para que ocurra."
+  },
+
+  Ehwaz:{
+    nombre:"Ehwaz",
+    glyph:"ᛖ",
+    keywords:"movimiento · confianza · adaptación",
+    esencia:"Se vincula con movimiento coordinado, confianza, cooperación y adaptación a cambios de ritmo.",
+    potencial:"Avanzar mediante cooperación y flexibilidad.",
+    sombra:"Dependencia excesiva, falta de dirección propia o dificultad para adaptarse.",
+    aprendizaje:"Avanzar junto a otros no significa perder autonomía.",
+    amor:"Puede señalar cooperación, movimiento conjunto y adaptación dentro de la relación.",
+    trabajo:"Favorece colaboración y capacidad de adaptarse a nuevas circunstancias.",
+    economia:"Invita a revisar cómo las decisiones de otros influyen en los propios recursos.",
+    interior:"Pregunta qué cambio de ritmo necesitas aceptar.",
+    consejo:"Adapta el paso sin perder el rumbo."
+  },
+
+  Mannaz:{
+    nombre:"Mannaz",
+    glyph:"ᛗ",
+    keywords:"identidad · conciencia · humanidad",
+    esencia:"Representa identidad, conciencia de uno mismo y relación entre individuo y comunidad.",
+    potencial:"Comprender el propio papel dentro de una situación.",
+    sombra:"Ego excesivo, comparación constante o dependencia de la aprobación social.",
+    aprendizaje:"Conocerse también implica reconocer la influencia del entorno.",
+    amor:"Invita a observar cómo cada persona se presenta dentro del vínculo.",
+    trabajo:"Puede señalar identidad profesional, equipos y relaciones humanas.",
+    economia:"Pone atención en cómo identidad y decisiones influyen sobre los recursos.",
+    interior:"Plantea quién eres cuando no necesitas demostrar nada.",
+    consejo:"Observa tu papel en la situación antes de intentar cambiar a los demás."
+  },
+
+  Laguz:{
+    nombre:"Laguz",
+    glyph:"ᛚ",
+    keywords:"fluidez · emoción · intuición",
+    esencia:"Se relaciona con fluidez, emociones, sensibilidad e intuición como elementos de exploración.",
+    potencial:"Escuchar señales internas sin perder contacto con la realidad.",
+    sombra:"Confusión emocional, idealización o dejar que la intuición sustituya toda comprobación.",
+    aprendizaje:"Sentir algo intensamente no siempre significa comprenderlo completamente.",
+    amor:"Pone atención en emociones, sensibilidad y aquello que todavía no se expresa claramente.",
+    trabajo:"Invita a considerar clima emocional e intuición sin abandonar criterios concretos.",
+    economia:"Sugiere evitar decisiones materiales basadas exclusivamente en estados emocionales.",
+    interior:"Profundiza en emociones que necesitan ser reconocidas.",
+    consejo:"Escucha lo que sientes y después contrástalo con los hechos."
+  },
+
+  Ingwaz:{
+    nombre:"Ingwaz",
+    glyph:"ᛜ",
+    keywords:"gestación · cierre · renovación",
+    esencia:"Representa gestación, maduración, culminación y preparación para una nueva etapa.",
+    potencial:"Cerrar adecuadamente un ciclo para liberar energía hacia otro.",
+    sombra:"Acumular indefinidamente, miedo a terminar o mantener algo que ya completó su función.",
+    aprendizaje:"Cerrar también es una forma de crear espacio.",
+    amor:"Puede señalar maduración, cierre de una etapa o preparación para una nueva dinámica.",
+    trabajo:"Invita a completar procesos antes de iniciar otros.",
+    economia:"Sugiere ordenar y cerrar asuntos pendientes.",
+    interior:"Pregunta qué experiencia está llegando a su madurez.",
+    consejo:"Termina conscientemente aquello que ya cumplió su ciclo."
+  },
+
+  Dagaz:{
+    nombre:"Dagaz",
+    glyph:"ᛞ",
+    keywords:"despertar · cambio · claridad",
+    esencia:"Se asocia con transición hacia una nueva comprensión y con cambios de perspectiva.",
+    potencial:"Ver una situación desde un ángulo diferente.",
+    sombra:"Esperar una transformación externa sin modificar la propia perspectiva.",
+    aprendizaje:"Un cambio de percepción puede modificar la manera de actuar.",
+    amor:"Puede señalar una nueva comprensión de una relación.",
+    trabajo:"Invita a considerar soluciones diferentes a las habituales.",
+    economia:"Sugiere revisar supuestos antes de tomar decisiones.",
+    interior:"Representa un momento de comprensión o despertar.",
+    consejo:"Pregunta qué cambiaría si observaras la situación desde otro lugar."
+  },
+
+  Othala:{
+    nombre:"Othala",
+    glyph:"ᛟ",
+    keywords:"raíces · pertenencia · legado",
+    esencia:"Representa raíces, pertenencia, herencia cultural o familiar y aquello que recibimos antes de decidir qué conservar.",
+    potencial:"Reconocer raíces y elegir conscientemente qué legado continuar.",
+    sombra:"Apego al pasado, estructuras heredadas o dificultad para construir una identidad propia.",
+    aprendizaje:"Honrar el origen no obliga a repetirlo.",
+    amor:"Puede llevar la atención hacia patrones familiares y sentido de pertenencia.",
+    trabajo:"Invita a revisar valores heredados y tradiciones profesionales.",
+    economia:"Puede señalar patrimonio, recursos heredados o relación con seguridad material.",
+    interior:"Pregunta qué parte de tu historia sigue influyendo en tus decisiones.",
+    consejo:"Conoce tus raíces para decidir conscientemente qué deseas llevar contigo."
+  }
+
+};
+
+
+/* =========================================================
+   CONFIGURACIÓN DE TIRADAS
+   ========================================================= */
+
+const RX_TIRADAS_PRO = {
+
+  1:{
+    nombre:"Una runa",
+    subtitulo:"Mensaje central",
+    descripcion:"Una lectura concentrada para identificar el eje simbólico de tu consulta.",
+    posiciones:[
+      "Mensaje central"
+    ]
+  },
+
+  3:{
+    nombre:"Tres runas",
+    subtitulo:"Pasado · Presente · Tendencia",
+    descripcion:"Una lectura secuencial para observar antecedentes, situación actual y dirección simbólica.",
+    posiciones:[
+      "Pasado",
+      "Presente",
+      "Tendencia"
+    ]
+  },
+
+  5:{
+    nombre:"Cinco runas",
+    subtitulo:"Origen · Situación · Desafío · Consejo · Integración",
+    descripcion:"Una lectura amplia para explorar el origen, la situación, el desafío, la orientación y la integración.",
+    posiciones:[
+      "Origen",
+      "Situación",
+      "Desafío",
+      "Consejo",
+      "Integración"
+    ]
+  }
+
+};
+
+
+/* =========================================================
+   ESTADO
+   ========================================================= */
+
+let rxRunasCantidadPro = 1;
+let rxRunasAreaPro = "General";
+let rxRunasUltimaLectura = null;
+
+
+/* =========================================================
+   UTILIDADES
+   ========================================================= */
+
+function rxrEsc(texto){
+
+  return String(texto == null ? "" : texto)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function rxrElegir(cantidad){
+
+  const claves =
+    Object.keys(RX_RUNAS_PRO);
+
+  const elegidas = [];
+
+  while(elegidas.length < cantidad){
+
+    const indice =
+      Math.floor(
+        Math.random() * claves.length
+      );
+
+    const clave =
+      claves[indice];
+
+    if(!elegidas.includes(clave)){
+
+      elegidas.push(clave);
+
+    }
+
+  }
+
+  return elegidas.map(function(clave){
+
+    return RX_RUNAS_PRO[clave];
+
+  });
+
+}
+
+
+/* =========================================================
+   INTERPRETACIÓN CONTEXTUAL
+   ========================================================= */
+
+function rxrInterpretar(runa,posicion,pregunta,area){
+
+  let enfoque = "";
+
+  if(area === "Amor"){
+
+    enfoque =
+      runa.amor;
+
+  }else if(area === "Trabajo"){
+
+    enfoque =
+      runa.trabajo;
+
+  }else if(area === "Economía"){
+
+    enfoque =
+      runa.economia;
+
+  }else if(area === "Desarrollo interior"){
+
+    enfoque =
+      runa.interior;
+
+  }else{
+
+    enfoque =
+      "Dentro de una lectura general, esta runa invita a observar " +
+      runa.esencia.toLowerCase();
+
+  }
+
+
+  const porPosicion = {
+
+    "Mensaje central":
+      "Como mensaje central, el símbolo concentra la atención en " +
+      runa.esencia.toLowerCase(),
+
+    "Pasado":
+      "En la posición de pasado, puede representar un antecedente o condición que ha contribuido a formar la situación actual. " +
+      runa.esencia,
+
+    "Presente":
+      "En la posición de presente, pone el foco en la dinámica que puede estar manifestándose ahora. " +
+      runa.esencia,
+
+    "Tendencia":
+      "En la posición de tendencia, no representa una predicción garantizada, sino una dirección simbólica que puede ser útil para la reflexión. " +
+      runa.esencia,
+
+    "Origen":
+      "En el origen, señala un elemento que puede haber contribuido a iniciar o estructurar la situación. " +
+      runa.esencia,
+
+    "Situación":
+      "En la situación actual, describe simbólicamente una dinámica que merece ser observada. " +
+      runa.esencia,
+
+    "Desafío":
+      "Como desafío, muestra el aspecto de la experiencia que puede exigir mayor conciencia. " +
+      runa.esencia,
+
+    "Consejo":
+      "Como consejo simbólico, propone una actitud de reflexión relacionada con el principio de esta runa. " +
+      runa.consejo,
+
+    "Integración":
+      "Como integración, invita a incorporar el aprendizaje representado por el símbolo. " +
+      runa.aprendizaje
+
+  };
+
+  const base =
+    porPosicion[posicion] ||
+    runa.esencia;
+
+  return base +
+    " En relación con la consulta «" +
+    pregunta +
+    "», el área seleccionada de " +
+    area.toLowerCase() +
+    " aporta el siguiente enfoque: " +
+    enfoque;
+
+}
+
+
+/* =========================================================
+   LECTURA DE CONJUNTO
+   ========================================================= */
+
+function rxrRelacion(runas,posiciones,pregunta){
+
+  if(runas.length === 1){
+
+    return (
+      "Al tratarse de una sola runa, la lectura se concentra en " +
+      runas[0].nombre +
+      ". El conjunto no busca anticipar acontecimientos, sino utilizar " +
+      "el símbolo como una herramienta de observación sobre la consulta."
+    );
+
+  }
+
+
+  if(runas.length === 3){
+
+    const a = runas[0];
+    const b = runas[1];
+    const c = runas[2];
+
+    return (
+      "La secuencia comienza con " +
+      a.nombre +
+      ", continúa con " +
+      b.nombre +
+      " y termina simbólicamente en " +
+      c.nombre +
+      ". " +
+      "El recorrido puede contemplarse como una transición entre " +
+      a.keywords +
+      ", " +
+      b.keywords +
+      " y " +
+      c.keywords +
+      ". " +
+      "La lectura invita a observar qué elementos del pasado siguen " +
+      "influyendo sobre el presente y qué actitud puede modificar la " +
+      "dirección del proceso. La tendencia no debe interpretarse como " +
+      "un acontecimiento inevitable."
+    );
+
+  }
+
+
+  const a = runas[0];
+  const b = runas[1];
+  const c = runas[2];
+  const d = runas[3];
+  const e = runas[4];
+
+  return (
+    "La tirada construye un recorrido desde " +
+    a.nombre +
+    " en el origen, pasando por " +
+    b.nombre +
+    " en la situación actual, hasta " +
+    c.nombre +
+    " como desafío. " +
+    d.nombre +
+    " introduce una orientación simbólica y " +
+    e.nombre +
+    " funciona como punto de integración. " +
+    "El interés de esta configuración está en observar las tensiones " +
+    "y continuidades entre las posiciones, especialmente entre el " +
+    "origen y la situación, el desafío y el consejo, y finalmente " +
+    "la manera en que todo el proceso puede integrarse."
+  );
+
+}
+
+
+/* =========================================================
+   SÍNTESIS
+   ========================================================= */
+
+function rxrSintesis(runas,posiciones,pregunta,area){
+
+  const palabras =
+    runas.map(function(runa){
+
+      return runa.keywords;
+
+    }).join(" · ");
+
+  if(runas.length === 1){
+
+    return (
+      "La lectura coloca en el centro " +
+      runas[0].nombre +
+      ". Sus temas de " +
+      palabras +
+      " forman el eje simbólico de la consulta. " +
+      "La invitación principal es observar qué parte de esta temática " +
+      "está realmente presente en tu experiencia y qué aprendizaje " +
+      "puede extraerse de ella."
+    );
+
+  }
+
+  if(runas.length === 3){
+
+    return (
+      "La combinación de " +
+      runas[0].nombre +
+      ", " +
+      runas[1].nombre +
+      " y " +
+      runas[2].nombre +
+      " presenta una secuencia de reflexión. " +
+      "El pasado aporta el contexto, el presente muestra la dinámica " +
+      "que merece atención y la tendencia representa una posible " +
+      "dirección simbólica. Para la consulta planteada, el punto más " +
+      "importante no es buscar una respuesta absoluta, sino reconocer " +
+      "qué relación existe entre esos tres momentos y qué margen de " +
+      "acción existe en el presente."
+    );
+
+  }
+
+  return (
+    "Las cinco posiciones forman una lectura progresiva. " +
+    runas[0].nombre +
+    " aporta el trasfondo, " +
+    runas[1].nombre +
+    " describe la situación, " +
+    runas[2].nombre +
+    " concentra el desafío, " +
+    runas[3].nombre +
+    " aporta una orientación y " +
+    runas[4].nombre +
+    " representa la integración. " +
+    "En conjunto, la tirada propone transformar la consulta en un " +
+    "proceso de observación: comprender el origen, reconocer el " +
+    "presente, identificar aquello que requiere trabajo y decidir " +
+    "qué aprendizaje merece conservarse."
+  );
+
+}
+
+
+/* =========================================================
+   CONSEJO FINAL
+   ========================================================= */
+
+function rxrConsejoFinal(runas){
+
+  if(runas.length === 1){
+
+    return runas[0].consejo;
+
+  }
+
+  if(runas.length === 3){
+
+    return (
+      "Observa la relación entre lo que ya ocurrió, aquello que está " +
+      "sucediendo ahora y las decisiones que todavía pueden modificar " +
+      "el recorrido."
+    );
+
+  }
+
+  return (
+    "Integra la experiencia sin reducirla a una única respuesta. " +
+    "El valor simbólico de la tirada está en observar el proceso, " +
+    "reconocer los límites y utilizar conscientemente aquello que " +
+    "la lectura pone de manifiesto."
+  );
+
+}
+
+
+/* =========================================================
+   CONSTRUIR TARJETA DE RUNA
+   ========================================================= */
+
+function rxrTarjeta(runa,posicion,pregunta,area){
+
+  const interpretacion =
+    rxrInterpretar(
+      runa,
+      posicion,
+      pregunta,
+      area
+    );
+
+  return `
+    <article class="rxr-pro-rune">
+
+      <div class="rxr-pro-position">
+        ${rxrEsc(posicion)}
+      </div>
+
+      <div class="rxr-pro-rune-main">
+
+        <div class="rxr-pro-glyph">
+          ${rxrEsc(runa.glyph)}
+        </div>
+
+        <div>
+
+          <div class="rxr-pro-rune-name">
+            ${rxrEsc(runa.nombre)}
+          </div>
+
+          <div class="rxr-pro-rune-keywords">
+            ${rxrEsc(runa.keywords)}
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="rxr-pro-block">
+
+        <div class="rxr-pro-block-title">
+          ◈ Esencia simbólica
+        </div>
+
+        <p>
+          ${rxrEsc(runa.esencia)}
+        </p>
+
+      </div>
+
+
+      <div class="rxr-pro-block">
+
+        <div class="rxr-pro-block-title">
+          🔮 Interpretación de la consulta
+        </div>
+
+        <p>
+          ${rxrEsc(interpretacion)}
+        </p>
+
+      </div>
+
+
+      <div class="rxr-pro-two">
+
+        <div class="rxr-pro-mini">
+
+          <div class="rxr-pro-mini-title">
+            ✦ Potencial
+          </div>
+
+          <p>
+            ${rxrEsc(runa.potencial)}
+          </p>
+
+        </div>
+
+
+        <div class="rxr-pro-mini">
+
+          <div class="rxr-pro-mini-title">
+            ◐ Sombra
+          </div>
+
+          <p>
+            ${rxrEsc(runa.sombra)}
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="rxr-pro-block">
+
+        <div class="rxr-pro-block-title">
+          🪞 Aprendizaje
+        </div>
+
+        <p>
+          ${rxrEsc(runa.aprendizaje)}
+        </p>
+
+      </div>
+
+
+      <div class="rxr-pro-block">
+
+        <div class="rxr-pro-block-title">
+          🧭 Orientación
+        </div>
+
+        <p>
+          ${rxrEsc(runa.consejo)}
+        </p>
+
+      </div>
+
+    </article>
+  `;
+
+}
+
+
+/* =========================================================
+   RESULTADO
+   ========================================================= */
+
+function rxrConstruirResultado(){
+
+  const preguntaEl =
+    document.getElementById(
+      "rxRunaPregunta"
+    );
+
+  const resultado =
+    document.getElementById(
+      "rxResultado"
+    );
+
+  if(!preguntaEl || !resultado){
+
+    return;
+
+  }
+
+  const pregunta =
+    preguntaEl.value.trim() ||
+    "Tu consulta";
+
+  const cantidad =
+    rxRunasCantidadPro;
+
+  const tirada =
+    RX_TIRADAS_PRO[cantidad];
+
+  const runas =
+    rxrElegir(cantidad);
+
+  const posiciones =
+    tirada.posiciones;
+
+  rxRunasUltimaLectura = {
+    pregunta:pregunta,
+    area:rxRunasAreaPro,
+    cantidad:cantidad,
+    tirada:tirada,
+    runas:runas,
+    posiciones:posiciones,
+    fecha:new Date()
+  };
+
+
+  let html = `
+
+    <div id="rxRunasPro">
+
+      <div class="rxr-pro-reading-head">
+
+        <div class="rxr-pro-reading-kicker">
+          CONSULTA RÚNICA
+        </div>
+
+        <h3>
+          ${rxrEsc(tirada.nombre)}
+        </h3>
+
+        <div class="rxr-pro-query">
+          <strong>Consulta:</strong>
+          ${rxrEsc(pregunta)}
+        </div>
+
+        <div class="rxr-pro-meta">
+
+          <span class="rxr-pro-pill">
+            ᚱ ${cantidad} ${cantidad === 1 ? "RUNA" : "RUNAS"}
+          </span>
+
+          <span class="rxr-pro-pill">
+            ${rxrEsc(rxRunasAreaPro)}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="rxr-pro-cards">
+
+  `;
+
+
+  runas.forEach(function(runa,indice){
+
+    html +=
+      rxrTarjeta(
+        runa,
+        posiciones[indice],
+        pregunta,
+        rxRunasAreaPro
+      );
+
+  });
+
+
+  html += `
+
+      </div>
+
+  `;
+
+
+  if(cantidad > 1){
+
+    html += `
+
+      <div class="rxr-pro-relation">
+
+        <h3>
+          🔗 Relación entre las runas
+        </h3>
+
+        <p>
+          ${rxrEsc(
+            rxrRelacion(
+              runas,
+              posiciones,
+              pregunta
+            )
+          )}
+        </p>
+
+      </div>
+
+    `;
+
+  }
+
+
+  html += `
+
+      <div class="rxr-pro-synthesis">
+
+        <h3>
+          ✦ Síntesis de la lectura
+        </h3>
+
+        <p>
+          ${rxrEsc(
+            rxrSintesis(
+              runas,
+              posiciones,
+              pregunta,
+              rxRunasAreaPro
+            )
+          )}
+        </p>
+
+      </div>
+
+
+      <div class="rxr-pro-synthesis">
+
+        <h3>
+          🧭 Orientación final
+        </h3>
+
+        <p>
+          ${rxrEsc(
+            rxrConsejoFinal(runas)
+          )}
+        </p>
+
+      </div>
+
+
+      <div class="rxr-pro-disclaimer">
+        Esta lectura pertenece al ámbito de la exploración simbólica
+        y recreativa. No constituye una predicción objetiva ni sustituye
+        asesoramiento profesional.
+      </div>
+
+
+      <div class="rxr-pro-actions">
+
+        <button
+          type="button"
+          class="rxr-pro-action primary"
+          onclick="window.rxRunasNuevaConsulta()">
+
+          ᚱ Nueva consulta
+
+        </button>
+
+
+        <button
+          type="button"
+          class="rxr-pro-action"
+          onclick="window.rxRunasNuevaTirada()">
+
+          ↻ Nueva tirada
+
+        </button>
+
+
+        <button
+          type="button"
+          class="rxr-pro-action"
+          onclick="window.rxRunasCompartir()">
+
+          ↗ Compartir
+
+        </button>
+
+
+        <button
+          type="button"
+          class="rxr-pro-action"
+          onclick="window.rxRunasCopiar()">
+
+          ⧉ Copiar lectura
+
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  resultado.innerHTML =
+    html;
+
+  resultado.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+}
+
+
+/* =========================================================
+   INTERFAZ DE CONFIGURACIÓN
+   ========================================================= */
+
+function rxrConstruirFormulario(){
+
+  const contenido =
+    document.getElementById(
+      "rxModuloContenido"
+    );
+
+  if(!contenido){
+
+    return false;
+
+  }
+
+  contenido.innerHTML = `
+
+    <div id="rxRunasPro">
+
+      <div class="rxr-pro-intro">
+
+        <div class="rxr-pro-kicker">
+          ROXTHAL · UNIVERSO ESOTÉRICO
+        </div>
+
+        <h3>
+          ᚱ Consulta Rúnica
+        </h3>
+
+        <p>
+          Una experiencia de exploración simbólica basada en las
+          24 runas del Futhark antiguo. Formula tu consulta y elige
+          la estructura de lectura que deseas explorar.
+        </p>
+
+      </div>
+
+
+      <div class="rxr-pro-question">
+
+        <label class="rxr-pro-label">
+          Tu consulta
+        </label>
+
+        <textarea
+          id="rxRunaPregunta"
+          rows="4"
+          placeholder="¿Qué deseas explorar?"></textarea>
+
+      </div>
+
+
+      <div class="rxr-pro-section-title">
+        ✦ Selecciona la estructura de la lectura
+      </div>
+
+
+      <div class="rxr-pro-spreads">
+
+        <button
+          type="button"
+          class="rxr-pro-spread activo"
+          data-rx-runa-cantidad="1">
+
+          <div class="rxr-pro-spread-num">
+            1
+          </div>
+
+          <div class="rxr-pro-spread-name">
+            UNA RUNA
+          </div>
+
+          <div class="rxr-pro-spread-desc">
+            Mensaje central
+          </div>
+
+        </button>
+
+
+        <button
+          type="button"
+          class="rxr-pro-spread"
+          data-rx-runa-cantidad="3">
+
+          <div class="rxr-pro-spread-num">
+            3
+          </div>
+
+          <div class="rxr-pro-spread-name">
+            TRES RUNAS
+          </div>
+
+          <div class="rxr-pro-spread-desc">
+            Pasado · Presente · Tendencia
+          </div>
+
+        </button>
+
+
+        <button
+          type="button"
+          class="rxr-pro-spread"
+          data-rx-runa-cantidad="5">
+
+          <div class="rxr-pro-spread-num">
+            5
+          </div>
+
+          <div class="rxr-pro-spread-name">
+            CINCO RUNAS
+          </div>
+
+          <div class="rxr-pro-spread-desc">
+            Origen · Situación · Desafío · Consejo · Integración
+          </div>
+
+        </button>
+
+      </div>
+
+
+      <div class="rxr-pro-section-title">
+        ◈ Área de exploración
+      </div>
+
+
+      <div class="rxr-pro-area-wrap">
+
+        <button
+          type="button"
+          class="rxr-pro-area activo"
+          data-rx-runa-area="General">
+          ✦ General
+        </button>
+
+        <button
+          type="button"
+          class="rxr-pro-area"
+          data-rx-runa-area="Amor">
+          ❤️ Amor
+        </button>
+
+        <button
+          type="button"
+          class="rxr-pro-area"
+          data-rx-runa-area="Trabajo">
+          💼 Trabajo
+        </button>
+
+        <button
+          type="button"
+          class="rxr-pro-area"
+          data-rx-runa-area="Economía">
+          💰 Economía
+        </button>
+
+        <button
+          type="button"
+          class="rxr-pro-area"
+          data-rx-runa-area="Desarrollo interior">
+          🌙 Desarrollo interior
+        </button>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="rxr-pro-start"
+        onclick="window.rxRunasIniciar()">
+
+        ᚱ INICIAR CONSULTA RÚNICA
+
+      </button>
+
+
+      <div class="rxr-pro-disclaimer">
+        Las interpretaciones de RoXThal Universo Esotérico son
+        simbólicas y recreativas. La aplicación no presenta sus
+        resultados como predicciones objetivas.
+      </div>
+
+    </div>
+
+  `;
+
+
+  contenido
+    .querySelectorAll(
+      "[data-rx-runa-cantidad]"
+    )
+    .forEach(function(boton){
+
+      boton.addEventListener(
+        "click",
+        function(){
+
+          contenido
+            .querySelectorAll(
+              "[data-rx-runa-cantidad]"
+            )
+            .forEach(function(item){
+
+              item.classList.remove(
+                "activo"
+              );
+
+            });
+
+          boton.classList.add(
+            "activo"
+          );
+
+          rxRunasCantidadPro =
+            Number(
+              boton.dataset.rxRunaCantidad
+            );
+
+        }
+      );
+
+    });
+
+
+  contenido
+    .querySelectorAll(
+      "[data-rx-runa-area]"
+    )
+    .forEach(function(boton){
+
+      boton.addEventListener(
+        "click",
+        function(){
+
+          contenido
+            .querySelectorAll(
+              "[data-rx-runa-area]"
+            )
+            .forEach(function(item){
+
+              item.classList.remove(
+                "activo"
+              );
+
+            });
+
+          boton.classList.add(
+            "activo"
+          );
+
+          rxRunasAreaPro =
+            boton.dataset.rxRunaArea;
+
+        }
+      );
+
+    });
+
+
+  return true;
+
+}
+
+
+/* =========================================================
+   INICIAR
+   ========================================================= */
+
+window.rxRunasIniciar =
+  function(){
+
+    const contenido =
+      document.getElementById(
+        "rxModuloContenido"
+      );
+
+    if(!contenido){
+
+      return;
+
+    }
+
+    const pregunta =
+      document.getElementById(
+        "rxRunaPregunta"
+      );
+
+    if(
+      !pregunta ||
+      !pregunta.value.trim()
+    ){
+
+      if(typeof window.mostrarAviso === "function"){
+
+        window.mostrarAviso(
+          "Escribe primero una consulta para iniciar la lectura."
+        );
+
+      }else{
+
+        alert(
+          "Escribe primero una consulta para iniciar la lectura."
+        );
+
+      }
+
+      return;
+
+    }
+
+
+    contenido.innerHTML = `
+
+      <div id="rxRunasPro">
+
+        <div class="rxr-pro-loading">
+
+          <div class="rxr-pro-loading-symbol">
+            ᚱ
+          </div>
+
+          <strong>
+            Preparando tu consulta rúnica
+          </strong>
+
+          <div style="
+            margin-top:7px;
+            color:#756d7b;
+            font-size:10px;
+          ">
+            Seleccionando símbolos y construyendo la lectura...
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+
+    setTimeout(function(){
+
+      rxrMostrarLectura();
+
+    },650);
+
+  };
+
+
+/* =========================================================
+   MOSTRAR LECTURA
+   ========================================================= */
+
+function rxrMostrarLectura(){
+
+  const contenido =
+    document.getElementById(
+      "rxModuloContenido"
+    );
+
+  if(!contenido){
+
+    return;
+
+  }
+
+
+  contenido.innerHTML = `
+
+    <div id="rxRunasPro">
+
+      <div class="rxr-pro-reading-head">
+
+        <div class="rxr-pro-reading-kicker">
+          ROXTHAL · CONSULTA RÚNICA
+        </div>
+
+        <h3>
+          Revelación simbólica
+        </h3>
+
+        <div class="rxr-pro-query">
+          La consulta está preparada.
+          Las runas serán reveladas como una herramienta
+          de exploración simbólica.
+        </div>
+
+      </div>
+
+      <div id="rxRunasResultadoPro"
+           style="margin-top:12px;">
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  const resultado =
+    document.getElementById(
+      "rxRunasResultadoPro"
+    );
+
+  const pregunta =
+    document.getElementById(
+      "rxRunaPregunta"
+    );
+
+
+  if(!pregunta){
+
+    return;
+
+  }
+
+
+  const textoPregunta =
+    pregunta.value.trim();
+
+
+  const runas =
+    rxrElegir(
+      rxRunasCantidadPro
+    );
+
+  const tirada =
+    RX_TIRADAS_PRO[
+      rxRunasCantidadPro
+    ];
+
+
+  rxRunasUltimaLectura = {
+
+    pregunta:textoPregunta,
+    area:rxRunasAreaPro,
+    cantidad:rxRunasCantidadPro,
+    tirada:tirada,
+    runas:runas,
+    posiciones:tirada.posiciones,
+    fecha:new Date()
+
+  };
+
+
+  let indiceActual = 0;
+
+
+  function revelar(){
+
+    if(indiceActual >= runas.length){
+
+      setTimeout(function(){
+
+        rxrMostrarSintesis(
+          resultado,
+          runas,
+          tirada,
+          textoPregunta
+        );
+
+      },250);
+
+      return;
+
+    }
+
+
+    const runa =
+      runas[indiceActual];
+
+    const posicion =
+      tirada.posiciones[
+        indiceActual
+      ];
+
+
+    const tarjeta =
+      document.createElement(
+        "div"
+      );
+
+    tarjeta.innerHTML =
+      rxrTarjeta(
+        runa,
+        posicion,
+        textoPregunta,
+        rxRunasAreaPro
+      );
+
+
+    const article =
+      tarjeta.firstElementChild;
+
+
+    article.style.opacity =
+      "0";
+
+    article.style.transform =
+      "translateY(12px)";
+
+
+    resultado.appendChild(
+      article
+    );
+
+
+    requestAnimationFrame(function(){
+
+      article.style.transition =
+        "opacity .45s ease, transform .45s ease";
+
+      article.style.opacity =
+        "1";
+
+      article.style.transform =
+        "translateY(0)";
+
+    });
+
+
+    indiceActual++;
+
+
+    setTimeout(
+      revelar,
+      420
+    );
+
+  }
+
+
+  revelar();
+
+}
+
+
+/* =========================================================
+   SÍNTESIS FINAL EN PANTALLA
+   ========================================================= */
+
+function rxrMostrarSintesis(
+  resultado,
+  runas,
+  tirada,
+  pregunta
+){
+
+  const bloque =
+    document.createElement(
+      "div"
+    );
+
+  bloque.innerHTML = `
+
+    <div class="rxr-pro-relation">
+
+      <h3>
+        🔗 Lectura de conjunto
+      </h3>
+
+      <p>
+        ${rxrEsc(
+          rxrRelacion(
+            runas,
+            tirada.posiciones,
+            pregunta
+          )
+        )}
+      </p>
+
+    </div>
+
+
+    <div class="rxr-pro-synthesis">
+
+      <h3>
+        ✦ Síntesis profunda
+      </h3>
+
+      <p>
+        ${rxrEsc(
+          rxrSintesis(
+            runas,
+            tirada.posiciones,
+            pregunta,
+            rxRunasAreaPro
+          )
+        )}
+      </p>
+
+    </div>
+
+
+    <div class="rxr-pro-synthesis">
+
+      <h3>
+        🧭 Orientación simbólica
+      </h3>
+
+      <p>
+        ${rxrEsc(
+          rxrConsejoFinal(
+            runas
+          )
+        )}
+      </p>
+
+    </div>
+
+
+    <div class="rxr-pro-disclaimer">
+      Esta interpretación pertenece al ámbito simbólico y recreativo.
+      No constituye una predicción objetiva ni sustituye asesoramiento
+      profesional.
+    </div>
+
+
+    <div class="rxr-pro-actions">
+
+      <button
+        type="button"
+        class="rxr-pro-action primary"
+        onclick="window.rxRunasNuevaConsulta()">
+        ᚱ Nueva consulta
+      </button>
+
+      <button
+        type="button"
+        class="rxr-pro-action"
+        onclick="window.rxRunasNuevaTirada()">
+        ↻ Nueva tirada
+      </button>
+
+      <button
+        type="button"
+        class="rxr-pro-action"
+        onclick="window.rxRunasCompartir()">
+        ↗ Compartir
+      </button>
+
+      <button
+        type="button"
+        class="rxr-pro-action"
+        onclick="window.rxRunasCopiar()">
+        ⧉ Copiar lectura
+      </button>
+
+    </div>
+
+  `;
+
+
+  resultado.appendChild(
+    bloque
+  );
+
+}
+
+
+/* =========================================================
+   NUEVA TIRADA
+   ========================================================= */
+
+window.rxRunasNuevaTirada =
+  function(){
+
+    if(!rxRunasUltimaLectura){
+
+      return;
+
+    }
+
+
+    rxrMostrarLectura();
+
+  };
+
+
+/* =========================================================
+   NUEVA CONSULTA
+   ========================================================= */
+
+window.rxRunasNuevaConsulta =
+  function(){
+
+    rxRunasUltimaLectura =
+      null;
+
+    rxrConstruirFormulario();
+
+  };
+
+
+/* =========================================================
+   TEXTO COMPLETO PARA COMPARTIR
+   ========================================================= */
+
+function rxrTextoCompartir(){
+
+  if(!rxRunasUltimaLectura){
+
+    return "";
+
+  }
+
+
+  const lectura =
+    rxRunasUltimaLectura;
+
+  let texto =
+    "ᚱ ROXTHAL UNIVERSO ESOTÉRICO\n\n";
+
+  texto +=
+    "CONSULTA RÚNICA\n";
+
+  texto +=
+    lectura.tirada.nombre +
+    " — " +
+    lectura.tirada.subtitulo +
+    "\n\n";
+
+  texto +=
+    "Consulta:\n" +
+    lectura.pregunta +
+    "\n\n";
+
+  texto +=
+    "Área: " +
+    lectura.area +
+    "\n\n";
+
+
+  lectura.runas.forEach(
+    function(runa,indice){
+
+      const posicion =
+        lectura.posiciones[indice];
+
+      texto +=
+        "ᚱ " +
+        posicion +
+        "\n";
+
+      texto +=
+        runa.nombre +
+        " — " +
+        runa.keywords +
+        "\n\n";
+
+      texto +=
+        "Esencia:\n" +
+        runa.esencia +
+        "\n\n";
+
+      texto +=
+        "Interpretación:\n" +
+        rxrInterpretar(
+          runa,
+          posicion,
+          lectura.pregunta,
+          lectura.area
+        ) +
+        "\n\n";
+
+      texto +=
+        "Potencial:\n" +
+        runa.potencial +
+        "\n\n";
+
+      texto +=
+        "Sombra:\n" +
+        runa.sombra +
+        "\n\n";
+
+      texto +=
+        "Aprendizaje:\n" +
+        runa.aprendizaje +
+        "\n\n";
+
+      texto +=
+        "Orientación:\n" +
+        runa.consejo +
+        "\n\n";
+
+      texto +=
+        "--------------------\n\n";
+
+    }
+  );
+
+
+  texto +=
+    "SÍNTESIS\n" +
+    rxrSintesis(
+      lectura.runas,
+      lectura.posiciones,
+      lectura.pregunta,
+      lectura.area
+    ) +
+    "\n\n";
+
+
+  texto +=
+    "ORIENTACIÓN FINAL\n" +
+    rxrConsejoFinal(
+      lectura.runas
+    ) +
+    "\n\n";
+
+
+  texto +=
+    "Interpretación simbólica y recreativa.";
+
+  return texto;
+
+}
+
+
+/* =========================================================
+   COMPARTIR
+   ========================================================= */
+
+window.rxRunasCompartir =
+  async function(){
+
+    const texto =
+      rxrTextoCompartir();
+
+    if(!texto){
+
+      return;
+
+    }
+
+
+    const titulo =
+      "RoXThal Universo Esotérico — Consulta Rúnica";
+
+
+    if(
+      navigator.share
+    ){
+
+      try{
+
+        await navigator.share({
+
+          title:titulo,
+          text:texto
+
+        });
+
+        return;
+
+      }catch(error){
+
+        if(
+          error &&
+          error.name === "AbortError"
+        ){
+
+          return;
+
+        }
+
+      }
+
+    }
+
+
+    await rxrCopiarTexto(
+      texto,
+      "Lectura preparada para compartir."
+    );
+
+  };
+
+
+/* =========================================================
+   COPIAR
+   ========================================================= */
+
+window.rxRunasCopiar =
+  async function(){
+
+    const texto =
+      rxrTextoCompartir();
+
+    if(!texto){
+
+      return;
+
+    }
+
+
+    await rxrCopiarTexto(
+      texto,
+      "Lectura completa copiada."
+    );
+
+  };
+
+
+async function rxrCopiarTexto(
+  texto,
+  mensaje
+){
+
+  if(
+    navigator.clipboard &&
+    typeof navigator.clipboard.writeText === "function"
+  ){
+
+    try{
+
+      await navigator.clipboard.writeText(
+        texto
+      );
+
+      if(
+        typeof window.mostrarAviso === "function"
+      ){
+
+        window.mostrarAviso(
+          mensaje
+        );
+
+      }else{
+
+        alert(
+          mensaje
+        );
+
+      }
+
+      return;
+
+    }catch(error){
+
+      /* continúa con método alternativo */
+
+    }
+
+  }
+
+
+  const area =
+    document.createElement(
+      "textarea"
+    );
+
+  area.value =
+    texto;
+
+  area.style.position =
+    "fixed";
+
+  area.style.left =
+    "-9999px";
+
+  document.body.appendChild(
+    area
+  );
+
+  area.focus();
+  area.select();
+
+
+  try{
+
+    document.execCommand(
+      "copy"
+    );
+
+    if(
+      typeof window.mostrarAviso === "function"
+    ){
+
+      window.mostrarAviso(
+        mensaje
+      );
+
+    }else{
+
+      alert(
+        mensaje
+      );
+
+    }
+
+  }catch(error){
+
+    alert(
+      texto
+    );
+
+  }
+
+
+  area.remove();
+
+}
+
+
+/* =========================================================
+   COMPATIBILIDAD CON EL BOTÓN ANTIGUO
+   ========================================================= */
+
+window.rxLeerRunas =
+  function(){
+
+    /*
+     * Si el formulario profesional está abierto,
+     * el botón utiliza directamente el motor nuevo.
+     */
+
+    const pregunta =
+      document.getElementById(
+        "rxRunaPregunta"
+      );
+
+    if(!pregunta){
+
+      return;
+
+    }
+
+    window.rxRunasIniciar();
+
+  };
+
+
+/* =========================================================
+   APERTURA DEL MÓDULO RUNAS
+   ========================================================= */
+
+const rxAbrirModuloAnterior =
+  window.abrirModulo;
+
+
+window.abrirModulo =
+  function(nombre){
+
+    if(nombre === "Runas"){
+
+      let modal =
+        document.getElementById(
+          "rx-esoterico-modal"
+        );
+
+
+      if(!modal){
+
+        modal =
+          document.createElement(
+            "div"
+          );
+
+        modal.id =
+          "rx-esoterico-modal";
+
+        modal.innerHTML = `
+
+          <div
+            class="rx-esoterico-fondo"
+            onclick="window.rxCerrarModulo()">
+          </div>
+
+          <section
+            class="rx-esoterico-ventana">
+
+            <button
+              class="rx-esoterico-cerrar"
+              onclick="window.rxCerrarModulo()"
+              aria-label="Cerrar">
+              ×
+            </button>
+
+            <div id="rxModuloContenido"></div>
+
+          </section>
+
+        `;
+
+        document.body.appendChild(
+          modal
+        );
+
+      }
+
+
+      modal.classList.add(
+        "activo"
+      );
+
+      document.body.style.overflow =
+        "hidden";
+
+
+      rxRunasCantidadPro =
+        1;
+
+      rxRunasAreaPro =
+        "General";
+
+      rxRunasUltimaLectura =
+        null;
+
+
+      rxrConstruirFormulario();
+
+      return;
+
+    }
+
+
+    if(
+      typeof rxAbrirModuloAnterior ===
+      "function"
+    ){
+
+      rxAbrirModuloAnterior(
+        nombre
+      );
+
+    }
+
+  };
+
+
+/* =========================================================
+   INICIALIZACIÓN
+   ========================================================= */
+
+window.rxRunasProDisponible =
+  true;
+
+})();
+</script>
+
+<!-- =========================================================
+     FIN RUNAS PROFESIONAL V2
+     ========================================================= -->
 </body>
 </html>
