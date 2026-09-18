@@ -8865,5 +8865,585 @@ body::before{
 })();
 </script>
 <!-- Fin integración logo RoXThal -->
+   <!-- =========================================================
+     ROXTHAL UNIVERSO ESOTÉRICO
+     PREMIUM HOME — V1
+     Solo presentación visual de Inicio.
+     No modifica la lógica de los módulos.
+     ========================================================= -->
+
+<style id="rx-premium-home-v1">
+
+/* ---------- BASE ---------- */
+
+body{
+  background:
+    radial-gradient(circle at 50% -10%,rgba(215,173,85,.16),transparent 28%),
+    radial-gradient(circle at 8% 35%,rgba(104,62,154,.14),transparent 30%),
+    radial-gradient(circle at 92% 70%,rgba(80,42,115,.12),transparent 30%),
+    #07060b !important;
+}
+
+.app{
+  max-width:920px !important;
+  padding-bottom:70px !important;
+}
+
+/* ---------- PORTADA ---------- */
+
+.header{
+  min-height:520px !important;
+  padding:55px 22px 48px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  border-bottom:1px solid rgba(215,173,85,.28) !important;
+
+  background:
+    radial-gradient(circle at 50% 38%,
+      rgba(215,173,85,.14),
+      transparent 23%),
+    radial-gradient(circle at 50% 55%,
+      rgba(100,55,150,.16),
+      transparent 42%),
+    linear-gradient(
+      180deg,
+      rgba(18,12,27,.92),
+      rgba(7,6,11,.98)
+    ) !important;
+}
+
+.header::before{
+  content:"";
+  position:absolute;
+  width:420px;
+  height:420px;
+  border:1px solid rgba(215,173,85,.08);
+  border-radius:50%;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-48%);
+  box-shadow:
+    0 0 0 35px rgba(215,173,85,.018),
+    0 0 0 90px rgba(215,173,85,.012),
+    inset 0 0 80px rgba(215,173,85,.035);
+  pointer-events:none;
+}
+
+.header::after{
+  content:"✦";
+  position:absolute;
+  top:34px;
+  left:50%;
+  transform:translateX(-50%);
+  color:rgba(215,173,85,.55);
+  font-size:11px;
+  letter-spacing:10px;
+  pointer-events:none;
+}
+
+.stars{
+  opacity:.55 !important;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1.5px),
+    radial-gradient(circle,rgba(215,173,85,.8) 1px,transparent 1.5px),
+    radial-gradient(circle,rgba(255,255,255,.35) .7px,transparent 1px) !important;
+  background-size:83px 83px,137px 137px,47px 47px !important;
+  background-position:8px 15px,35px 55px,21px 31px !important;
+}
+
+/* ---------- LOGO ---------- */
+
+.rx-logo-pro-wrap{
+  position:relative !important;
+  z-index:3 !important;
+  width:132px !important;
+  height:132px !important;
+  margin:0 auto 25px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+
+.rx-logo-pro-wrap::before{
+  width:154px !important;
+  height:154px !important;
+  border-color:rgba(215,173,85,.28) !important;
+  box-shadow:
+    0 0 45px rgba(215,173,85,.12),
+    0 0 90px rgba(100,55,150,.08) !important;
+}
+
+.rx-logo-pro{
+  position:relative !important;
+  z-index:2 !important;
+  width:108px !important;
+  height:108px !important;
+  object-fit:contain !important;
+  filter:
+    drop-shadow(0 0 12px rgba(215,173,85,.24))
+    drop-shadow(0 14px 30px rgba(0,0,0,.55)) !important;
+}
+
+/* ---------- MARCA ---------- */
+
+.brand{
+  z-index:2 !important;
+  font-size:clamp(38px,7vw,58px) !important;
+  line-height:1 !important;
+  letter-spacing:4px !important;
+  text-transform:none !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fff5c9 0%,
+      #f1d78b 28%,
+      #c99b45 60%,
+      #f5dfa0 100%
+    );
+
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent !important;
+
+  text-shadow:
+    0 0 28px rgba(215,173,85,.12);
+}
+
+.subtitle{
+  z-index:2 !important;
+  margin-top:12px !important;
+  font-size:clamp(15px,3vw,19px) !important;
+  letter-spacing:5px !important;
+  font-weight:600 !important;
+  color:#f5f0e7 !important;
+}
+
+.tagline{
+  z-index:2 !important;
+  max-width:610px !important;
+  margin-top:20px !important;
+  font-size:14px !important;
+  line-height:1.8 !important;
+  color:#aaa0b2 !important;
+}
+
+/* ---------- STATUS ---------- */
+
+.status{
+  z-index:2 !important;
+  margin-top:24px !important;
+  padding:9px 18px !important;
+  border-radius:999px !important;
+  border:1px solid rgba(215,173,85,.28) !important;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(215,173,85,.10),
+      rgba(215,173,85,.025)
+    ) !important;
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.04),
+    0 10px 30px rgba(0,0,0,.25) !important;
+  color:#e7c978 !important;
+  font-size:11px !important;
+  letter-spacing:1.5px !important;
+  text-transform:uppercase !important;
+}
+
+/* ---------- SECCIÓN ---------- */
+
+.section{
+  padding:38px 18px 0 !important;
+}
+
+.section-title{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:0 0 20px !important;
+  color:#f1d78b !important;
+  font-size:17px !important;
+  font-weight:700 !important;
+  letter-spacing:1px !important;
+}
+
+.section-title::after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(215,173,85,.28),
+      transparent
+    );
+}
+
+/* ---------- TARJETAS ---------- */
+
+.grid{
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:15px !important;
+}
+
+.card{
+  min-height:190px !important;
+  padding:20px 18px !important;
+  border:1px solid rgba(215,173,85,.16) !important;
+  border-radius:22px !important;
+
+  background:
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(215,173,85,.075),
+      transparent 28%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.008)
+    ),
+    #120e18 !important;
+
+  box-shadow:
+    0 16px 38px rgba(0,0,0,.35),
+    inset 0 1px rgba(255,255,255,.035) !important;
+
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease !important;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.055),
+      transparent 35%
+    );
+  pointer-events:none;
+}
+
+.card::after{
+  width:120px !important;
+  height:120px !important;
+  right:-65px !important;
+  bottom:-65px !important;
+  background:
+    radial-gradient(
+      circle,
+      rgba(215,173,85,.10),
+      transparent 68%
+    ) !important;
+}
+
+.card:hover{
+  transform:translateY(-5px) !important;
+  border-color:rgba(215,173,85,.42) !important;
+  box-shadow:
+    0 24px 50px rgba(0,0,0,.48),
+    0 0 25px rgba(215,173,85,.06),
+    inset 0 1px rgba(255,255,255,.06) !important;
+}
+
+.icon{
+  position:relative;
+  width:54px;
+  height:54px;
+  margin-bottom:16px !important;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid rgba(215,173,85,.22);
+  border-radius:16px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(215,173,85,.13),
+      rgba(215,173,85,.025)
+    );
+
+  box-shadow:
+    inset 0 0 20px rgba(215,173,85,.025),
+    0 8px 20px rgba(0,0,0,.22);
+
+  color:#f1d78b !important;
+  font-size:26px !important;
+}
+
+.card h3{
+  position:relative;
+  margin-bottom:8px !important;
+  font-size:17px !important;
+  letter-spacing:.2px !important;
+}
+
+.card p{
+  position:relative;
+  min-height:38px;
+  color:#99909f !important;
+  font-size:12px !important;
+  line-height:1.55 !important;
+}
+
+.card .enter{
+  position:relative;
+  margin-top:16px !important;
+  color:#d7ad55 !important;
+  font-size:10px !important;
+  letter-spacing:1.5px !important;
+}
+
+/* ---------- PANELES ---------- */
+
+.panel{
+  margin:22px 18px 0 !important;
+  padding:22px !important;
+  border-radius:22px !important;
+
+  border:1px solid rgba(215,173,85,.15) !important;
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(215,173,85,.08),
+      transparent 35%
+    ),
+    #120e18 !important;
+
+  box-shadow:
+    0 18px 42px rgba(0,0,0,.32),
+    inset 0 1px rgba(255,255,255,.035) !important;
+}
+
+.panel h2{
+  font-size:17px !important;
+  letter-spacing:.3px !important;
+}
+
+.panel p{
+  color:#99909f !important;
+}
+
+/* ---------- BOTONES ---------- */
+
+.btn{
+  border-radius:13px !important;
+  border-color:rgba(215,173,85,.18) !important;
+  background:#1b1523 !important;
+  transition:.2s ease !important;
+}
+
+.btn:hover{
+  border-color:rgba(215,173,85,.4) !important;
+  transform:translateY(-1px);
+}
+
+.btn.primary{
+  background:
+    linear-gradient(
+      135deg,
+      #b88c37,
+      #efd27e
+    ) !important;
+  box-shadow:0 8px 22px rgba(215,173,85,.12) !important;
+}
+
+/* ---------- FOOTER ---------- */
+
+.footer{
+  margin-top:40px;
+  padding:34px 20px 25px !important;
+  border-top:1px solid rgba(215,173,85,.10);
+}
+
+/* ---------- TABLET ---------- */
+
+@media(max-width:760px){
+
+  .app{
+    max-width:100% !important;
+  }
+
+  .grid{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+
+}
+
+/* ---------- MÓVIL ---------- */
+
+@media(max-width:480px){
+
+  .header{
+    min-height:490px !important;
+    padding:
+      48px 18px 38px !important;
+  }
+
+  .header::before{
+    width:300px;
+    height:300px;
+  }
+
+  .rx-logo-pro-wrap{
+    width:112px !important;
+    height:112px !important;
+    margin-bottom:22px !important;
+  }
+
+  .rx-logo-pro-wrap::before{
+    width:132px !important;
+    height:132px !important;
+  }
+
+  .rx-logo-pro{
+    width:91px !important;
+    height:91px !important;
+  }
+
+  .brand{
+    font-size:35px !important;
+    letter-spacing:3px !important;
+  }
+
+  .subtitle{
+    font-size:13px !important;
+    letter-spacing:3px !important;
+  }
+
+  .tagline{
+    font-size:12.5px !important;
+    line-height:1.7 !important;
+    margin-top:17px !important;
+  }
+
+  .section{
+    padding:30px 12px 0 !important;
+  }
+
+  .grid{
+    gap:10px !important;
+  }
+
+  .card{
+    min-height:170px !important;
+    padding:16px 14px !important;
+    border-radius:18px !important;
+  }
+
+  .icon{
+    width:48px;
+    height:48px;
+    border-radius:14px;
+    font-size:23px !important;
+    margin-bottom:13px !important;
+  }
+
+  .card h3{
+    font-size:15px !important;
+  }
+
+  .card p{
+    font-size:11px !important;
+  }
+
+  .card .enter{
+    margin-top:12px !important;
+    font-size:9px !important;
+  }
+
+  .panel{
+    margin-left:12px !important;
+    margin-right:12px !important;
+  }
+
+}
+
+</style>
+
+<script id="rx-premium-home-v1-js">
+(function(){
+
+  "use strict";
+
+  function activarHomePremium(){
+
+    /* Cambios de texto únicamente en la portada */
+    const tagline = document.querySelector(".header .tagline");
+    if(tagline){
+      tagline.textContent =
+        "Tarot · Runas · Astrología · Numerología · I Ching · Péndulo · Sueños";
+    }
+
+    const status = document.querySelector(".header .status");
+    if(status){
+      status.textContent = "✦ EXPLORA · INTERPRETA · DESCUBRE";
+    }
+
+    /* Mejora el título de la sección */
+    const sectionTitle = document.querySelector(".section-title");
+    if(sectionTitle){
+      sectionTitle.textContent = "✦ ELIGE TU CAMINO";
+    }
+
+    /* Añade una pequeña línea editorial bajo el encabezado */
+    const header = document.querySelector(".header");
+
+    if(header && !header.querySelector(".rx-home-kicker")){
+
+      const kicker = document.createElement("div");
+
+      kicker.className = "rx-home-kicker";
+
+      kicker.textContent =
+        "UN ESPACIO DE EXPLORACIÓN SIMBÓLICA";
+
+      kicker.style.cssText = [
+        "position:relative",
+        "z-index:2",
+        "order:0",
+        "margin-bottom:16px",
+        "color:rgba(215,173,85,.72)",
+        "font-size:9px",
+        "font-weight:700",
+        "letter-spacing:3px",
+        "text-transform:uppercase"
+      ].join(";");
+
+      const logo =
+        header.querySelector(".rx-logo-pro-wrap") ||
+        header.querySelector(".symbol");
+
+      if(logo){
+        logo.parentNode.insertBefore(kicker,logo);
+      }
+    }
+
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener(
+      "DOMContentLoaded",
+      activarHomePremium,
+      {once:true}
+    );
+  }else{
+    activarHomePremium();
+  }
+
+})();
+</script>
 </body>
 </html>
