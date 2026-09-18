@@ -1,1966 +1,1965 @@
-<!DOCTYPE html>
-<html lang="es">
 
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#09070d">
-<meta name="description" content="RoXThal Universo Esotérico — Tarot, Runas, Zodíaco, Carta Astral, Numerología, I Ching, Péndulo y Sueños.">
-<title>RoXThal Universo Esotérico</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!DOCTYPE html>  <html lang="es">  <head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">  
+<meta name="theme-color" content="#09070d">  
+<meta name="description" content="RoXThal Universo Esotérico — Tarot, Runas, Zodíaco, Carta Astral, Numerología, I Ching, Péndulo y Sueños.">  
+<title>RoXThal Universo Esotérico</title>  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>  <script>  
+/* =========================================================  
+   CONFIGURACIÓN SUPABASE  
+   ========================================================= */  
+  
+const ROXTHAL_SUPABASE_URL =  
+  "https://osmkgbffvwnymvbhygzf.supabase.co";  
+  
+const ROXTHAL_SUPABASE_PUBLISHABLE_KEY =  
+  "sb_publishable_vct46uox_vnlXdry4LZeWQ_bC_-ITow";  
+  
+/*  
+ * También dejamos disponibles estas variables globales  
+ * por compatibilidad con el resto de la aplicación.  
+ */  
+window.SUPABASE_URL = ROXTHAL_SUPABASE_URL;  
+window.SUPABASE_PUBLISHABLE_KEY =  
+  ROXTHAL_SUPABASE_PUBLISHABLE_KEY;  
+  
+/*  
+ * Cliente oficial de Supabase.  
+ */  
+const supabase = window.supabase.createClient(  
+  ROXTHAL_SUPABASE_URL,  
+  ROXTHAL_SUPABASE_PUBLISHABLE_KEY  
+);  
+</script>  <style>  
+:root{  
+  --bg:#09070d;  
+  --bg2:#110d19;  
+  --card:#17111f;  
+  --card2:#21182b;  
+  --gold:#d7ad55;  
+  --gold2:#f1d78b;  
+  --text:#f5f0e7;  
+  --muted:#aaa0b2;  
+  --line:rgba(215,173,85,.22);  
+  --shadow:0 18px 45px rgba(0,0,0,.45);  
+}  
+  
+*{  
+  box-sizing:border-box;  
+  margin:0;  
+  padding:0;  
+}  
+  
+html{  
+  scroll-behavior:smooth;  
+}  
+  
+body{  
+  min-height:100vh;  
+  background:  
+    radial-gradient(circle at 50% 0%,rgba(111,61,150,.20),transparent 35%),  
+    radial-gradient(circle at 15% 30%,rgba(215,173,85,.07),transparent 25%),  
+    var(--bg);  
+  color:var(--text);  
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;  
+}  
+  
+button,  
+input,  
+textarea,  
+select{  
+  font:inherit;  
+}  
+  
+button{  
+  cursor:pointer;  
+}  
+  
+.app{  
+  width:100%;  
+  max-width:760px;  
+  margin:auto;  
+  padding-bottom:40px;  
+}  
+  
+.header{  
+  position:relative;  
+  overflow:hidden;  
+  padding:48px 20px 34px;  
+  text-align:center;  
+  border-bottom:1px solid var(--line);  
+  background:  
+    radial-gradient(circle at center,rgba(215,173,85,.12),transparent 42%);  
+}  
+  
+.stars{  
+  position:absolute;  
+  inset:0;  
+  pointer-events:none;  
+  opacity:.45;  
+  background-image:  
+    radial-gradient(circle,#fff 1px,transparent 1px),  
+    radial-gradient(circle,#d7ad55 1px,transparent 1px);  
+  background-size:74px 74px,113px 113px;  
+  background-position:8px 15px,35px 55px;  
+}  
+  
+.symbol{  
+  position:relative;  
+  width:88px;  
+  height:88px;  
+  margin:0 auto 18px;  
+  border:1px solid var(--gold);  
+  border-radius:50%;  
+  display:flex;  
+  align-items:center;  
+  justify-content:center;  
+  color:var(--gold2);  
+  font-size:43px;  
+  box-shadow:0 0 35px rgba(215,173,85,.15);  
+}  
+  
+.brand{  
+  position:relative;  
+  color:var(--gold2);  
+  font-size:34px;  
+  font-weight:800;  
+  letter-spacing:2px;  
+}  
+  
+.subtitle{  
+  position:relative;  
+  margin-top:5px;  
+  color:#fff;  
+  font-size:19px;  
+  letter-spacing:1.5px;  
+}  
+  
+.tagline{  
+  position:relative;  
+  margin:13px auto 0;  
+  max-width:600px;  
+  color:var(--muted);  
+  font-size:14px;  
+  line-height:1.6;  
+}  
+  
+.status{  
+  margin:22px auto 0;  
+  width:max-content;  
+  max-width:100%;  
+  padding:8px 13px;  
+  border:1px solid var(--line);  
+  border-radius:999px;  
+  color:var(--gold2);  
+  background:rgba(215,173,85,.06);  
+  font-size:12px;  
+}  
+  
+.section{  
+  padding:24px 16px 0;  
+}  
+  
+.section-title{  
+  margin-bottom:14px;  
+  color:var(--gold2);  
+  font-size:18px;  
+  letter-spacing:.5px;  
+}  
+  
+.grid{  
+  display:grid;  
+  grid-template-columns:repeat(2,minmax(0,1fr));  
+  gap:12px;  
+}  
+  
+.card{  
+  position:relative;  
+  min-height:145px;  
+  padding:18px 15px;  
+  border:1px solid var(--line);  
+  border-radius:18px;  
+  background:  
+    linear-gradient(145deg,rgba(255,255,255,.035),transparent),  
+    var(--card);  
+  box-shadow:var(--shadow);  
+  transition:.2s ease;  
+  overflow:hidden;  
+}  
+  
+.card:active{  
+  transform:scale(.98);  
+}  
+  
+.card::after{  
+  content:"";  
+  position:absolute;  
+  width:80px;  
+  height:80px;  
+  right:-35px;  
+  bottom:-35px;  
+  border-radius:50%;  
+  background:rgba(215,173,85,.06);  
+}  
+  
+.icon{  
+  font-size:29px;  
+  margin-bottom:9px;  
+}  
+  
+.card h3{  
+  color:#fff;  
+  font-size:16px;  
+  margin-bottom:6px;  
+}  
+  
+.card p{  
+  color:var(--muted);  
+  font-size:12px;  
+  line-height:1.45;  
+}  
+  
+.card .enter{  
+  margin-top:13px;  
+  color:var(--gold2);  
+  font-size:12px;  
+  font-weight:700;  
+}  
+  
+.panel{  
+  margin:18px 16px 0;  
+  padding:18px;  
+  border:1px solid var(--line);  
+  border-radius:18px;  
+  background:var(--card);  
+}  
+  
+.panel h2{  
+  color:var(--gold2);  
+  font-size:18px;  
+  margin-bottom:9px;  
+}  
+  
+.panel p{  
+  color:var(--muted);  
+  line-height:1.55;  
+  font-size:13px;  
+}  
+  
+.actions{  
+  display:flex;  
+  flex-wrap:wrap;  
+  gap:9px;  
+  margin-top:16px;  
+}  
+  
+.btn{  
+  border:1px solid var(--line);  
+  border-radius:12px;  
+  padding:11px 14px;  
+  background:var(--card2);  
+  color:var(--text);  
+  font-weight:700;  
+}  
+  
+.btn.primary{  
+  background:linear-gradient(135deg,#b88c37,#e0bd69);  
+  color:#17100a;  
+  border-color:#e0bd69;  
+}  
+  
+.btn:active{  
+  transform:scale(.98);  
+}  
+  
+.footer{  
+  padding:35px 18px 20px;  
+  text-align:center;  
+  color:#817789;  
+  font-size:11px;  
+  line-height:1.7;  
+}  
+  
+.footer strong{  
+  color:var(--gold);  
+}  
+  
+@media(max-width:420px){  
+  
+  .grid{  
+    grid-template-columns:1fr 1fr;  
+    gap:9px;  
+  }  
+  
+  .card{  
+    min-height:138px;  
+    padding:15px 13px;  
+  }  
+  
+  .brand{  
+    font-size:29px;  
+  }  
+  
+  .subtitle{  
+    font-size:17px;  
+  }  
+}  
+  
+@media(min-width:650px){  
+  
+  .grid{  
+    grid-template-columns:repeat(3,1fr);  
+  }  
+}  
+</style>  </head>  <body>  <main class="app">  <header class="header">    <div class="stars"></div>    <div class="symbol">☾</div>    <div class="brand">RoXThal</div>    <div class="subtitle">UNIVERSO ESOTÉRICO</div>    <p class="tagline">  
+    Un espacio de exploración simbólica, introspección y conocimiento  
+    alrededor de las grandes tradiciones esotéricas.  
+  </p>    <div class="status">✦ Universo en construcción</div>  </header>  <section class="section">    <div class="section-title">  
+    ✦ Explora tu universo  
+  </div>    <div class="grid">  <article class="card" onclick="abrirModulo('Zodíaco')">  
+  <div class="icon">♈</div>  
+  <h3>Zodíaco</h3>  
+  <p>Signos, ciclos, compatibilidad y lecturas personalizadas.</p>  
+  <div class="enter">ENTRAR →</div>  
+</article>  
 
-<script>
-/* =========================================================
-   CONFIGURACIÓN SUPABASE
-   ========================================================= */
+<article class="card" onclick="abrirModulo('Tarot')">  
+  <div class="icon">🃏</div>  
+  <h3>Tarot</h3>  
+  <p>Cartas, tiradas y lecturas detalladas para distintas preguntas.</p>  
+  <div class="enter">ENTRAR →</div>  
+</article>  
 
-const ROXTHAL_SUPABASE_URL =
-  "https://osmkgbffvwnymvbhygzf.supabase.co";
+<article class="card" onclick="abrirModulo('Runas')">  
+  <div class="icon">ᚱ</div>  
+  <h3>Runas</h3>  
+  <p>Lecturas de una, tres o cinco runas y análisis combinado.</p>  
+  <div class="enter">ENTRAR →</div>  
+</article>  
 
-const ROXTHAL_SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_vct46uox_vnlXdry4LZeWQ_bC_-ITow";
+<article class="card" onclick="abrirModulo('Carta Astral')">  
+  <div class="icon">🌌</div>  
+  <h3>Carta Astral</h3>  
+  <p>Planetas, casas, aspectos, ascendente y análisis natal.</p>  
+  <div class="enter">ENTRAR →</div>  
+</article>  
 
-/*
- * También dejamos disponibles estas variables globales
- * por compatibilidad con el resto de la aplicación.
- */
-window.SUPABASE_URL = ROXTHAL_SUPABASE_URL;
-window.SUPABASE_PUBLISHABLE_KEY =
-  ROXTHAL_SUPABASE_PUBLISHABLE_KEY;
+<article class="card" onclick="abrirModulo('Numerología')">  
+  <div class="icon">🔢</div>  
+  <h3>Numerología</h3>  
+  <p>Camino de vida, destino, ciclos y año personal.</p>  
+  <div class="enter">ENTRAR →</div>  
+</article>  
 
-/*
- * Cliente oficial de Supabase.
- */
-const supabase = window.supabase.createClient(
-  ROXTHAL_SUPABASE_URL,
-  ROXTHAL_SUPABASE_PUBLISHABLE_KEY
-);
-</script>
+<article class="card" onclick="abrirModulo('I Ching')">  
+  <div class="icon">☯</div>  
+  <h3>I Ching</h3>  
+  <p>Hexagramas, líneas mutantes e interpretación de la consulta.</p>  
+  <div class="enter">ENTRAR →</div>  
+</article>  
 
-<style>
-:root{
-  --bg:#09070d;
-  --bg2:#110d19;
-  --card:#17111f;
-  --card2:#21182b;
-  --gold:#d7ad55;
-  --gold2:#f1d78b;
-  --text:#f5f0e7;
-  --muted:#aaa0b2;
-  --line:rgba(215,173,85,.22);
-  --shadow:0 18px 45px rgba(0,0,0,.45);
+<article class="card" onclick="abrirModulo('Péndulo')">  
+  <div class="icon">🧿</div>  
+  <h3>Péndulo</h3>  
+  <p>Consultas simbólicas de respuesta sí, no o incertidumbre.</p>  
+  <div class="enter">ENTRAR →</div>  
+</article>  
+
+<article class="card" onclick="abrirModulo('Sueños')">  
+  <div class="icon">🌙</div>  
+  <h3>Sueños</h3>  
+  <p>Explora símbolos, emociones y elementos presentes en tus sueños.</p>  
+  <div class="enter">ENTRAR →</div>  
+</article>  
+
+<article class="card" onclick="abrirModulo('Compatibilidad')">  
+  <div class="icon">❤️</div>  
+  <h3>Compatibilidad</h3>  
+  <p>Comparación simbólica mediante astrología y numerología.</p>  
+  <div class="enter">ENTRAR →</div>  
+</article>
+
+  </div>  </section>  <section class="panel">    <h2>🔮 Tu espacio personal</h2>    <p>  
+    Las lecturas podrán guardarse en un historial personal para consultar  
+    posteriormente sus interpretaciones y descargar cada lectura completa.  
+  </p>    <div class="actions">  <button  
+  class="btn primary"  
+  onclick="mostrarAviso('La cuenta personal será incorporada en el siguiente módulo.')">  
+  👤 Mi cuenta  
+</button>  
+
+<button  
+  class="btn"  
+  onclick="mostrarAviso('El historial será habilitado junto con las lecturas.')">  
+  📜 Historial  
+</button>
+
+  </div>  </section>  <section class="panel">    <h2>💫 Acceso al Universo</h2>    <p>  
+    El sistema permitirá elegir un acceso, realizar el pago y desbloquear  
+    automáticamente las funciones correspondientes. Los precios y condiciones  
+    se administrarán desde el panel de administración.  
+  </p>    <div class="actions">  <button  
+  class="btn primary"  
+  onclick="mostrarAviso('El sistema de abonos se conectará en la siguiente etapa.')">  
+  ✦ Ver abonos  
+</button>
+
+  </div>  </section>  <footer class="footer">  <strong>RoXThal Universo Esotérico</strong><br>
+
+Tarot · Runas · Zodíaco · Carta Astral · Numerología · I Ching · Sueños<br>
+
+  <span>  
+    Las interpretaciones son de carácter simbólico y recreativo.  
+  </span>  </footer>  </main>  <script>  
+  
+/* =========================================================  
+   PRUEBA DIRECTA DE SUPABASE  
+   ========================================================= */  
+  
+async function probarConexionSupabase(){  
+  
+  const estado =  
+    document.querySelector('.status');  
+  
+  /*  
+   * IMPORTANTE:  
+   * Ya no dependemos de window.SUPABASE_URL  
+   * para construir la petición.  
+   */  
+  const urlSupabase =  
+    ROXTHAL_SUPABASE_URL;  
+  
+  const claveSupabase =  
+    ROXTHAL_SUPABASE_PUBLISHABLE_KEY;  
+  
+  const urlPeticion =  
+    urlSupabase +  
+    '/rest/v1/products?select=code&active=eq.true&limit=1';  
+  
+  estado.style.whiteSpace='normal';  
+  
+  estado.textContent =  
+    '⏳ Probando API de Supabase...';  
+  
+  const controlador =  
+    new AbortController();  
+  
+  const temporizador =  
+    setTimeout(()=>{  
+      controlador.abort();  
+    },10000);  
+  
+  try{  
+  
+    const respuesta =  
+      await fetch(  
+        urlPeticion,  
+        {  
+          method:'GET',  
+          cache:'no-store',  
+  
+          headers:{  
+            'apikey':  
+              claveSupabase,  
+  
+            'Authorization':  
+              'Bearer ' +  
+              claveSupabase  
+          },  
+  
+          signal:  
+            controlador.signal  
+        }  
+      );  
+  
+    clearTimeout(  
+      temporizador  
+    );  
+  
+    const texto =  
+      await respuesta.text();  
+  
+    console.log(  
+      'Supabase HTTP:',  
+      respuesta.status  
+    );  
+  
+    console.log(  
+      'Supabase URL fija:',  
+      urlSupabase  
+    );  
+  
+    console.log(  
+      'URL solicitada:',  
+      urlPeticion  
+    );  
+  
+    console.log(  
+      'URL final de respuesta:',  
+      respuesta.url  
+    );  
+  
+    console.log(  
+      '¿Petición redirigida?:',  
+      respuesta.redirected  
+    );  
+  
+    console.log(  
+      'Supabase respuesta:',  
+      texto  
+    );  
+  
+  
+    if(!respuesta.ok){  
+  
+      let detalle =  
+        texto;  
+  
+      try{  
+  
+        const json =  
+          JSON.parse(texto);  
+  
+        detalle =  
+          (json.code || 'Sin código') +  
+  
+          (json.message  
+            ? ' — ' +  
+              json.message  
+            : '') +  
+  
+          (json.details  
+            ? ' — ' +  
+              json.details  
+            : '') +  
+  
+          (json.hint  
+            ? ' — ' +  
+              json.hint  
+            : '');  
+  
+      }catch(e){  
+  
+        /*  
+         * La respuesta no es JSON.  
+         * Se conserva el texto original.  
+         */  
+  
+      }  
+  
+  
+      estado.style.whiteSpace =  
+        'pre-wrap';  
+  
+      estado.style.width =  
+        'calc(100% - 32px)';  
+  
+      estado.style.maxWidth =  
+        '720px';  
+  
+      estado.style.borderRadius =  
+        '12px';  
+  
+      estado.style.textAlign =  
+        'left';  
+  
+  
+      estado.textContent =  
+        '❌ Supabase HTTP ' +  
+        respuesta.status +  
+  
+        '\n\n' +  
+  
+        'URL Supabase configurada:\n' +  
+        urlSupabase +  
+  
+        '\n\n' +  
+  
+        'URL solicitada:\n' +  
+        urlPeticion +  
+  
+        '\n\n' +  
+  
+        'URL final de la petición:\n' +  
+        (respuesta.url ||  
+          'No disponible') +  
+  
+        '\n\n' +  
+  
+        '¿Hubo redirección?: ' +  
+        (  
+          respuesta.redirected  
+            ? 'SÍ'  
+            : 'NO'  
+        ) +  
+  
+        '\n\n' +  
+  
+        'Respuesta:\n' +  
+        detalle;  
+  
+  
+      console.error(  
+        'Supabase diagnóstico detallado:',  
+        {  
+          supabaseUrl:  
+            urlSupabase,  
+  
+          requestUrl:  
+            urlPeticion,  
+  
+          finalUrl:  
+            respuesta.url,  
+  
+          redirected:  
+            respuesta.redirected,  
+  
+          status:  
+            respuesta.status,  
+  
+          body:  
+            texto  
+        }  
+      );  
+  
+      return;  
+    }  
+  
+  
+    estado.style.whiteSpace =  
+      'normal';  
+  
+    estado.style.width =  
+      'max-content';  
+  
+    estado.style.maxWidth =  
+      '100%';  
+  
+    estado.style.textAlign =  
+      'center';  
+  
+    estado.textContent =  
+      '✅ Supabase responde correctamente';  
+  
+  }catch(error){  
+  
+    clearTimeout(  
+      temporizador  
+    );  
+  
+    console.error(  
+      'Supabase diagnóstico:',  
+      error  
+    );  
+  
+  
+    estado.style.whiteSpace =  
+      'pre-wrap';  
+  
+    estado.style.textAlign =  
+      'left';  
+  
+  
+    if(error.name === 'AbortError'){  
+  
+      estado.textContent =  
+        '❌ API de Supabase agotó el tiempo\n\n' +  
+  
+        'URL:\n' +  
+  
+        urlPeticion;  
+  
+    }else{  
+  
+      estado.textContent =  
+        '❌ Error de red:\n' +  
+  
+        error.message +  
+  
+        '\n\n' +  
+  
+        'URL solicitada:\n' +  
+  
+        urlPeticion;  
+    }  
+  }  
+}  
+  
+  
+probarConexionSupabase();  
+  
+  
+/* =========================================================  
+   MÓDULOS  
+   ========================================================= */  
+  
+function abrirModulo(nombre){  
+  
+  mostrarAviso(  
+    nombre +  
+    ': módulo preparado para desarrollarse con su sistema completo de lectura.'  
+  );  
+  
+}  
+  
+  
+/* =========================================================  
+   AVISOS  
+   ========================================================= */  
+  
+function mostrarAviso(texto){  
+  
+  const existente =  
+    document.getElementById(  
+      'roxthalAviso'  
+    );  
+  
+  if(existente){  
+  
+    existente.remove();  
+  }  
+  
+  
+  const aviso =  
+    document.createElement(  
+      'div'  
+    );  
+  
+  aviso.id =  
+    'roxthalAviso';  
+  
+  
+  aviso.style.cssText = `  
+    position:fixed;  
+    left:16px;  
+    right:16px;  
+    bottom:20px;  
+    z-index:9999;  
+    padding:16px 17px;  
+    border:1px solid rgba(215,173,85,.35);  
+    border-radius:16px;  
+    background:#21182b;  
+    color:#f5f0e7;  
+    box-shadow:0 18px 45px rgba(0,0,0,.55);  
+    font-size:13px;  
+    line-height:1.5;  
+  `;  
+  
+  
+  aviso.textContent =  
+    texto;  
+  
+  
+  document.body.appendChild(  
+    aviso  
+  );  
+  
+  
+  setTimeout(()=>{  
+  
+    if(aviso.parentNode){  
+  
+      aviso.remove();  
+    }  
+  
+  },3500);  
+  
+}  
+  
+</script>  <!-- =========================================================  
+     REPARADOR — MÓDULOS ROXTHAL UNIVERSO ESOTÉRICO  
+     ========================================================= -->  <style>  
+#rx-esoterico-modal{  
+  display:none;  
+  position:fixed;  
+  inset:0;  
+  z-index:99999;  
+}  
+  
+#rx-esoterico-modal.activo{  
+  display:block;  
+}  
+  
+.rx-esoterico-fondo{  
+  position:absolute;  
+  inset:0;  
+  background:rgba(0,0,0,.82);  
+  backdrop-filter:blur(6px);  
+}  
+  
+.rx-esoterico-ventana{  
+  position:relative;  
+  width:min(720px,calc(100% - 24px));  
+  max-height:calc(100vh - 24px);  
+  overflow:auto;  
+  margin:12px auto;  
+  padding:24px 18px 30px;  
+  border:1px solid rgba(215,173,85,.30);  
+  border-radius:22px;  
+  background:  
+    radial-gradient(circle at top,rgba(215,173,85,.10),transparent 35%),  
+    #110d19;  
+  box-shadow:0 25px 80px rgba(0,0,0,.70);  
+}  
+  
+.rx-esoterico-cerrar{  
+  position:absolute;  
+  top:10px;  
+  right:10px;  
+  width:40px;  
+  height:40px;  
+  border:1px solid rgba(215,173,85,.25);  
+  border-radius:50%;  
+  background:#21182b;  
+  color:#f1d78b;  
+  font-size:26px;  
+}  
+  
+.rx-esoterico-icono{  
+  font-size:42px;  
+  margin-bottom:5px;  
+}  
+  
+.rx-esoterico-ventana h2{  
+  color:#f1d78b;  
+  margin-bottom:7px;  
+}  
+  
+.rx-esoterico-intro{  
+  color:#aaa0b2;  
+  font-size:13px;  
+  line-height:1.55;  
+  margin-bottom:18px;  
+}  
+  
+.rx-esoterico-ventana label{  
+  display:block;  
+  margin:13px 0;  
+  color:#f1d78b;  
+  font-size:12px;  
+  font-weight:700;  
+}  
+  
+.rx-esoterico-ventana input,  
+.rx-esoterico-ventana textarea,  
+.rx-esoterico-ventana select{  
+  display:block;  
+  width:100%;  
+  margin-top:6px;  
+  padding:12px;  
+  border:1px solid rgba(215,173,85,.22);  
+  border-radius:12px;  
+  background:#09070d;  
+  color:#f5f0e7;  
+  outline:none;  
+}  
+  
+.rx-esoterico-ventana textarea{  
+  resize:vertical;  
+}  
+  
+.rx-esoterico-boton{  
+  width:100%;  
+  margin-top:10px;  
+  padding:13px;  
+  border:1px solid #d7ad55;  
+  border-radius:12px;  
+  background:linear-gradient(135deg,#b88c37,#e0bd69);  
+  color:#17100a;  
+  font-weight:800;  
+}  
+  
+.rx-esoterico-resultado{  
+  margin-top:18px;  
+  padding:16px;  
+  border:1px solid rgba(215,173,85,.22);  
+  border-radius:15px;  
+  background:rgba(0,0,0,.22);  
+  line-height:1.6;  
+}  
+  
+.rx-esoterico-resultado h3{  
+  color:#f1d78b;  
+  margin-bottom:9px;  
+}  
+  
+.rx-esoterico-resultado p,  
+.rx-esoterico-resultado li{  
+  color:#aaa0b2;  
+  font-size:13px;  
+}  
+  
+.rx-esoterico-item{  
+  padding:11px 0;  
+  border-top:1px solid rgba(215,173,85,.12);  
+}  
+  
+.rx-esoterico-item strong{  
+  color:#fff;  
+}  
+  
+@media(max-width:480px){  
+  .rx-esoterico-ventana{  
+    width:calc(100% - 14px);  
+    max-height:calc(100vh - 14px);  
+    margin:7px auto;  
+    padding:22px 14px 25px;  
+  }  
+}  
+</style>  <script>  
+(function(){  
+  
+"use strict";  
+  
+/* =========================================================  
+   DATOS SIMBÓLICOS  
+   ========================================================= */  
+  
+const RX_SIGNOS = [  
+  "Aries","Tauro","Géminis","Cáncer","Leo","Virgo",  
+  "Libra","Escorpio","Sagitario","Capricornio","Acuario","Piscis"  
+];  
+  
+const RX_TAROT = [  
+  "El Loco","El Mago","La Sacerdotisa","La Emperatriz",  
+  "El Emperador","El Hierofante","Los Enamorados","El Carro",  
+  "La Fuerza","El Ermitaño","La Rueda de la Fortuna","La Justicia",  
+  "El Colgado","La Muerte","La Templanza","El Diablo",  
+  "La Torre","La Estrella","La Luna","El Sol",  
+  "El Juicio","El Mundo"  
+];  
+  
+const RX_RUNAS = [  
+  ["Fehu","recursos, comienzos y movimiento"],  
+  ["Uruz","fuerza, transformación y resistencia"],  
+  ["Thurisaz","protección, desafío y defensa"],  
+  ["Ansuz","comunicación, conocimiento e intuición"],  
+  ["Raidho","movimiento, dirección y recorrido"],  
+  ["Kenaz","claridad, creatividad y comprensión"],  
+  ["Gebo","intercambio, vínculo y reciprocidad"],  
+  ["Wunjo","armonía, alegría y bienestar"],  
+  ["Hagalaz","cambio inesperado y transformación"],  
+  ["Nauthiz","necesidad, límites y aprendizaje"],  
+  ["Isa","pausa, concentración y quietud"],  
+  ["Jera","ciclo, proceso y cosecha"],  
+  ["Eihwaz","resistencia, transición y transformación"],  
+  ["Perthro","misterio, posibilidad y descubrimiento"],  
+  ["Algiz","protección, límites y conciencia"],  
+  ["Sowilo","claridad, energía y realización"],  
+  ["Tiwaz","decisión, voluntad y dirección"],  
+  ["Berkano","crecimiento, cuidado y renovación"],  
+  ["Ehwaz","movimiento, confianza y adaptación"],  
+  ["Mannaz","identidad, conciencia y relación"],  
+  ["Laguz","fluidez, emociones e intuición"],  
+  ["Ingwaz","gestación, cierre y renovación"],  
+  ["Dagaz","despertar, cambio y claridad"],  
+  ["Othala","raíces, pertenencia y legado"]  
+];  
+  
+const RX_HEXAGRAMAS = [  
+ "El Creativo","Lo Receptivo","La Dificultad Inicial","La Inexperiencia",  
+ "La Espera","El Conflicto","El Ejército","La Solidaridad",  
+ "La Fuerza de lo Pequeño","La Marcha","La Paz","El Estancamiento",  
+ "La Comunidad","La Gran Posesión","La Modestia","El Entusiasmo",  
+ "El Seguimiento","El Trabajo sobre lo Corrompido","El Acercamiento",  
+ "La Contemplación","La Mordedura Tajante","La Gracia","La Disolución",  
+ "La Revolución","La Influencia","La Duración","El Poder de lo Grande",  
+ "El Abandono","Lo Abismal","Lo Adherente","La Influencia Mutua",  
+ "La Duración"  
+];  
+  
+function rxEsc(texto){  
+  return String(texto || "").replace(/[&<>"']/g,function(c){  
+    return {  
+      "&":"&amp;",  
+      "<":"&lt;",  
+      ">":"&gt;",  
+      '"':"&quot;",  
+      "'":"&#39;"  
+    }[c];  
+  });  
+}  
+  
+function rxAleatorio(lista){  
+  return lista[Math.floor(Math.random()*lista.length)];  
+}  
+  
+function rxResultado(html){  
+  const zona=document.getElementById("rxResultado");  
+  if(zona){  
+    zona.innerHTML='<div class="rx-esoterico-resultado">'+html+'</div>';  
+  }  
+}  
+  
+/* =========================================================  
+   VENTANA  
+   ========================================================= */  
+  
+function rxCrearVentana(){  
+  
+  if(document.getElementById("rx-esoterico-modal")){  
+    return;  
+  }  
+  
+  const modal=document.createElement("div");  
+  
+  modal.id="rx-esoterico-modal";  
+  
+  modal.innerHTML=`  
+    <div class="rx-esoterico-fondo"  
+         onclick="window.rxCerrarModulo()"></div>  
+  
+    <section class="rx-esoterico-ventana">  
+  
+      <button  
+        class="rx-esoterico-cerrar"  
+        onclick="window.rxCerrarModulo()"  
+        aria-label="Cerrar">×</button>  
+  
+      <div id="rxModuloContenido"></div>  
+  
+    </section>  
+  `;  
+  
+  document.body.appendChild(modal);  
+}  
+  
+window.rxCerrarModulo=function(){  
+  
+  const modal=document.getElementById("rx-esoterico-modal");  
+  
+  if(modal){  
+    modal.classList.remove("activo");  
+  }  
+  
+  document.body.style.overflow="";  
+};  
+  
+/* =========================================================  
+   ABRIR MÓDULOS  
+   ========================================================= */  
+  
+window.abrirModulo=function(nombre){  
+  
+  rxCrearVentana();  
+  
+  const contenido=document.getElementById("rxModuloContenido");  
+  
+  let html="";  
+  
+  if(nombre==="Zodíaco"){  
+  
+    html=`  
+      <div class="rx-esoterico-icono">♈</div>  
+      <h2>Zodíaco</h2>  
+  
+      <p class="rx-esoterico-intro">  
+        Explora simbólicamente las características asociadas  
+        a tu signo.  
+      </p>  
+  
+      <label>  
+        Tu signo  
+        <select id="rxZodiacoSigno">  
+          ${RX_SIGNOS.map(function(s){  
+            return '<option>'+s+'</option>';  
+          }).join("")}  
+        </select>  
+      </label>  
+  
+      <button class="rx-esoterico-boton"  
+              onclick="window.rxLeerZodiaco()">  
+        ✦ Realizar lectura  
+      </button>  
+  
+      <div id="rxResultado"></div>  
+    `;  
+  
+  }else if(nombre==="Tarot"){  
+  
+    html=`  
+      <div class="rx-esoterico-icono">🃏</div>  
+      <h2>Tarot</h2>  
+  
+      <p class="rx-esoterico-intro">  
+        Realiza una tirada simbólica de una, tres o cinco cartas.  
+      </p>  
+  
+      <label>  
+        Pregunta  
+        <textarea  
+          id="rxTarotPregunta"  
+          rows="3"  
+          placeholder="Escribe tu pregunta..."></textarea>  </label>  
+
+  <label>  
+    Tirada  
+    <select id="rxTarotCantidad">  
+      <option value="1">1 carta</option>  
+      <option value="3">3 cartas</option>  
+      <option value="5">5 cartas</option>  
+    </select>  
+  </label>  
+
+  <button class="rx-esoterico-boton"  
+          onclick="window.rxLeerTarot()">  
+    🃏 Realizar tirada  
+  </button>  
+
+  <div id="rxResultado"></div>  
+`;
+
+}else if(nombre==="Runas"){
+
+html=`  
+  <div class="rx-esoterico-icono">ᚱ</div>  
+  <h2>Runas</h2>  
+
+  <p class="rx-esoterico-intro">  
+    Selecciona una lectura de una, tres o cinco runas.  
+  </p>  
+
+  <label>  
+    Consulta  
+    <textarea  
+      id="rxRunaPregunta"  
+      rows="3"  
+      placeholder="¿Qué deseas explorar?"></textarea>  
+  </label>  
+
+  <label>  
+    Cantidad  
+    <select id="rxRunaCantidad">  
+      <option value="1">1 runa</option>  
+      <option value="3">3 runas</option>  
+      <option value="5">5 runas</option>  
+    </select>  
+  </label>  
+
+  <button class="rx-esoterico-boton"  
+          onclick="window.rxLeerRunas()">  
+    ᚱ Realizar lectura  
+  </button>  
+
+  <div id="rxResultado"></div>  
+`;
+
+}else if(nombre==="Carta Astral"){
+
+html=`  
+  <div class="rx-esoterico-icono">🌌</div>  
+  <h2>Carta Astral</h2>  
+
+  <p class="rx-esoterico-intro">  
+    Introduce tus datos natales para comenzar una exploración  
+    simbólica de tu carta.  
+  </p>  
+
+  <label>  
+    Nombre  
+    <input id="rxAstralNombre"  
+           placeholder="Tu nombre">  
+  </label>  
+
+  <label>  
+    Fecha de nacimiento  
+    <input id="rxAstralFecha"  
+           type="date">  
+  </label>  
+
+  <label>  
+    Hora de nacimiento  
+    <input id="rxAstralHora"  
+           type="time">  
+  </label>  
+
+  <label>  
+    Lugar de nacimiento  
+    <input id="rxAstralLugar"  
+           placeholder="Ciudad, país">  
+  </label>  
+
+  <button class="rx-esoterico-boton"  
+          onclick="window.rxLeerAstral()">  
+    🌌 Explorar carta  
+  </button>  
+
+  <div id="rxResultado"></div>  
+`;
+
+}else if(nombre==="Numerología"){
+
+html=`  
+  <div class="rx-esoterico-icono">🔢</div>  
+  <h2>Numerología</h2>  
+
+  <p class="rx-esoterico-intro">  
+    Calcula simbólicamente tu camino de vida a partir  
+    de tu fecha de nacimiento.  
+  </p>  
+
+  <label>  
+    Nombre completo  
+    <input id="rxNumerologiaNombre"  
+           placeholder="Nombre y apellidos">  
+  </label>  
+
+  <label>  
+    Fecha de nacimiento  
+    <input id="rxNumerologiaFecha"  
+           type="date">  
+  </label>  
+
+  <button class="rx-esoterico-boton"  
+          onclick="window.rxLeerNumerologia()">  
+    🔢 Calcular  
+  </button>  
+
+  <div id="rxResultado"></div>  
+`;
+
+}else if(nombre==="I Ching"){
+
+html=`  
+  <div class="rx-esoterico-icono">☯</div>  
+  <h2>I Ching</h2>  
+
+  <p class="rx-esoterico-intro">  
+    Formula una pregunta y genera un hexagrama para  
+    una lectura simbólica.  
+  </p>  
+
+  <label>  
+    Pregunta  
+    <textarea  
+      id="rxIChingPregunta"  
+      rows="4"  
+      placeholder="Formula tu pregunta..."></textarea>  
+  </label>  
+
+  <button class="rx-esoterico-boton"  
+          onclick="window.rxLeerIChing()">  
+    ☯ Consultar  
+  </button>  
+
+  <div id="rxResultado"></div>  
+`;
+
+}else if(nombre==="Péndulo"){
+
+html=`  
+  <div class="rx-esoterico-icono">🧿</div>  
+  <h2>Péndulo</h2>  
+
+  <p class="rx-esoterico-intro">  
+    Consulta simbólica con resultado aleatorio.  
+  </p>  
+
+  <label>  
+    Pregunta  
+    <textarea  
+      id="rxPenduloPregunta"  
+      rows="3"  
+      placeholder="Formula una pregunta de sí o no..."></textarea>  
+  </label>  
+
+  <button class="rx-esoterico-boton"  
+          onclick="window.rxLeerPendulo()">  
+    🧿 Consultar  
+  </button>  
+
+  <div id="rxResultado"></div>  
+`;
+
+}else if(nombre==="Sueños"){
+
+html=`  
+  <div class="rx-esoterico-icono">🌙</div>  
+  <h2>Sueños</h2>  
+
+  <p class="rx-esoterico-intro">  
+    Explora los símbolos y emociones presentes en un sueño.  
+  </p>  
+
+  <label>  
+    Describe tu sueño  
+    <textarea  
+      id="rxSuenoTexto"  
+      rows="7"  
+      placeholder="Cuéntanos tu sueño con todos los detalles que recuerdes..."></textarea>  
+  </label>  
+
+  <button class="rx-esoterico-boton"  
+          onclick="window.rxLeerSueno()">  
+    🌙 Explorar sueño  
+  </button>  
+
+  <div id="rxResultado"></div>  
+`;
+
+}else if(nombre==="Compatibilidad"){
+
+html=`  
+  <div class="rx-esoterico-icono">❤️</div>  
+  <h2>Compatibilidad</h2>  
+
+  <p class="rx-esoterico-intro">  
+    Comparación simbólica entre dos signos.  
+  </p>  
+
+  <label>  
+    Persona 1  
+    <select id="rxCompat1">  
+      ${RX_SIGNOS.map(function(s){  
+        return '<option>'+s+'</option>';  
+      }).join("")}  
+    </select>  
+  </label>  
+
+  <label>  
+    Persona 2  
+    <select id="rxCompat2">  
+      ${RX_SIGNOS.map(function(s){  
+        return '<option>'+s+'</option>';  
+      }).join("")}  
+    </select>  
+  </label>  
+
+  <button class="rx-esoterico-boton"  
+          onclick="window.rxLeerCompatibilidad()">  
+    ❤️ Comparar  
+  </button>  
+
+  <div id="rxResultado"></div>  
+`;
+
 }
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+contenido.innerHTML=html;
 
-html{
-  scroll-behavior:smooth;
-}
+const modal=document.getElementById("rx-esoterico-modal");
 
-body{
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 50% 0%,rgba(111,61,150,.20),transparent 35%),
-    radial-gradient(circle at 15% 30%,rgba(215,173,85,.07),transparent 25%),
-    var(--bg);
-  color:var(--text);
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
+modal.classList.add("activo");
 
-button,
-input,
-textarea,
-select{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-.app{
-  width:100%;
-  max-width:760px;
-  margin:auto;
-  padding-bottom:40px;
-}
-
-.header{
-  position:relative;
-  overflow:hidden;
-  padding:48px 20px 34px;
-  text-align:center;
-  border-bottom:1px solid var(--line);
-  background:
-    radial-gradient(circle at center,rgba(215,173,85,.12),transparent 42%);
-}
-
-.stars{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  opacity:.45;
-  background-image:
-    radial-gradient(circle,#fff 1px,transparent 1px),
-    radial-gradient(circle,#d7ad55 1px,transparent 1px);
-  background-size:74px 74px,113px 113px;
-  background-position:8px 15px,35px 55px;
-}
-
-.symbol{
-  position:relative;
-  width:88px;
-  height:88px;
-  margin:0 auto 18px;
-  border:1px solid var(--gold);
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--gold2);
-  font-size:43px;
-  box-shadow:0 0 35px rgba(215,173,85,.15);
-}
-
-.brand{
-  position:relative;
-  color:var(--gold2);
-  font-size:34px;
-  font-weight:800;
-  letter-spacing:2px;
-}
-
-.subtitle{
-  position:relative;
-  margin-top:5px;
-  color:#fff;
-  font-size:19px;
-  letter-spacing:1.5px;
-}
-
-.tagline{
-  position:relative;
-  margin:13px auto 0;
-  max-width:600px;
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.6;
-}
-
-.status{
-  margin:22px auto 0;
-  width:max-content;
-  max-width:100%;
-  padding:8px 13px;
-  border:1px solid var(--line);
-  border-radius:999px;
-  color:var(--gold2);
-  background:rgba(215,173,85,.06);
-  font-size:12px;
-}
-
-.section{
-  padding:24px 16px 0;
-}
-
-.section-title{
-  margin-bottom:14px;
-  color:var(--gold2);
-  font-size:18px;
-  letter-spacing:.5px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:12px;
-}
-
-.card{
-  position:relative;
-  min-height:145px;
-  padding:18px 15px;
-  border:1px solid var(--line);
-  border-radius:18px;
-  background:
-    linear-gradient(145deg,rgba(255,255,255,.035),transparent),
-    var(--card);
-  box-shadow:var(--shadow);
-  transition:.2s ease;
-  overflow:hidden;
-}
-
-.card:active{
-  transform:scale(.98);
-}
-
-.card::after{
-  content:"";
-  position:absolute;
-  width:80px;
-  height:80px;
-  right:-35px;
-  bottom:-35px;
-  border-radius:50%;
-  background:rgba(215,173,85,.06);
-}
-
-.icon{
-  font-size:29px;
-  margin-bottom:9px;
-}
-
-.card h3{
-  color:#fff;
-  font-size:16px;
-  margin-bottom:6px;
-}
-
-.card p{
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.45;
-}
-
-.card .enter{
-  margin-top:13px;
-  color:var(--gold2);
-  font-size:12px;
-  font-weight:700;
-}
-
-.panel{
-  margin:18px 16px 0;
-  padding:18px;
-  border:1px solid var(--line);
-  border-radius:18px;
-  background:var(--card);
-}
-
-.panel h2{
-  color:var(--gold2);
-  font-size:18px;
-  margin-bottom:9px;
-}
-
-.panel p{
-  color:var(--muted);
-  line-height:1.55;
-  font-size:13px;
-}
-
-.actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:9px;
-  margin-top:16px;
-}
-
-.btn{
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:11px 14px;
-  background:var(--card2);
-  color:var(--text);
-  font-weight:700;
-}
-
-.btn.primary{
-  background:linear-gradient(135deg,#b88c37,#e0bd69);
-  color:#17100a;
-  border-color:#e0bd69;
-}
-
-.btn:active{
-  transform:scale(.98);
-}
-
-.footer{
-  padding:35px 18px 20px;
-  text-align:center;
-  color:#817789;
-  font-size:11px;
-  line-height:1.7;
-}
-
-.footer strong{
-  color:var(--gold);
-}
-
-@media(max-width:420px){
-
-  .grid{
-    grid-template-columns:1fr 1fr;
-    gap:9px;
-  }
-
-  .card{
-    min-height:138px;
-    padding:15px 13px;
-  }
-
-  .brand{
-    font-size:29px;
-  }
-
-  .subtitle{
-    font-size:17px;
-  }
-}
-
-@media(min-width:650px){
-
-  .grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-}
-</style>
-
-</head>
-
-<body>
-
-<main class="app">
-
-<header class="header">
-
-  <div class="stars"></div>
-
-  <div class="symbol">☾</div>
-
-  <div class="brand">RoXThal</div>
-
-  <div class="subtitle">UNIVERSO ESOTÉRICO</div>
-
-  <p class="tagline">
-    Un espacio de exploración simbólica, introspección y conocimiento
-    alrededor de las grandes tradiciones esotéricas.
-  </p>
-
-  <div class="status">✦ Universo en construcción</div>
-
-</header>
-
-
-<section class="section">
-
-  <div class="section-title">
-    ✦ Explora tu universo
-  </div>
-
-  <div class="grid">
-
-    <article class="card" onclick="abrirModulo('Zodíaco')">
-      <div class="icon">♈</div>
-      <h3>Zodíaco</h3>
-      <p>Signos, ciclos, compatibilidad y lecturas personalizadas.</p>
-      <div class="enter">ENTRAR →</div>
-    </article>
-
-    <article class="card" onclick="abrirModulo('Tarot')">
-      <div class="icon">🃏</div>
-      <h3>Tarot</h3>
-      <p>Cartas, tiradas y lecturas detalladas para distintas preguntas.</p>
-      <div class="enter">ENTRAR →</div>
-    </article>
-
-    <article class="card" onclick="abrirModulo('Runas')">
-      <div class="icon">ᚱ</div>
-      <h3>Runas</h3>
-      <p>Lecturas de una, tres o cinco runas y análisis combinado.</p>
-      <div class="enter">ENTRAR →</div>
-    </article>
-
-    <article class="card" onclick="abrirModulo('Carta Astral')">
-      <div class="icon">🌌</div>
-      <h3>Carta Astral</h3>
-      <p>Planetas, casas, aspectos, ascendente y análisis natal.</p>
-      <div class="enter">ENTRAR →</div>
-    </article>
-
-    <article class="card" onclick="abrirModulo('Numerología')">
-      <div class="icon">🔢</div>
-      <h3>Numerología</h3>
-      <p>Camino de vida, destino, ciclos y año personal.</p>
-      <div class="enter">ENTRAR →</div>
-    </article>
-
-    <article class="card" onclick="abrirModulo('I Ching')">
-      <div class="icon">☯</div>
-      <h3>I Ching</h3>
-      <p>Hexagramas, líneas mutantes e interpretación de la consulta.</p>
-      <div class="enter">ENTRAR →</div>
-    </article>
-
-    <article class="card" onclick="abrirModulo('Péndulo')">
-      <div class="icon">🧿</div>
-      <h3>Péndulo</h3>
-      <p>Consultas simbólicas de respuesta sí, no o incertidumbre.</p>
-      <div class="enter">ENTRAR →</div>
-    </article>
-
-    <article class="card" onclick="abrirModulo('Sueños')">
-      <div class="icon">🌙</div>
-      <h3>Sueños</h3>
-      <p>Explora símbolos, emociones y elementos presentes en tus sueños.</p>
-      <div class="enter">ENTRAR →</div>
-    </article>
-
-    <article class="card" onclick="abrirModulo('Compatibilidad')">
-      <div class="icon">❤️</div>
-      <h3>Compatibilidad</h3>
-      <p>Comparación simbólica mediante astrología y numerología.</p>
-      <div class="enter">ENTRAR →</div>
-    </article>
-
-  </div>
-
-</section>
-
-
-<section class="panel">
-
-  <h2>🔮 Tu espacio personal</h2>
-
-  <p>
-    Las lecturas podrán guardarse en un historial personal para consultar
-    posteriormente sus interpretaciones y descargar cada lectura completa.
-  </p>
-
-  <div class="actions">
-
-    <button
-      class="btn primary"
-      onclick="mostrarAviso('La cuenta personal será incorporada en el siguiente módulo.')">
-      👤 Mi cuenta
-    </button>
-
-    <button
-      class="btn"
-      onclick="mostrarAviso('El historial será habilitado junto con las lecturas.')">
-      📜 Historial
-    </button>
-
-  </div>
-
-</section>
-
-
-<section class="panel">
-
-  <h2>💫 Acceso al Universo</h2>
-
-  <p>
-    El sistema permitirá elegir un acceso, realizar el pago y desbloquear
-    automáticamente las funciones correspondientes. Los precios y condiciones
-    se administrarán desde el panel de administración.
-  </p>
-
-  <div class="actions">
-
-    <button
-      class="btn primary"
-      onclick="mostrarAviso('El sistema de abonos se conectará en la siguiente etapa.')">
-      ✦ Ver abonos
-    </button>
-
-  </div>
-
-</section>
-
-
-<footer class="footer">
-
-  <strong>RoXThal Universo Esotérico</strong><br>
-
-  Tarot · Runas · Zodíaco · Carta Astral · Numerología · I Ching · Sueños<br>
-
-  <span>
-    Las interpretaciones son de carácter simbólico y recreativo.
-  </span>
-
-</footer>
-
-</main>
-
-
-<script>
-
-/* =========================================================
-   PRUEBA DIRECTA DE SUPABASE
-   ========================================================= */
-
-async function probarConexionSupabase(){
-
-  const estado =
-    document.querySelector('.status');
-
-  const urlSupabase =
-    ROXTHAL_SUPABASE_URL;
-
-  const claveSupabase =
-    ROXTHAL_SUPABASE_PUBLISHABLE_KEY;
-
-  const urlPeticion =
-    urlSupabase +
-    '/rest/v1/products?select=code&active=eq.true&limit=1';
-
-  estado.style.whiteSpace='normal';
-
-  estado.textContent =
-    '⏳ Probando API de Supabase...';
-
-  const controlador =
-    new AbortController();
-
-  const temporizador =
-    setTimeout(()=>{
-      controlador.abort();
-    },10000);
-
-  try{
-
-    const respuesta =
-      await fetch(
-        urlPeticion,
-        {
-          method:'GET',
-          cache:'no-store',
-
-          headers:{
-            'apikey':
-              claveSupabase,
-
-            'Authorization':
-              'Bearer ' +
-              claveSupabase
-          },
-
-          signal:
-            controlador.signal
-        }
-      );
-
-    clearTimeout(
-      temporizador
-    );
-
-    const texto =
-      await respuesta.text();
-
-    console.log(
-      'Supabase HTTP:',
-      respuesta.status
-    );
-
-    console.log(
-      'Supabase URL fija:',
-      urlSupabase
-    );
-
-    console.log(
-      'URL solicitada:',
-      urlPeticion
-    );
-
-    console.log(
-      'URL final de respuesta:',
-      respuesta.url
-    );
-
-    console.log(
-      '¿Petición redirigida?:',
-      respuesta.redirected
-    );
-
-    console.log(
-      'Supabase respuesta:',
-      texto
-    );
-
-
-    if(!respuesta.ok){
-
-      let detalle =
-        texto;
-
-      try{
-
-        const json =
-          JSON.parse(texto);
-
-        detalle =
-          (json.code || 'Sin código') +
-
-          (json.message
-            ? ' — ' +
-              json.message
-            : '') +
-
-          (json.details
-            ? ' — ' +
-              json.details
-            : '') +
-
-          (json.hint
-            ? ' — ' +
-              json.hint
-            : '');
-
-      }catch(e){
-
-      }
-
-
-      estado.style.whiteSpace =
-        'pre-wrap';
-
-      estado.style.width =
-        'calc(100% - 32px)';
-
-      estado.style.maxWidth =
-        '720px';
-
-      estado.style.borderRadius =
-        '12px';
-
-      estado.style.textAlign =
-        'left';
-
-
-      estado.textContent =
-        '❌ Supabase HTTP ' +
-        respuesta.status +
-
-        '\n\n' +
-
-        'URL Supabase configurada:\n' +
-        urlSupabase +
-
-        '\n\n' +
-
-        'URL solicitada:\n' +
-        urlPeticion +
-
-        '\n\n' +
-
-        'URL final de la petición:\n' +
-        (respuesta.url ||
-          'No disponible') +
-
-        '\n\n' +
-
-        '¿Hubo redirección?: ' +
-        (
-          respuesta.redirected
-            ? 'SÍ'
-            : 'NO'
-        ) +
-
-        '\n\n' +
-
-        'Respuesta:\n' +
-        detalle;
-
-
-      console.error(
-        'Supabase diagnóstico detallado:',
-        {
-          supabaseUrl:
-            urlSupabase,
-
-          requestUrl:
-            urlPeticion,
-
-          finalUrl:
-            respuesta.url,
-
-          redirected:
-            respuesta.redirected,
-
-          status:
-            respuesta.status,
-
-          body:
-            texto
-        }
-      );
-
-      return;
-    }
-
-
-    estado.style.whiteSpace =
-      'normal';
-
-    estado.style.width =
-      'max-content';
-
-    estado.style.maxWidth =
-      '100%';
-
-    estado.style.textAlign =
-      'center';
-
-    estado.textContent =
-      '✅ Supabase responde correctamente';
-
-  }catch(error){
-
-    clearTimeout(
-      temporizador
-    );
-
-    console.error(
-      'Supabase diagnóstico:',
-      error
-    );
-
-
-    estado.style.whiteSpace =
-      'pre-wrap';
-
-    estado.style.textAlign =
-      'left';
-
-
-    if(error.name === 'AbortError'){
-
-      estado.textContent =
-        '❌ API de Supabase agotó el tiempo\n\n' +
-
-        'URL:\n' +
-
-        urlPeticion;
-
-    }else{
-
-      estado.textContent =
-        '❌ Error de red:\n' +
-
-        error.message +
-
-        '\n\n' +
-
-        'URL solicitada:\n' +
-
-        urlPeticion;
-    }
-  }
-}
-
-
-probarConexionSupabase();
-
-
-/* =========================================================
-   MÓDULOS
-   ========================================================= */
-
-function abrirModulo(nombre){
-
-  mostrarAviso(
-    nombre +
-    ': módulo preparado para desarrollarse con su sistema completo de lectura.'
-  );
-
-}
-
-
-/* =========================================================
-   AVISOS
-   ========================================================= */
-
-function mostrarAviso(texto){
-
-  const existente =
-    document.getElementById(
-      'roxthalAviso'
-    );
-
-  if(existente){
-
-    existente.remove();
-  }
-
-
-  const aviso =
-    document.createElement(
-      'div'
-    );
-
-  aviso.id =
-    'roxthalAviso';
-
-
-  aviso.style.cssText = `
-    position:fixed;
-    left:16px;
-    right:16px;
-    bottom:20px;
-    z-index:9999;
-    padding:16px 17px;
-    border:1px solid rgba(215,173,85,.35);
-    border-radius:16px;
-    background:#21182b;
-    color:#f5f0e7;
-    box-shadow:0 18px 45px rgba(0,0,0,.55);
-    font-size:13px;
-    line-height:1.5;
-  `;
-
-
-  aviso.textContent =
-    texto;
-
-
-  document.body.appendChild(
-    aviso
-  );
-
-
-  setTimeout(()=>{
-
-    if(aviso.parentNode){
-
-      aviso.remove();
-    }
-
-  },3500);
-
-}
-
-</script>
-
-<!-- =========================================================
-     REPARADOR — MÓDULOS ROXTHAL UNIVERSO ESOTÉRICO
-     ========================================================= -->
-
-<style>
-#rx-esoterico-modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:99999;
-}
-
-#rx-esoterico-modal.activo{
-  display:block;
-}
-
-.rx-esoterico-fondo{
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.82);
-  backdrop-filter:blur(6px);
-}
-
-.rx-esoterico-ventana{
-  position:relative;
-  width:min(720px,calc(100% - 24px));
-  max-height:calc(100vh - 24px);
-  overflow:auto;
-  margin:12px auto;
-  padding:24px 18px 30px;
-  border:1px solid rgba(215,173,85,.30);
-  border-radius:22px;
-  background:
-    radial-gradient(circle at top,rgba(215,173,85,.10),transparent 35%),
-    #110d19;
-  box-shadow:0 25px 80px rgba(0,0,0,.70);
-}
-
-.rx-esoterico-cerrar{
-  position:absolute;
-  top:10px;
-  right:10px;
-  width:40px;
-  height:40px;
-  border:1px solid rgba(215,173,85,.25);
-  border-radius:50%;
-  background:#21182b;
-  color:#f1d78b;
-  font-size:26px;
-}
-
-.rx-esoterico-icono{
-  font-size:42px;
-  margin-bottom:5px;
-}
-
-.rx-esoterico-ventana h2{
-  color:#f1d78b;
-  margin-bottom:7px;
-}
-
-.rx-esoterico-intro{
-  color:#aaa0b2;
-  font-size:13px;
-  line-height:1.55;
-  margin-bottom:18px;
-}
-
-.rx-esoterico-ventana label{
-  display:block;
-  margin:13px 0;
-  color:#f1d78b;
-  font-size:12px;
-  font-weight:700;
-}
-
-.rx-esoterico-ventana input,
-.rx-esoterico-ventana textarea,
-.rx-esoterico-ventana select{
-  display:block;
-  width:100%;
-  margin-top:6px;
-  padding:12px;
-  border:1px solid rgba(215,173,85,.22);
-  border-radius:12px;
-  background:#09070d;
-  color:#f5f0e7;
-  outline:none;
-}
-
-.rx-esoterico-ventana textarea{
-  resize:vertical;
-}
-
-.rx-esoterico-boton{
-  width:100%;
-  margin-top:10px;
-  padding:13px;
-  border:1px solid #d7ad55;
-  border-radius:12px;
-  background:linear-gradient(135deg,#b88c37,#e0bd69);
-  color:#17100a;
-  font-weight:800;
-}
-
-.rx-esoterico-resultado{
-  margin-top:18px;
-  padding:16px;
-  border:1px solid rgba(215,173,85,.22);
-  border-radius:15px;
-  background:rgba(0,0,0,.22);
-  line-height:1.6;
-}
-
-.rx-esoterico-resultado h3{
-  color:#f1d78b;
-  margin-bottom:9px;
-}
-
-.rx-esoterico-resultado p,
-.rx-esoterico-resultado li{
-  color:#aaa0b2;
-  font-size:13px;
-}
-
-.rx-esoterico-item{
-  padding:11px 0;
-  border-top:1px solid rgba(215,173,85,.12);
-}
-
-.rx-esoterico-item strong{
-  color:#fff;
-}
-
-@media(max-width:480px){
-  .rx-esoterico-ventana{
-    width:calc(100% - 14px);
-    max-height:calc(100vh - 14px);
-    margin:7px auto;
-    padding:22px 14px 25px;
-  }
-}
-</style>
-
-<script>
-(function(){
-
-"use strict";
-
-/* =========================================================
-   DATOS SIMBÓLICOS
-   ========================================================= */
-
-const RX_SIGNOS = [
-  "Aries","Tauro","Géminis","Cáncer","Leo","Virgo",
-  "Libra","Escorpio","Sagitario","Capricornio","Acuario","Piscis"
-];
-
-const RX_TAROT = [
-  "El Loco","El Mago","La Sacerdotisa","La Emperatriz",
-  "El Emperador","El Hierofante","Los Enamorados","El Carro",
-  "La Fuerza","El Ermitaño","La Rueda de la Fortuna","La Justicia",
-  "El Colgado","La Muerte","La Templanza","El Diablo",
-  "La Torre","La Estrella","La Luna","El Sol",
-  "El Juicio","El Mundo"
-];
-
-const RX_RUNAS = [
-  ["Fehu","recursos, comienzos y movimiento"],
-  ["Uruz","fuerza, transformación y resistencia"],
-  ["Thurisaz","protección, desafío y defensa"],
-  ["Ansuz","comunicación, conocimiento e intuición"],
-  ["Raidho","movimiento, dirección y recorrido"],
-  ["Kenaz","claridad, creatividad y comprensión"],
-  ["Gebo","intercambio, vínculo y reciprocidad"],
-  ["Wunjo","armonía, alegría y bienestar"],
-  ["Hagalaz","cambio inesperado y transformación"],
-  ["Nauthiz","necesidad, límites y aprendizaje"],
-  ["Isa","pausa, concentración y quietud"],
-  ["Jera","ciclo, proceso y cosecha"],
-  ["Eihwaz","resistencia, transición y transformación"],
-  ["Perthro","misterio, posibilidad y descubrimiento"],
-  ["Algiz","protección, límites y conciencia"],
-  ["Sowilo","claridad, energía y realización"],
-  ["Tiwaz","decisión, voluntad y dirección"],
-  ["Berkano","crecimiento, cuidado y renovación"],
-  ["Ehwaz","movimiento, confianza y adaptación"],
-  ["Mannaz","identidad, conciencia y relación"],
-  ["Laguz","fluidez, emociones e intuición"],
-  ["Ingwaz","gestación, cierre y renovación"],
-  ["Dagaz","despertar, cambio y claridad"],
-  ["Othala","raíces, pertenencia y legado"]
-];
-
-const RX_HEXAGRAMAS = [
- "El Creativo","Lo Receptivo","La Dificultad Inicial","La Inexperiencia",
- "La Espera","El Conflicto","El Ejército","La Solidaridad",
- "La Fuerza de lo Pequeño","La Marcha","La Paz","El Estancamiento",
- "La Comunidad","La Gran Posesión","La Modestia","El Entusiasmo",
- "El Seguimiento","El Trabajo sobre lo Corrompido","El Acercamiento",
- "La Contemplación","La Mordedura Tajante","La Gracia","La Disolución",
- "La Revolución","La Influencia","La Duración","El Poder de lo Grande",
- "El Abandono","Lo Abismal","Lo Adherente","La Influencia Mutua",
- "La Duración"
-];
-
-function rxEsc(texto){
-  return String(texto || "").replace(/[&<>"']/g,function(c){
-    return {
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      '"':"&quot;",
-      "'":"&#39;"
-    }[c];
-  });
-}
-
-function rxAleatorio(lista){
-  return lista[Math.floor(Math.random()*lista.length)];
-}
-
-function rxResultado(html){
-  const zona=document.getElementById("rxResultado");
-  if(zona){
-    zona.innerHTML='<div class="rx-esoterico-resultado">'+html+'</div>';
-  }
-}
-
-/* =========================================================
-   VENTANA
-   ========================================================= */
-
-function rxCrearVentana(){
-
-  if(document.getElementById("rx-esoterico-modal")){
-    return;
-  }
-
-  const modal=document.createElement("div");
-
-  modal.id="rx-esoterico-modal";
-
-  modal.innerHTML=`
-    <div class="rx-esoterico-fondo"
-         onclick="window.rxCerrarModulo()"></div>
-
-    <section class="rx-esoterico-ventana">
-
-      <button
-        class="rx-esoterico-cerrar"
-        onclick="window.rxCerrarModulo()"
-        aria-label="Cerrar">×</button>
-
-      <div id="rxModuloContenido"></div>
-
-    </section>
-  `;
-
-  document.body.appendChild(modal);
-}
-
-window.rxCerrarModulo=function(){
-
-  const modal=document.getElementById("rx-esoterico-modal");
-
-  if(modal){
-    modal.classList.remove("activo");
-  }
-
-  document.body.style.overflow="";
+document.body.style.overflow="hidden";
 };
 
 /* =========================================================
-   ABRIR MÓDULOS
-   ========================================================= */
-
-window.abrirModulo=function(nombre){
-
-  rxCrearVentana();
-
-  const contenido=document.getElementById("rxModuloContenido");
-
-  let html="";
-
-  if(nombre==="Zodíaco"){
-
-    html=`
-      <div class="rx-esoterico-icono">♈</div>
-      <h2>Zodíaco</h2>
-
-      <p class="rx-esoterico-intro">
-        Explora simbólicamente las características asociadas
-        a tu signo.
-      </p>
-
-      <label>
-        Tu signo
-        <select id="rxZodiacoSigno">
-          ${RX_SIGNOS.map(function(s){
-            return '<option>'+s+'</option>';
-          }).join("")}
-        </select>
-      </label>
-
-      <button class="rx-esoterico-boton"
-              onclick="window.rxLeerZodiaco()">
-        ✦ Realizar lectura
-      </button>
-
-      <div id="rxResultado"></div>
-    `;
-
-  }else if(nombre==="Tarot"){
-
-    html=`
-      <div class="rx-esoterico-icono">🃏</div>
-      <h2>Tarot</h2>
-
-      <p class="rx-esoterico-intro">
-        Realiza una tirada simbólica de una, tres o cinco cartas.
-      </p>
-
-      <label>
-        Pregunta
-        <textarea
-          id="rxTarotPregunta"
-          rows="3"
-          placeholder="Escribe tu pregunta..."></textarea>
-      </label>
-
-      <label>
-        Tirada
-        <select id="rxTarotCantidad">
-          <option value="1">1 carta</option>
-          <option value="3">3 cartas</option>
-          <option value="5">5 cartas</option>
-        </select>
-      </label>
-
-      <button class="rx-esoterico-boton"
-              onclick="window.rxLeerTarot()">
-        🃏 Realizar tirada
-      </button>
-
-      <div id="rxResultado"></div>
-    `;
-
-  }else if(nombre==="Runas"){
-
-    html=`
-      <div class="rx-esoterico-icono">ᚱ</div>
-      <h2>Runas</h2>
-
-      <p class="rx-esoterico-intro">
-        Selecciona una lectura de una, tres o cinco runas.
-      </p>
-
-      <label>
-        Consulta
-        <textarea
-          id="rxRunaPregunta"
-          rows="3"
-          placeholder="¿Qué deseas explorar?"></textarea>
-      </label>
-
-      <label>
-        Cantidad
-        <select id="rxRunaCantidad">
-          <option value="1">1 runa</option>
-          <option value="3">3 runas</option>
-          <option value="5">5 runas</option>
-        </select>
-      </label>
-
-      <button class="rx-esoterico-boton"
-              onclick="window.rxLeerRunas()">
-        ᚱ Realizar lectura
-      </button>
-
-      <div id="rxResultado"></div>
-    `;
-
-  }else if(nombre==="Carta Astral"){
-
-    html=`
-      <div class="rx-esoterico-icono">🌌</div>
-      <h2>Carta Astral</h2>
-
-      <p class="rx-esoterico-intro">
-        Introduce tus datos natales para comenzar una exploración
-        simbólica de tu carta.
-      </p>
-
-      <label>
-        Nombre
-        <input id="rxAstralNombre"
-               placeholder="Tu nombre">
-      </label>
-
-      <label>
-        Fecha de nacimiento
-        <input id="rxAstralFecha"
-               type="date">
-      </label>
-
-      <label>
-        Hora de nacimiento
-        <input id="rxAstralHora"
-               type="time">
-      </label>
-
-      <label>
-        Lugar de nacimiento
-        <input id="rxAstralLugar"
-               placeholder="Ciudad, país">
-      </label>
-
-      <button class="rx-esoterico-boton"
-              onclick="window.rxLeerAstral()">
-        🌌 Explorar carta
-      </button>
-
-      <div id="rxResultado"></div>
-    `;
-
-  }else if(nombre==="Numerología"){
-
-    html=`
-      <div class="rx-esoterico-icono">🔢</div>
-      <h2>Numerología</h2>
-
-      <p class="rx-esoterico-intro">
-        Calcula simbólicamente tu camino de vida a partir
-        de tu fecha de nacimiento.
-      </p>
-
-      <label>
-        Nombre completo
-        <input id="rxNumerologiaNombre"
-               placeholder="Nombre y apellidos">
-      </label>
-
-      <label>
-        Fecha de nacimiento
-        <input id="rxNumerologiaFecha"
-               type="date">
-      </label>
-
-      <button class="rx-esoterico-boton"
-              onclick="window.rxLeerNumerologia()">
-        🔢 Calcular
-      </button>
-
-      <div id="rxResultado"></div>
-    `;
-
-  }else if(nombre==="I Ching"){
-
-    html=`
-      <div class="rx-esoterico-icono">☯</div>
-      <h2>I Ching</h2>
-
-      <p class="rx-esoterico-intro">
-        Formula una pregunta y genera un hexagrama para
-        una lectura simbólica.
-      </p>
-
-      <label>
-        Pregunta
-        <textarea
-          id="rxIChingPregunta"
-          rows="4"
-          placeholder="Formula tu pregunta..."></textarea>
-      </label>
-
-      <button class="rx-esoterico-boton"
-              onclick="window.rxLeerIChing()">
-        ☯ Consultar
-      </button>
-
-      <div id="rxResultado"></div>
-    `;
-
-  }else if(nombre==="Péndulo"){
-
-    html=`
-      <div class="rx-esoterico-icono">🧿</div>
-      <h2>Péndulo</h2>
-
-      <p class="rx-esoterico-intro">
-        Consulta simbólica con resultado aleatorio.
-      </p>
-
-      <label>
-        Pregunta
-        <textarea
-          id="rxPenduloPregunta"
-          rows="3"
-          placeholder="Formula una pregunta de sí o no..."></textarea>
-      </label>
-
-      <button class="rx-esoterico-boton"
-              onclick="window.rxLeerPendulo()">
-        🧿 Consultar
-      </button>
-
-      <div id="rxResultado"></div>
-    `;
-
-  }else if(nombre==="Sueños"){
-
-    html=`
-      <div class="rx-esoterico-icono">🌙</div>
-      <h2>Sueños</h2>
-
-      <p class="rx-esoterico-intro">
-        Explora los símbolos y emociones presentes en un sueño.
-      </p>
-
-      <label>
-        Describe tu sueño
-        <textarea
-          id="rxSuenoTexto"
-          rows="7"
-          placeholder="Cuéntanos tu sueño con todos los detalles que recuerdes..."></textarea>
-      </label>
-
-      <button class="rx-esoterico-boton"
-              onclick="window.rxLeerSueno()">
-        🌙 Explorar sueño
-      </button>
-
-      <div id="rxResultado"></div>
-    `;
-
-  }else if(nombre==="Compatibilidad"){
-
-    html=`
-      <div class="rx-esoterico-icono">❤️</div>
-      <h2>Compatibilidad</h2>
-
-      <p class="rx-esoterico-intro">
-        Comparación simbólica entre dos signos.
-      </p>
-
-      <label>
-        Persona 1
-        <select id="rxCompat1">
-          ${RX_SIGNOS.map(function(s){
-            return '<option>'+s+'</option>';
-          }).join("")}
-        </select>
-      </label>
-
-      <label>
-        Persona 2
-        <select id="rxCompat2">
-          ${RX_SIGNOS.map(function(s){
-            return '<option>'+s+'</option>';
-          }).join("")}
-        </select>
-      </label>
-
-      <button class="rx-esoterico-boton"
-              onclick="window.rxLeerCompatibilidad()">
-        ❤️ Comparar
-      </button>
-
-      <div id="rxResultado"></div>
-    `;
-  }
-
-  contenido.innerHTML=html;
-
-  const modal=document.getElementById("rx-esoterico-modal");
-
-  modal.classList.add("activo");
-
-  document.body.style.overflow="hidden";
-};
-
-/* =========================================================
-   ZODÍACO
-   ========================================================= */
+ZODÍACO
+========================================================= */
 
 window.rxLeerZodiaco=function(){
 
-  const signo=document.getElementById("rxZodiacoSigno").value;
+const signo=document.getElementById("rxZodiacoSigno").value;
 
-  const textos={
-    Aries:"iniciativa, impulso y capacidad de abrir caminos.",
-    Tauro:"estabilidad, constancia y valoración de lo concreto.",
-    Géminis:"curiosidad, comunicación e intercambio de ideas.",
-    Cáncer:"sensibilidad, memoria y necesidad de pertenencia.",
-    Leo:"expresión, creatividad y confianza personal.",
-    Virgo:"observación, análisis y búsqueda de mejora.",
-    Libra:"equilibrio, vínculos y búsqueda de armonía.",
-    Escorpio:"profundidad, transformación y percepción intensa.",
-    Sagitario:"expansión, búsqueda de sentido y aventura.",
-    Capricornio:"disciplina, estructura y construcción a largo plazo.",
-    Acuario:"independencia, innovación y nuevas perspectivas.",
-    Piscis:"imaginación, sensibilidad e intuición."
-  };
+const textos={
+Aries:"iniciativa, impulso y capacidad de abrir caminos.",
+Tauro:"estabilidad, constancia y valoración de lo concreto.",
+Géminis:"curiosidad, comunicación e intercambio de ideas.",
+Cáncer:"sensibilidad, memoria y necesidad de pertenencia.",
+Leo:"expresión, creatividad y confianza personal.",
+Virgo:"observación, análisis y búsqueda de mejora.",
+Libra:"equilibrio, vínculos y búsqueda de armonía.",
+Escorpio:"profundidad, transformación y percepción intensa.",
+Sagitario:"expansión, búsqueda de sentido y aventura.",
+Capricornio:"disciplina, estructura y construcción a largo plazo.",
+Acuario:"independencia, innovación y nuevas perspectivas.",
+Piscis:"imaginación, sensibilidad e intuición."
+};
 
-  rxResultado(`
-    <h3>${rxEsc(signo)}</h3>
+rxResultado(`
+<h3>${rxEsc(signo)}</h3>
 
-    <p>
-      En esta lectura simbólica, ${rxEsc(signo)}
-      se asocia con ${textos[signo]}
-    </p>
+<p>  
+  En esta lectura simbólica, ${rxEsc(signo)}  
+  se asocia con ${textos[signo]}  
+</p>  
 
-    <div class="rx-esoterico-item">
-      <strong>Clave de reflexión</strong>
-      <p>
-        Observa cómo estas características aparecen,
-        se equilibran o se contradicen en tu experiencia personal.
-      </p>
-    </div>
+<div class="rx-esoterico-item">  
+  <strong>Clave de reflexión</strong>  
+  <p>  
+    Observa cómo estas características aparecen,  
+    se equilibran o se contradicen en tu experiencia personal.  
+  </p>  
+</div>  
 
-    <p>
-      ✦ Interpretación simbólica y recreativa.
-    </p>
-  `);
+<p>  
+  ✦ Interpretación simbólica y recreativa.  
+</p>
+
+`);
 };
 
 /* =========================================================
-   TAROT
-   ========================================================= */
+TAROT
+========================================================= */
 
 window.rxLeerTarot=function(){
 
-  const pregunta=document
-    .getElementById("rxTarotPregunta")
-    .value
-    .trim() || "tu consulta";
+const pregunta=document
+.getElementById("rxTarotPregunta")
+.value
+.trim() || "tu consulta";
 
-  const cantidad=Number(
-    document.getElementById("rxTarotCantidad").value
-  );
+const cantidad=Number(
+document.getElementById("rxTarotCantidad").value
+);
 
-  const posiciones=
-    cantidad===1
-      ? ["Mensaje central"]
-      : cantidad===3
-        ? ["Situación","Tendencia","Reflexión"]
-        : ["Origen","Situación","Desafío","Tendencia","Integración"];
+const posiciones=
+cantidad===1
+? ["Mensaje central"]
+: cantidad===3
+? ["Situación","Tendencia","Reflexión"]
+: ["Origen","Situación","Desafío","Tendencia","Integración"];
 
-  const cartas=[];
+const cartas=[];
 
-  while(cartas.length<cantidad){
+while(cartas.length<cantidad){
 
-    const carta=rxAleatorio(RX_TAROT);
+const carta=rxAleatorio(RX_TAROT);  
 
-    if(!cartas.includes(carta)){
-      cartas.push(carta);
-    }
-  }
+if(!cartas.includes(carta)){  
+  cartas.push(carta);  
+}
 
-  rxResultado(`
-    <h3>Tu tirada</h3>
+}
 
-    <p>
-      <strong>Consulta:</strong>
-      ${rxEsc(pregunta)}
-    </p>
+rxResultado(`
+<h3>Tu tirada</h3>
 
-    ${cartas.map(function(carta,i){
-      return `
-        <div class="rx-esoterico-item">
-          <strong>${posiciones[i]} · ${rxEsc(carta)}</strong>
-          <p>
-            Esta carta representa simbólicamente un aspecto
-            que puedes observar en relación con tu consulta.
-          </p>
-        </div>
-      `;
-    }).join("")}
+<p>  
+  <strong>Consulta:</strong>  
+  ${rxEsc(pregunta)}  
+</p>  
 
-    <p>
-      ✦ Esta tirada es simbólica y recreativa.
-    </p>
-  `);
+${cartas.map(function(carta,i){  
+  return `  
+    <div class="rx-esoterico-item">  
+      <strong>${posiciones[i]} · ${rxEsc(carta)}</strong>  
+      <p>  
+        Esta carta representa simbólicamente un aspecto  
+        que puedes observar en relación con tu consulta.  
+      </p>  
+    </div>  
+  `;  
+}).join("")}  
+
+<p>  
+  ✦ Esta tirada es simbólica y recreativa.  
+</p>
+
+`);
 };
 
 /* =========================================================
-   RUNAS
-   ========================================================= */
+RUNAS
+========================================================= */
 
 window.rxLeerRunas=function(){
 
-  const pregunta=document
-    .getElementById("rxRunaPregunta")
-    .value
-    .trim() || "tu consulta";
+const pregunta=document
+.getElementById("rxRunaPregunta")
+.value
+.trim() || "tu consulta";
 
-  const cantidad=Number(
-    document.getElementById("rxRunaCantidad").value
-  );
+const cantidad=Number(
+document.getElementById("rxRunaCantidad").value
+);
 
-  const posiciones=
-    cantidad===1
-      ? ["Mensaje"]
-      : cantidad===3
-        ? ["Pasado","Presente","Tendencia"]
-        : ["Origen","Situación","Desafío","Consejo","Integración"];
+const posiciones=
+cantidad===1
+? ["Mensaje"]
+: cantidad===3
+? ["Pasado","Presente","Tendencia"]
+: ["Origen","Situación","Desafío","Consejo","Integración"];
 
-  const usadas=[];
+const usadas=[];
 
-  while(usadas.length<cantidad){
+while(usadas.length<cantidad){
 
-    const indice=Math.floor(Math.random()*RX_RUNAS.length);
+const indice=Math.floor(Math.random()*RX_RUNAS.length);  
 
-    if(!usadas.includes(indice)){
-      usadas.push(indice);
-    }
-  }
+if(!usadas.includes(indice)){  
+  usadas.push(indice);  
+}
 
-  rxResultado(`
-    <h3>Lectura de Runas</h3>
+}
 
-    <p>
-      <strong>Consulta:</strong>
-      ${rxEsc(pregunta)}
-    </p>
+rxResultado(`
+<h3>Lectura de Runas</h3>
 
-    ${usadas.map(function(indice,i){
+<p>  
+  <strong>Consulta:</strong>  
+  ${rxEsc(pregunta)}  
+</p>  
 
-      const runa=RX_RUNAS[indice];
+${usadas.map(function(indice,i){  
 
-      return `
-        <div class="rx-esoterico-item">
-          <strong>
-            ${posiciones[i]} · ${runa[0]}
-          </strong>
+  const runa=RX_RUNAS[indice];  
 
-          <p>
-            Asociación simbólica:
-            ${runa[1]}.
-          </p>
-        </div>
-      `;
+  return `  
+    <div class="rx-esoterico-item">  
+      <strong>  
+        ${posiciones[i]} · ${runa[0]}  
+      </strong>  
 
-    }).join("")}
-  `);
+      <p>  
+        Asociación simbólica:  
+        ${runa[1]}.  
+      </p>  
+    </div>  
+  `;  
+
+}).join("")}
+
+`);
 };
 
 /* =========================================================
-   CARTA ASTRAL
-   ========================================================= */
+CARTA ASTRAL
+========================================================= */
 
 window.rxLeerAstral=function(){
 
-  const nombre=document
-    .getElementById("rxAstralNombre")
-    .value
-    .trim() || "Tu carta";
+const nombre=document
+.getElementById("rxAstralNombre")
+.value
+.trim() || "Tu carta";
 
-  const fecha=document
-    .getElementById("rxAstralFecha")
-    .value;
+const fecha=document
+.getElementById("rxAstralFecha")
+.value;
 
-  const hora=document
-    .getElementById("rxAstralHora")
-    .value;
+const hora=document
+.getElementById("rxAstralHora")
+.value;
 
-  const lugar=document
-    .getElementById("rxAstralLugar")
-    .value
-    .trim() || "lugar no indicado";
+const lugar=document
+.getElementById("rxAstralLugar")
+.value
+.trim() || "lugar no indicado";
 
-  if(!fecha){
+if(!fecha){
 
-    rxResultado(`
-      <p>
-        Indica tu fecha de nacimiento para comenzar.
-      </p>
-    `);
+rxResultado(`  
+  <p>  
+    Indica tu fecha de nacimiento para comenzar.  
+  </p>  
+`);  
 
-    return;
-  }
+return;
 
-  const fechaObj=new Date(fecha+"T12:00:00");
+}
 
-  const mes=fechaObj.getMonth();
+const fechaObj=new Date(fecha+"T12:00:00");
 
-  const signos=[
-    "Aries","Tauro","Géminis","Cáncer",
-    "Leo","Virgo","Libra","Escorpio",
-    "Sagitario","Capricornio","Acuario","Piscis"
-  ];
+const mes=fechaObj.getMonth();
 
-  const signo=signos[mes];
+const signos=[
+"Aries","Tauro","Géminis","Cáncer",
+"Leo","Virgo","Libra","Escorpio",
+"Sagitario","Capricornio","Acuario","Piscis"
+];
 
-  rxResultado(`
-    <h3>${rxEsc(nombre)}</h3>
+const signo=signos[mes];
 
-    <div class="rx-esoterico-item">
-      <strong>Datos introducidos</strong>
+rxResultado(`
+<h3>${rxEsc(nombre)}</h3>
 
-      <p>
-        Fecha: ${rxEsc(fecha)}
-        ${hora ? " · Hora: "+rxEsc(hora) : ""}
-        · Lugar: ${rxEsc(lugar)}
-      </p>
-    </div>
+<div class="rx-esoterico-item">  
+  <strong>Datos introducidos</strong>  
 
-    <div class="rx-esoterico-item">
-      <strong>Exploración inicial</strong>
+  <p>  
+    Fecha: ${rxEsc(fecha)}  
+    ${hora ? " · Hora: "+rxEsc(hora) : ""}  
+    · Lugar: ${rxEsc(lugar)}  
+  </p>  
+</div>  
 
-      <p>
-        Esta primera versión identifica una referencia
-        zodiacal inicial. Para una carta astral completa
-        serán necesarios cálculos astronómicos precisos
-        de planetas, casas, aspectos y ascendente.
-      </p>
-    </div>
+<div class="rx-esoterico-item">  
+  <strong>Exploración inicial</strong>  
 
-    <p>
-      ✦ No se inventan posiciones astronómicas que todavía
-      no hayan sido calculadas.
-    </p>
-  `);
+  <p>  
+    Esta primera versión identifica una referencia  
+    zodiacal inicial. Para una carta astral completa  
+    serán necesarios cálculos astronómicos precisos  
+    de planetas, casas, aspectos y ascendente.  
+  </p>  
+</div>  
+
+<p>  
+  ✦ No se inventan posiciones astronómicas que todavía  
+  no hayan sido calculadas.  
+</p>
+
+`);
 };
 
 /* =========================================================
-   NUMEROLOGÍA
-   ========================================================= */
+NUMEROLOGÍA
+========================================================= */
 
 function rxReducirNumero(numero){
 
-  while(
-    numero>9 &&
-    numero!==11 &&
-    numero!==22 &&
-    numero!==33
-  ){
+while(
+numero>9 &&
+numero!==11 &&
+numero!==22 &&
+numero!==33
+){
 
-    numero=String(numero)
-      .split("")
-      .reduce(function(total,digito){
-        return total+Number(digito);
-      },0);
-  }
+numero=String(numero)  
+  .split("")  
+  .reduce(function(total,digito){  
+    return total+Number(digito);  
+  },0);
 
-  return numero;
+}
+
+return numero;
 }
 
 window.rxLeerNumerologia=function(){
 
-  const nombre=document
-    .getElementById("rxNumerologiaNombre")
-    .value
-    .trim();
+const nombre=document
+.getElementById("rxNumerologiaNombre")
+.value
+.trim();
 
-  const fecha=document
-    .getElementById("rxNumerologiaFecha")
-    .value;
+const fecha=document
+.getElementById("rxNumerologiaFecha")
+.value;
 
-  if(!nombre || !fecha){
+if(!nombre || !fecha){
 
-    rxResultado(`
-      <p>
-        Introduce nombre completo y fecha de nacimiento.
-      </p>
-    `);
+rxResultado(`  
+  <p>  
+    Introduce nombre completo y fecha de nacimiento.  
+  </p>  
+`);  
 
-    return;
-  }
+return;
 
-  const numeros=fecha
-    .replace(/-/g,"")
-    .split("")
-    .reduce(function(total,digito){
-      return total+Number(digito);
-    },0);
+}
 
-  const camino=rxReducirNumero(numeros);
+const numeros=fecha
+.replace(/-/g,"")
+.split("")
+.reduce(function(total,digito){
+return total+Number(digito);
+},0);
 
-  rxResultado(`
-    <h3>${rxEsc(nombre)}</h3>
+const camino=rxReducirNumero(numeros);
 
-    <div class="rx-esoterico-item">
-      <strong>
-        Camino de vida simbólico: ${camino}
-      </strong>
+rxResultado(`
+<h3>${rxEsc(nombre)}</h3>
 
-      <p>
-        Resultado obtenido mediante reducción numerológica
-        de la fecha indicada.
-      </p>
-    </div>
+<div class="rx-esoterico-item">  
+  <strong>  
+    Camino de vida simbólico: ${camino}  
+  </strong>  
 
-    <p>
-      ✦ La numerología se presenta como herramienta
-      simbólica y recreativa.
-    </p>
-  `);
+  <p>  
+    Resultado obtenido mediante reducción numerológica  
+    de la fecha indicada.  
+  </p>  
+</div>  
+
+<p>  
+  ✦ La numerología se presenta como herramienta  
+  simbólica y recreativa.  
+</p>
+
+`);
 };
 
 /* =========================================================
-   I CHING
-   ========================================================= */
+I CHING
+========================================================= */
 
 window.rxLeerIChing=function(){
 
-  const pregunta=document
-    .getElementById("rxIChingPregunta")
-    .value
-    .trim() || "tu consulta";
+const pregunta=document
+.getElementById("rxIChingPregunta")
+.value
+.trim() || "tu consulta";
 
-  const numero=Math.floor(Math.random()*64)+1;
+const numero=Math.floor(Math.random()*64)+1;
 
-  const nombre=
-    RX_HEXAGRAMAS[(numero-1)%RX_HEXAGRAMAS.length];
+const nombre=
+RX_HEXAGRAMAS[(numero-1)%RX_HEXAGRAMAS.length];
 
-  const mutantes=Math.floor(Math.random()*4);
+const mutantes=Math.floor(Math.random()*4);
 
-  rxResultado(`
-    <h3>
-      Hexagrama ${numero} · ${rxEsc(nombre)}
-    </h3>
+rxResultado(`
+<h3>
+Hexagrama ${numero} · ${rxEsc(nombre)}
+</h3>
 
-    <p>
-      <strong>Consulta:</strong>
-      ${rxEsc(pregunta)}
-    </p>
+<p>  
+  <strong>Consulta:</strong>  
+  ${rxEsc(pregunta)}  
+</p>  
 
-    <div class="rx-esoterico-item">
-      <strong>Líneas mutantes simbólicas</strong>
+<div class="rx-esoterico-item">  
+  <strong>Líneas mutantes simbólicas</strong>  
 
-      <p>
-        ${mutantes}
-      </p>
-    </div>
+  <p>  
+    ${mutantes}  
+  </p>  
+</div>  
 
-    <p>
-      La lectura invita a observar el contexto,
-      los cambios posibles y la actitud con la que
-      afrontas la situación.
-    </p>
-  `);
+<p>  
+  La lectura invita a observar el contexto,  
+  los cambios posibles y la actitud con la que  
+  afrontas la situación.  
+</p>
+
+`);
 };
 
 /* =========================================================
-   PÉNDULO
-   ========================================================= */
+PÉNDULO
+========================================================= */
 
 window.rxLeerPendulo=function(){
 
-  const pregunta=document
-    .getElementById("rxPenduloPregunta")
-    .value
-    .trim() || "tu consulta";
+const pregunta=document
+.getElementById("rxPenduloPregunta")
+.value
+.trim() || "tu consulta";
 
-  const respuesta=rxAleatorio([
-    "SÍ",
-    "NO",
-    "INCERTIDUMBRE"
-  ]);
+const respuesta=rxAleatorio([
+"SÍ",
+"NO",
+"INCERTIDUMBRE"
+]);
 
-  rxResultado(`
-    <h3>
-      Resultado simbólico: ${respuesta}
-    </h3>
+rxResultado(`
+<h3>
+Resultado simbólico: ${respuesta}
+</h3>
 
-    <p>
-      <strong>Pregunta:</strong>
-      ${rxEsc(pregunta)}
-    </p>
+<p>  
+  <strong>Pregunta:</strong>  
+  ${rxEsc(pregunta)}  
+</p>  
 
-    <p>
-      El resultado se genera de forma aleatoria
-      con finalidad recreativa y de reflexión.
-    </p>
+<p>  
+  El resultado se genera de forma aleatoria  
+  con finalidad recreativa y de reflexión.  
+</p>  
 
-    <p>
-      No debe utilizarse como sustituto de información
-      profesional ni para decisiones importantes.
-    </p>
-  `);
+<p>  
+  No debe utilizarse como sustituto de información  
+  profesional ni para decisiones importantes.  
+</p>
+
+`);
 };
 
 /* =========================================================
-   SUEÑOS
-   ========================================================= */
+SUEÑOS
+========================================================= */
 
 window.rxLeerSueno=function(){
 
-  const texto=document
-    .getElementById("rxSuenoTexto")
-    .value
-    .trim();
+const texto=document
+.getElementById("rxSuenoTexto")
+.value
+.trim();
 
-  if(!texto){
+if(!texto){
 
-    rxResultado(`
-      <p>
-        Describe primero tu sueño.
-      </p>
-    `);
+rxResultado(`  
+  <p>  
+    Describe primero tu sueño.  
+  </p>  
+`);  
 
-    return;
-  }
+return;
 
-  const textoMinus=texto.toLowerCase();
+}
 
-  const simbolos=[
-    ["agua","emociones, adaptación y profundidad"],
-    ["casa","espacio personal, seguridad y recuerdos"],
-    ["vuelo","libertad, perspectiva y deseo de expansión"],
-    ["caída","cambio, temor o sensación de pérdida de control"],
-    ["animal","instinto y aspectos emocionales"],
-    ["oscuridad","incertidumbre o aspectos aún no explorados"],
-    ["camino","dirección, decisiones y recorrido"],
-    ["persona","vínculos, recuerdos o representación simbólica"]
-  ];
+const textoMinus=texto.toLowerCase();
 
-  const encontrados=[];
+const simbolos=[
+["agua","emociones, adaptación y profundidad"],
+["casa","espacio personal, seguridad y recuerdos"],
+["vuelo","libertad, perspectiva y deseo de expansión"],
+["caída","cambio, temor o sensación de pérdida de control"],
+["animal","instinto y aspectos emocionales"],
+["oscuridad","incertidumbre o aspectos aún no explorados"],
+["camino","dirección, decisiones y recorrido"],
+["persona","vínculos, recuerdos o representación simbólica"]
+];
 
-  simbolos.forEach(function(item){
+const encontrados=[];
 
-    if(textoMinus.includes(item[0])){
-      encontrados.push(item);
-    }
+simbolos.forEach(function(item){
 
-  });
+if(textoMinus.includes(item[0])){  
+  encontrados.push(item);  
+}
 
-  rxResultado(`
-    <h3>Exploración simbólica</h3>
+});
 
-    ${
-      encontrados.length
-      ? encontrados.map(function(item){
-          return `
-            <div class="rx-esoterico-item">
-              <strong>${rxEsc(item[0])}</strong>
-              <p>${rxEsc(item[1])}</p>
-            </div>
-          `;
-        }).join("")
-      : `
-        <p>
-          No se detectaron símbolos de la lista inicial.
-          Esto no significa que el sueño carezca de significado.
-        </p>
-      `
-    }
+rxResultado(`
+<h3>Exploración simbólica</h3>
 
-    <div class="rx-esoterico-item">
-      <strong>Pregunta de reflexión</strong>
-      <p>
-        ¿Qué emoción fue la más intensa durante el sueño
-        y qué relación podría tener con tu momento actual?
-      </p>
-    </div>
-  `);
+${  
+  encontrados.length  
+  ? encontrados.map(function(item){  
+      return `  
+        <div class="rx-esoterico-item">  
+          <strong>${rxEsc(item[0])}</strong>  
+          <p>${rxEsc(item[1])}</p>  
+        </div>  
+      `;  
+    }).join("")  
+  : `  
+    <p>  
+      No se detectaron símbolos de la lista inicial.  
+      Esto no significa que el sueño carezca de significado.  
+    </p>  
+  `  
+}  
+
+<div class="rx-esoterico-item">  
+  <strong>Pregunta de reflexión</strong>  
+  <p>  
+    ¿Qué emoción fue la más intensa durante el sueño  
+    y qué relación podría tener con tu momento actual?  
+  </p>  
+</div>
+
+`);
 };
 
 /* =========================================================
-   COMPATIBILIDAD
-   ========================================================= */
+COMPATIBILIDAD
+========================================================= */
 
 window.rxLeerCompatibilidad=function(){
 
-  const persona1=
-    document.getElementById("rxCompat1").value;
+const persona1=
+document.getElementById("rxCompat1").value;
 
-  const persona2=
-    document.getElementById("rxCompat2").value;
+const persona2=
+document.getElementById("rxCompat2").value;
 
-  let texto;
+let texto;
 
-  if(persona1===persona2){
+if(persona1===persona2){
 
-    texto=
-      "Ambas personas comparten el mismo signo en esta comparación simbólica. Esto puede utilizarse como punto de reflexión sobre similitudes y necesidades compartidas.";
+texto=  
+  "Ambas personas comparten el mismo signo en esta comparación simbólica. Esto puede utilizarse como punto de reflexión sobre similitudes y necesidades compartidas.";
 
-  }else{
+}else{
 
-    texto=
-      "Los signos son diferentes. La lectura puede enfocarse en complementariedades, contrastes y formas de comunicación.";
+texto=  
+  "Los signos son diferentes. La lectura puede enfocarse en complementariedades, contrastes y formas de comunicación.";
 
-  }
+}
 
-  rxResultado(`
-    <h3>
-      ${rxEsc(persona1)} + ${rxEsc(persona2)}
-    </h3>
+rxResultado(`
+<h3>
+${rxEsc(persona1)} + ${rxEsc(persona2)}
+</h3>
 
-    <p>${texto}</p>
+<p>${texto}</p>  
 
-    <div class="rx-esoterico-item">
-      <strong>Clave de la relación</strong>
-      <p>
-        La comunicación clara, el respeto mutuo,
-        los límites y las experiencias reales tienen
-        mayor importancia que cualquier clasificación simbólica.
-      </p>
-    </div>
+<div class="rx-esoterico-item">  
+  <strong>Clave de la relación</strong>  
+  <p>  
+    La comunicación clara, el respeto mutuo,  
+    los límites y las experiencias reales tienen  
+    mayor importancia que cualquier clasificación simbólica.  
+  </p>  
+</div>  
 
-    <p>
-      ✦ Comparación simbólica y recreativa.
-    </p>
-  `);
+<p>  
+  ✦ Comparación simbólica y recreativa.  
+</p>
+
+`);
 };
 
 })();
 </script>
 
-<!-- =========================================================
-     FIN REPARADOR
-     ========================================================= -->
-
-<!-- =========================================================
-     ROXTHAL — MOTOR ASTROLÓGICO
-     ========================================================= -->
-
-<script src="roxthal-astrology-engine.js?v=20260917"></script>
-
-<!-- =========================================================
-     FIN MOTOR ASTROLÓGICO
-     ========================================================= -->
-
-</body>
+<!-- =========================================================  
+     FIN REPARADOR  
+     ========================================================= -->     <!-- =========================================================  
+     ROXTHAL — CARGADOR DEL MOTOR ASTROLÓGICO  
+     ========================================================= -->  <script>  
+(function () {  
+  'use strict';  
+  
+  /*  
+   * Carga el motor astronómico/astrológico DESPUÉS  
+   * de todos los reparadores existentes.  
+   *  
+   * Esto es importante porque el motor necesita ser  
+   * el último que controle abrirModulo('Zodíaco').  
+   */  
+  
+  if (window.RoXThalAstro) {  
+    console.log(  
+      'RoXThal Astro: el motor ya estaba cargado.'  
+    );  
+    return;  
+  }  
+  
+  const existente = document.querySelector(  
+    'script[data-roxthal-astrology-engine]'  
+  );  
+  
+  if (existente) {  
+    console.log(  
+      'RoXThal Astro: el cargador ya existe.'  
+    );  
+    return;  
+  }  
+  
+  const script = document.createElement('script');  
+  
+  script.src = 'roxthal-astrology-engine.js';  
+  
+  script.async = false;  
+  
+  script.dataset.roxthalAstrologyEngine = '1';  
+  
+  script.onload = function () {  
+  
+    console.log(  
+      'RoXThal Astro: motor astrológico cargado correctamente.',  
+      window.RoXThalAstro || 'API todavía no disponible'  
+    );  
+  
+  };  
+  
+  script.onerror = function () {  
+  
+    console.error(  
+      'RoXThal Astro: NO se pudo cargar roxthal-astrology-engine.js'  
+    );  
+  
+    if (typeof window.mostrarAviso === 'function') {  
+  
+      window.mostrarAviso(  
+        '❌ No se pudo cargar el motor astrológico.'  
+      );  
+  
+    }  
+  
+  };  
+  
+  document.body.appendChild(script);  
+  
+})();  
+</script>  <!-- =========================================================  
+     FIN CARGADOR DEL MOTOR ASTROLÓGICO  
+     ========================================================= -->  </body>  
 </html>
