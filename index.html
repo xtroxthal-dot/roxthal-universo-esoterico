@@ -8757,5 +8757,113 @@ body::before{
 <!-- =========================================================
      FIN ROXTHAL PREMIUM VISUAL SYSTEM V1
      ========================================================= -->
+   <!-- =========================================================
+     RoXThal Universo Esotérico — Integración del logo
+     ========================================================= -->
+<style id="roxthal-esoterico-logo-fix">
+  .rx-logo-pro{
+    width:104px !important;
+    height:104px !important;
+    padding:8px !important;
+    box-sizing:border-box !important;
+    border:1px solid rgba(215,173,85,.75) !important;
+    border-radius:50% !important;
+    background:
+      radial-gradient(
+        circle,
+        rgba(215,173,85,.12) 0%,
+        rgba(9,7,13,.92) 68%,
+        rgba(9,7,13,1) 100%
+      ) !important;
+    box-shadow:
+      0 0 0 5px rgba(215,173,85,.035),
+      0 0 32px rgba(215,173,85,.20),
+      inset 0 0 22px rgba(215,173,85,.10) !important;
+    object-fit:contain !important;
+    display:block !important;
+  }
+
+  .rx-logo-pro-wrap{
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center !important;
+    position:relative !important;
+  }
+
+  .rx-logo-pro-wrap::before{
+    content:"" !important;
+    position:absolute !important;
+    width:114px !important;
+    height:114px !important;
+    border:1px solid rgba(215,173,85,.18) !important;
+    border-radius:50% !important;
+    pointer-events:none !important;
+  }
+
+  @media (max-width:480px){
+    .rx-logo-pro{
+      width:92px !important;
+      height:92px !important;
+    }
+
+    .rx-logo-pro-wrap::before{
+      width:102px !important;
+      height:102px !important;
+    }
+  }
+</style>
+
+<script>
+(function(){
+  "use strict";
+
+  function integrarLogoRoXThal(){
+
+    /* Evita duplicarlo si el reparador se ejecuta nuevamente */
+    if(document.querySelector(".rx-logo-pro")) return;
+
+    /*
+      Buscamos el símbolo lunar actual de la cabecera.
+      No eliminamos ni modificamos otros elementos.
+    */
+    const candidatos = Array.from(
+      document.querySelectorAll("*")
+    ).filter(function(el){
+      return el.children.length === 0 &&
+             el.textContent.trim() === "☾";
+    });
+
+    if(!candidatos.length) return;
+
+    const simbolo = candidatos[0];
+
+    const contenedor = document.createElement("div");
+    contenedor.className = "rx-logo-pro-wrap";
+
+    const logo = document.createElement("img");
+    logo.className = "rx-logo-pro";
+    logo.src = "logo-esoterico.png";
+    logo.alt = "RoXThal Universo Esotérico";
+    logo.loading = "eager";
+    logo.decoding = "async";
+
+    contenedor.appendChild(logo);
+
+    simbolo.replaceWith(contenedor);
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener(
+      "DOMContentLoaded",
+      integrarLogoRoXThal,
+      {once:true}
+    );
+  }else{
+    integrarLogoRoXThal();
+  }
+
+})();
+</script>
+<!-- Fin integración logo RoXThal -->
 </body>
 </html>
