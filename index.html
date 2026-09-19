@@ -2563,9 +2563,7 @@ function crearSintesis(cartas){
 window.abrirTarotProfesional=function(){
 
   const contenido=
-    document.getElementById(
-      "rxModuloContenido"
-    );
+    document.getElementById("rxModuloContenido");
 
   if(!contenido){
     return;
@@ -2573,57 +2571,222 @@ window.abrirTarotProfesional=function(){
 
   contenido.innerHTML=`
 
-    <div class="rx-esoterico-icono">🃏</div>
+    <section class="rx-tarot-entry">
 
-    <h2>Tarot</h2>
+      <div class="rx-tarot-entry-aura"></div>
 
-    <p class="rx-esoterico-intro">
-      Realiza una lectura simbólica utilizando las
-      78 cartas del Tarot. Formula una pregunta,
-      elige la extensión de la tirada y observa
-      la relación entre las cartas.
-    </p>
+      <div class="rx-tarot-entry-kicker">
+        ✦ ARCANA ROXTHAL ✦
+      </div>
 
-    <label>
-      Tu pregunta
-      <textarea
-        id="rxTarotPregunta"
-        rows="4"
-        placeholder="¿Qué deseas explorar?"></textarea>
-    </label>
+      <div class="rx-tarot-entry-symbol">
+        <span>✦</span>
+        🃏
+        <span>✦</span>
+      </div>
 
-    <label>
-      Tipo de tirada
+      <h2 class="rx-tarot-entry-title">
+        TAROT
+      </h2>
 
-      <select id="rxTarotCantidad">
+      <div class="rx-tarot-entry-line"></div>
 
-        <option value="1">
-          1 carta · Mensaje central
-        </option>
+      <p class="rx-tarot-entry-intro">
+        Una lectura simbólica profunda para explorar aquello
+        que hoy necesita tu atención.
+      </p>
 
-        <option value="3">
-          3 cartas · Situación · Desarrollo · Reflexión
-        </option>
+      <div class="rx-tarot-entry-note">
+        <span>78</span>
+        <div>
+          <strong>ARCANOS</strong>
+          <small>Mayores y Menores</small>
+        </div>
+      </div>
 
-        <option value="5">
-          5 cartas · Lectura ampliada
-        </option>
+      <div class="rx-tarot-entry-question">
 
-      </select>
+        <label for="rxTarotPregunta">
+          <span class="rx-tarot-label-number">01</span>
+          <span>
+            TU CONSULTA
+            <small>Formula aquello que deseas explorar</small>
+          </span>
+        </label>
 
-    </label>
+        <textarea
+          id="rxTarotPregunta"
+          rows="5"
+          maxlength="600"
+          placeholder="¿Qué deseas saber, comprender o explorar en este momento?"
+        ></textarea>
 
-    <button
-      class="rx-esoterico-boton"
-      onclick="window.rxLeerTarotProfesional()">
+        <div class="rx-tarot-counter">
+          <span>Tu pregunta orienta la lectura</span>
+          <span id="rxTarotPreguntaContador">0 / 600</span>
+        </div>
 
-      🃏 Realizar tirada
+      </div>
 
-    </button>
+      <div class="rx-tarot-entry-question">
 
-    <div id="rxTarotResultado"></div>
+        <div class="rx-tarot-entry-section-title">
+          <span class="rx-tarot-label-number">02</span>
+          <span>
+            ELIGE LA EXTENSIÓN
+            <small>Selecciona la profundidad de tu consulta</small>
+          </span>
+        </div>
+
+        <select id="rxTarotCantidad" aria-label="Extensión de la tirada">
+
+          <option value="1">
+            1 carta
+          </option>
+
+          <option value="3" selected>
+            3 cartas
+          </option>
+
+          <option value="5">
+            5 cartas
+          </option>
+
+        </select>
+
+        <div class="rx-tarot-spreads">
+
+          <button
+            type="button"
+            class="rx-tarot-spread"
+            data-tarot-cantidad="1"
+            onclick="window.rxSeleccionarTiradaTarot(1)">
+
+            <span class="rx-tarot-spread-number">I</span>
+
+            <strong>UNA CARTA</strong>
+
+            <small>
+              Mensaje central
+            </small>
+
+          </button>
+
+          <button
+            type="button"
+            class="rx-tarot-spread activo"
+            data-tarot-cantidad="3"
+            onclick="window.rxSeleccionarTiradaTarot(3)">
+
+            <span class="rx-tarot-spread-number">III</span>
+
+            <strong>TRES CARTAS</strong>
+
+            <small>
+              Situación · Desarrollo · Reflexión
+            </small>
+
+          </button>
+
+          <button
+            type="button"
+            class="rx-tarot-spread"
+            data-tarot-cantidad="5"
+            onclick="window.rxSeleccionarTiradaTarot(5)">
+
+            <span class="rx-tarot-spread-number">V</span>
+
+            <strong>CINCO CARTAS</strong>
+
+            <small>
+              Lectura ampliada
+            </small>
+
+          </button>
+
+        </div>
+
+      </div>
+
+      <button
+        type="button"
+        class="rx-tarot-entry-action"
+        onclick="window.rxLeerTarotProfesional()">
+
+        <span class="rx-tarot-action-symbol">✦</span>
+
+        <span>
+          REALIZAR LECTURA
+          <small>Abrir la lectura de Tarot</small>
+        </span>
+
+        <span class="rx-tarot-action-arrow">→</span>
+
+      </button>
+
+      <div class="rx-tarot-entry-footer">
+        <span>ARCANOS · SÍMBOLOS · INTUICIÓN</span>
+        <span>✦</span>
+        <span>LECTURA SIMBÓLICA</span>
+      </div>
+
+    </section>
 
   `;
+
+  const pregunta=
+    document.getElementById("rxTarotPregunta");
+
+  const contador=
+    document.getElementById("rxTarotPreguntaContador");
+
+  if(pregunta && contador){
+
+    const actualizarContador=function(){
+
+      contador.textContent=
+        pregunta.value.length +
+        " / 600";
+
+    };
+
+    pregunta.addEventListener(
+      "input",
+      actualizarContador
+    );
+
+    actualizarContador();
+
+  }
+
+  window.rxSeleccionarTiradaTarot=function(cantidad){
+
+    const selector=
+      document.getElementById("rxTarotCantidad");
+
+    if(!selector){
+      return;
+    }
+
+    selector.value=
+      String(cantidad);
+
+    document
+      .querySelectorAll(
+        ".rx-tarot-spread"
+      )
+      .forEach(function(boton){
+
+        boton.classList.toggle(
+          "activo",
+          boton.getAttribute(
+            "data-tarot-cantidad"
+          ) === String(cantidad)
+        );
+
+      });
+
+  };
 
 };
 
