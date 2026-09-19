@@ -2674,10 +2674,7 @@ window.rxLeerTarotProfesional=function(){
 
   let area="general";
 
-  if(
-    /amor|pareja|relación|relacion|sentimiento|afecto|
-     vínculo|vinculo|romance|familia/.test(textoPregunta)
-  ){
+    if(/amor|pareja|relación|relacion|sentimiento|afecto|vínculo|vinculo|romance|familia/.test(textoPregunta)){
     area="vínculos";
   }
   else if(
