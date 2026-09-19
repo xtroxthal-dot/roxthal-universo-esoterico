@@ -2627,27 +2627,16 @@ window.abrirTarotProfesional=function(){
 
 };
 
-
-/* =========================================================
-   LECTURA PROFESIONAL
-   ========================================================= */
-
 window.rxLeerTarotProfesional=function(){
 
   const preguntaElement=
-    document.getElementById(
-      "rxTarotPregunta"
-    );
+    document.getElementById("rxTarotPregunta");
 
   const cantidadElement=
-    document.getElementById(
-      "rxTarotCantidad"
-    );
+    document.getElementById("rxTarotCantidad");
 
   const resultado=
-    document.getElementById(
-      "rxTarotResultado"
-    );
+    document.getElementById("rxTarotResultado");
 
   if(!preguntaElement ||
      !cantidadElement ||
@@ -2661,9 +2650,7 @@ window.rxLeerTarotProfesional=function(){
     "Consulta general";
 
   const cantidad=
-    Number(
-      cantidadElement.value
-    );
+    Number(cantidadElement.value);
 
   const cartas=
     sacarCartas(cantidad);
@@ -2671,32 +2658,170 @@ window.rxLeerTarotProfesional=function(){
   const posiciones=
     posicionesTarot[cantidad];
 
+  if(!cartas.length){
+    return;
+  }
+
+  /*
+   * Contexto simbólico de la consulta.
+   * No pretende predecir acontecimientos:
+   * relaciona el lenguaje de la pregunta
+   * con los elementos presentes en la tirada.
+   */
+
+  const textoPregunta=
+    pregunta.toLowerCase();
+
+  let area="general";
+
+  if(
+    /amor|pareja|relación|relacion|sentimiento|afecto|
+     vínculo|vinculo|romance|familia/.test(textoPregunta)
+  ){
+    area="vínculos";
+  }
+  else if(
+    /trabajo|empleo|profesión|profesion|negocio|
+     dinero|economía|economia|proyecto|estudio/.test(textoPregunta)
+  ){
+    area="proyecto y materia";
+  }
+  else if(
+    /cambio|decisión|decision|camino|futuro|
+     avanzar|elección|eleccion|oportunidad/.test(textoPregunta)
+  ){
+    area="decisión y cambio";
+  }
+  else if(
+    /yo|personal|vida|crecer|sanar|energía|energia|
+     propósito|proposito|miedo|confianza/.test(textoPregunta)
+  ){
+    area="proceso personal";
+  }
+
+  const mayors=
+    cartas.filter(function(item){
+      return item.carta.palo==="Arcano Mayor";
+    }).length;
+
+  const invertidas=
+    cartas.filter(function(item){
+      return item.invertida;
+    }).length;
+
+  const directas=
+    cartas.length-invertidas;
+
+  /*
+   * Construcción visual de las cartas.
+   */
+
   let html=`
 
     <div class="rx-tarot-profesional">
 
       <div class="rx-tarot-lectura">
 
-        <h3>✦ Lectura realizada</h3>
+        <div style="
+          display:flex;
+          justify-content:space-between;
+          align-items:flex-start;
+          gap:14px;
+          flex-wrap:wrap;
+        ">
+
+          <div>
+
+            <div style="
+              font-size:.72rem;
+              letter-spacing:.18em;
+              text-transform:uppercase;
+              color:var(--gold2);
+              margin-bottom:7px;
+            ">
+              LECTURA ROXTHAL
+            </div>
+
+            <h3>✦ Tu lectura de Tarot</h3>
+
+          </div>
+
+          <div style="
+            padding:7px 11px;
+            border:1px solid rgba(215,173,85,.28);
+            border-radius:999px;
+            font-size:.72rem;
+            color:var(--gold2);
+            white-space:nowrap;
+          ">
+            ${cantidad} ${cantidad===1?"carta":"cartas"}
+          </div>
+
+        </div>
 
         <p>
-          <strong>Consulta:</strong>
-          ${rxEsc(pregunta)}
+          <strong>Consulta</strong>
         </p>
 
-        <p style="margin-top:7px">
-          Se han seleccionado
-          ${cantidad}
-          ${cantidad===1?"carta":"cartas"}
-          de una baraja completa de 78 cartas,
-          sin repetir cartas dentro de esta tirada.
+        <p style="
+          margin-top:-4px;
+          font-size:1.02rem;
+          line-height:1.65;
+        ">
+          “${rxEsc(pregunta)}”
         </p>
+
+        <div style="
+          display:flex;
+          flex-wrap:wrap;
+          gap:8px;
+          margin-top:14px;
+        ">
+
+          <span style="
+            padding:7px 10px;
+            border-radius:999px;
+            background:rgba(215,173,85,.08);
+            border:1px solid rgba(215,173,85,.18);
+            font-size:.75rem;
+          ">
+            Área · ${rxEsc(area)}
+          </span>
+
+          <span style="
+            padding:7px 10px;
+            border-radius:999px;
+            background:rgba(215,173,85,.08);
+            border:1px solid rgba(215,173,85,.18);
+            font-size:.75rem;
+          ">
+            ${mayors} ${mayors===1?"Arcano Mayor":"Arcanos Mayores"}
+          </span>
+
+          <span style="
+            padding:7px 10px;
+            border-radius:999px;
+            background:rgba(215,173,85,.08);
+            border:1px solid rgba(215,173,85,.18);
+            font-size:.75rem;
+          ">
+            ${directas} directa${directas===1?"":"s"} ·
+            ${invertidas} invertida${invertidas===1?"":"s"}
+          </span>
+
+        </div>
 
       </div>
 
+
       <div class="rx-tarot-baraja">
+
   `;
 
+
+  /*
+   * Cartas reveladas.
+   */
 
   cartas.forEach(function(item,index){
 
@@ -2709,9 +2834,8 @@ window.rxLeerTarotProfesional=function(){
     html+=`
 
       <article
-        class="rx-tarot-carta
-        ${invertida?"invertida":""}"
-        style="animation-delay:${index*80}ms">
+        class="rx-tarot-carta ${invertida?"invertida":""}"
+        style="animation-delay:${index*90}ms">
 
         <div class="rx-tarot-numero">
           ${rxEsc(posiciones[index])}
@@ -2726,11 +2850,17 @@ window.rxLeerTarotProfesional=function(){
         </h4>
 
         <div class="rx-tarot-orientacion">
-          ${
-            invertida
-              ? "Invertida"
-              : "Derecha"
-          }
+          ${invertida?"Invertida":"Derecha"}
+        </div>
+
+        <div style="
+          margin-top:10px;
+          font-size:.68rem;
+          letter-spacing:.12em;
+          text-transform:uppercase;
+          color:var(--muted);
+        ">
+          ${rxEsc(carta.palo)}
         </div>
 
       </article>
@@ -2743,6 +2873,11 @@ window.rxLeerTarotProfesional=function(){
   html+=`
 
       </div>
+
+
+      <div class="rx-tarot-lectura">
+
+        <h3>✦ Interpretación carta por carta</h3>
 
   `;
 
@@ -2760,39 +2895,74 @@ window.rxLeerTarotProfesional=function(){
         ? carta.inverso
         : carta.derecho;
 
+    const orientacion=
+      invertida
+        ? "La expresión invertida invita a observar aquello que puede estar bloqueando, desviando o modificando este aspecto."
+        : "La expresión directa muestra este arquetipo como un recurso, proceso o aspecto disponible para ser observado.";
+
     html+=`
 
-      <div class="rx-tarot-lectura">
+      <div
+        class="rx-tarot-posicion"
+        style="
+          margin-top:${index===0?"0":"18px"};
+          padding:18px;
+          border-radius:16px;
+          background:rgba(255,255,255,.025);
+          border:1px solid rgba(215,173,85,.13);
+        ">
 
-        <div class="rx-tarot-posicion">
+        <div style="
+          display:flex;
+          justify-content:space-between;
+          gap:10px;
+          flex-wrap:wrap;
+          align-items:center;
+        ">
 
           <strong>
             ${index+1}.
             ${rxEsc(posiciones[index])}
-            ·
-            ${rxEsc(carta.nombre)}
           </strong>
 
-          <p>
-            ${
-              invertida
-                ? "Lectura invertida: "
-                : "Lectura directa: "
-            }
-
-            ${rxEsc(significado)}
-          </p>
-
-          <p class="rx-tarot-clave">
-            ✦ Observación:
-            ${
-              invertida
-                ? "explora qué puede estar bloqueando, ocultando o modificando este aspecto."
-                : "explora cómo este aspecto aparece de forma consciente y disponible en tu experiencia."
-            }
-          </p>
+          <span style="
+            color:var(--gold2);
+            font-size:.78rem;
+          ">
+            ${invertida?"↕ INVERTIDA":"↑ DIRECTA"}
+          </span>
 
         </div>
+
+        <h4 style="
+          margin:10px 0 5px;
+          color:var(--gold2);
+          font-size:1.08rem;
+        ">
+          ${rxEsc(carta.nombre)}
+        </h4>
+
+        <div style="
+          font-size:.72rem;
+          text-transform:uppercase;
+          letter-spacing:.13em;
+          color:var(--muted);
+          margin-bottom:10px;
+        ">
+          ${rxEsc(carta.palo)}
+        </div>
+
+        <p>
+          ${rxEsc(significado)}
+        </p>
+
+        <p style="
+          margin-top:9px;
+          font-size:.86rem;
+          color:var(--muted);
+        ">
+          ${orientacion}
+        </p>
 
       </div>
 
@@ -2801,30 +2971,91 @@ window.rxLeerTarotProfesional=function(){
   });
 
 
+  /*
+   * Síntesis dinámica.
+   */
+
+  let lecturaGeneral="";
+
+  if(mayors>=Math.ceil(cartas.length/2)){
+
+    lecturaGeneral=
+      "La presencia predominante de Arcanos Mayores sitúa la lectura en un plano simbólico amplio. Los temas representados pueden relacionarse con procesos importantes, decisiones, aprendizajes o cambios de perspectiva.";
+
+  }
+  else{
+
+    lecturaGeneral=
+      "La tirada combina principalmente experiencias y situaciones concretas. El conjunto puede observarse como una secuencia de acciones, emociones, decisiones y circunstancias que interactúan con la consulta.";
+
+  }
+
+
+  if(invertidas>0){
+
+    lecturaGeneral+=
+      " Las cartas invertidas añaden una segunda capa de lectura: aquello que aparece bloqueado, interiorizado, retrasado o necesitado de revisión.";
+
+  }
+
+
+  if(area!=="general"){
+
+    lecturaGeneral+=
+      " Al relacionarse con el área de "+area+
+      ", la interpretación puede utilizarse como un marco simbólico para ordenar la pregunta y observar diferentes perspectivas.";
+
+  }
+
+
   html+=`
 
       <div class="rx-tarot-sintesis">
 
+        <div style="
+          font-size:.72rem;
+          letter-spacing:.18em;
+          text-transform:uppercase;
+          color:var(--gold2);
+          margin-bottom:7px;
+        ">
+          INTEGRACIÓN
+        </div>
+
         <h3>🔮 Síntesis de la tirada</h3>
 
         <p>
-          ${crearSintesis(cartas)}
+          ${rxEsc(lecturaGeneral)}
+        </p>
+
+        <p style="
+          margin-top:12px;
+        ">
+          ${rxEsc(crearSintesis(cartas))}
         </p>
 
       </div>
+
 
       <div class="rx-tarot-lectura">
 
-        <h3>✦ Integración</h3>
+        <h3>✦ Cómo trabajar esta lectura</h3>
 
         <p>
-          La lectura no determina acontecimientos futuros.
-          Utilízala como una herramienta narrativa y simbólica
-          para formular preguntas, identificar perspectivas
-          y reflexionar sobre tu propia experiencia.
+          Observa qué carta representa con mayor claridad
+          tu situación actual, cuál genera mayor resistencia
+          y qué relación encuentras entre el inicio y el
+          cierre de la tirada.
+        </p>
+
+        <p>
+          La utilidad de esta lectura está en abrir
+          perspectivas y preguntas. No establece hechos
+          inevitables ni determina acontecimientos futuros.
         </p>
 
       </div>
+
 
       <div class="rx-tarot-acciones">
 
@@ -2845,21 +3076,24 @@ window.rxLeerTarotProfesional=function(){
 
       </div>
 
+
       <p class="rx-tarot-nota">
+
         Las interpretaciones del Tarot son simbólicas y
         recreativas. No constituyen predicciones científicas
         ni sustituyen asesoramiento profesional.
+
       </p>
 
     </div>
 
   `;
 
+
   resultado.innerHTML=
     html;
 
 };
-
 
 /* =========================================================
    NUEVA TIRADA
