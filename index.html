@@ -2677,22 +2677,13 @@ window.rxLeerTarotProfesional=function(){
     if(/amor|pareja|relación|relacion|sentimiento|afecto|vínculo|vinculo|romance|familia/.test(textoPregunta)){
     area="vínculos";
   }
-  else if(
-    /trabajo|empleo|profesión|profesion|negocio|
-     dinero|economía|economia|proyecto|estudio/.test(textoPregunta)
-  ){
+    else if(/trabajo|empleo|profesión|profesion|negocio|dinero|economía|economia|proyecto|estudio/.test(textoPregunta)){
     area="proyecto y materia";
   }
-  else if(
-    /cambio|decisión|decision|camino|futuro|
-     avanzar|elección|eleccion|oportunidad/.test(textoPregunta)
-  ){
+    else if(/cambio|decisión|decision|camino|futuro|avanzar|elección|eleccion|oportunidad/.test(textoPregunta)){
     area="decisión y cambio";
   }
-  else if(
-    /yo|personal|vida|crecer|sanar|energía|energia|
-     propósito|proposito|miedo|confianza/.test(textoPregunta)
-  ){
+    else if(/yo|personal|vida|crecer|sanar|energía|energia|propósito|proposito|miedo|confianza/.test(textoPregunta)){
     area="proceso personal";
   }
 
