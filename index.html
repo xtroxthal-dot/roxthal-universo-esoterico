@@ -14135,5 +14135,54 @@ body.rx-cosmic-active .card:hover{
 
 })();
 </script> 
+   <!-- =========================================================
+     REPARACIÓN FINAL — ENTRADA A MÓDULOS
+     NO MODIFICA EL CONTENIDO DE LOS MÓDULOS
+     ========================================================= -->
+<style id="roxthal-module-entry-fix">
+
+/* La presentación cósmica no puede bloquear los botones */
+#rx-cosmic-opening{
+  pointer-events:none !important;
+}
+
+/* La transición tampoco puede bloquear la interfaz */
+#rx-cosmic-transition{
+  pointer-events:none !important;
+}
+
+/* El modal de los módulos queda por encima de TODA
+   la decoración cósmica */
+#rx-esoterico-modal{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:1000000 !important;
+  pointer-events:auto !important;
+}
+
+/* El fondo del modal recibe correctamente el cierre */
+#rx-esoterico-modal .rx-esoterico-fondo{
+  pointer-events:auto !important;
+}
+
+/* La ventana y sus controles quedan interactivos */
+#rx-esoterico-modal .rx-esoterico-ventana,
+#rx-esoterico-modal button,
+#rx-esoterico-modal input,
+#rx-esoterico-modal textarea,
+#rx-esoterico-modal select{
+  pointer-events:auto !important;
+}
+
+/* El contenido visual cósmico nunca intercepta pulsaciones */
+#rx-cosmic-field,
+#rx-cosmic-objects,
+#rx-v3-nebulae,
+#rx-v3-particles,
+#rx-v3-orbits{
+  pointer-events:none !important;
+}
+
+</style>
 </body>
 </html>
