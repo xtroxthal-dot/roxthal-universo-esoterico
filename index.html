@@ -12573,39 +12573,21 @@ body.rx-cosmic-active footer{
   }
 
 
-  /* =======================================================
-     INTEGRACIÓN SEGURA CON EL SISTEMA EXISTENTE
-     ======================================================= */
+  
+function integrarAbrirModulo(){
 
-  function integrarAbrirModulo(){
+  /*
+   * La apertura de los módulos queda bajo
+   * control directo del sistema de módulos.
+   *
+   * La experiencia cósmica continúa funcionando,
+   * pero no vuelve a envolver window.abrirModulo.
+   *
+   * Esto evita la cadena de wrappers acumulados.
+   */
 
-    if(typeof window.abrirModulo!=="function") return;
-
-    if(window.abrirModulo.__rxCosmicWrapped) return;
-
-    const originalAbrirModulo=
-      window.abrirModulo;
-
-    function abrirModuloCosmico(nombre){
-
-      mostrarTransicion(nombre);
-
-      setTimeout(function(){
-
-        activarModuloVisual(nombre);
-
-        originalAbrirModulo.call(this,nombre);
-
-      }.bind(this),220);
-
-    }
-
-    abrirModuloCosmico.__rxCosmicWrapped=true;
-
-    window.abrirModulo=
-      abrirModuloCosmico;
-  }
-
+  return;
+}
 
   function integrarCerrarModulo(){
 
