@@ -1144,7 +1144,7 @@ window.abrirModulo=function(nombre){
       <label>
         Tu signo
         <select id="rxZodiacoSigno">
-          ${RX_SIGNOS.map(function(s){
+          ${["Aries","Tauro","Géminis","Cáncer","Leo","Virgo","Libra","Escorpio","Sagitario","Capricornio","Acuario","Piscis"].map(function(s){
             return '<option>'+s+'</option>';
           }).join("")}
         </select>
