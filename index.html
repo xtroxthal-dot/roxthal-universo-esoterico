@@ -12594,10 +12594,7 @@ body.rx-cosmic-active footer{
 
         activarModuloVisual(nombre);
 
-        originalAbrirModulo.apply(
-          this,
-          arguments
-        );
+        originalAbrirModulo.call(this,nombre);
 
       }.bind(this),220);
 
