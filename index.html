@@ -734,18 +734,27 @@ if(key==="zodiaco")on("showZodiac",()=>{
     ["Pregunta de autoconocimiento",p.question]
   ];
 
-  const shuffled=themes.slice().sort(()=>Math.random()-.5);
-  const selected=shuffled.slice(0,3);
-  const content=
-    "ATLAS ZODIACAL ROXTHAL\n\n"+
-    "Arquetipo: "+s[0]+"\n"+
-    "Elemento tradicional: "+s[2]+"\n\n"+
-    "ESENCIA SIMBÓLICA\n"+p.essence+"\n\n"+
-    selected.map(t=>t[0].toUpperCase()+"\n"+t[1]).join("\n\n")+
-    "\n\nEXPLORACIÓN ADICIONAL\n"+
-    themes.filter(t=>!selected.includes(t)).map(t=>t[0]+": "+t[1]).join("\n\n")+
-    "\n\nEJERCICIO DE INTEGRACIÓN\n"+
-    "Anotá una idea de esta lectura que te resulte significativa. Describí una situación real en la que se manifieste y elegí una acción concreta que puedas probar durante los próximos siete días.";
+  
+const variableThemes=themes.slice(0,5);
+const shuffled=variableThemes.slice();
+
+for(let i=shuffled.length-1;i>0;i--){
+  const j=Math.floor(Math.random()*(i+1));
+  [shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]];
+}
+
+const selected=shuffled.slice(0,3);
+
+const content=
+  "ATLAS ZODIACAL ROXTHAL\n\n"+
+  "Arquetipo: "+s[0]+"\n"+
+  "Elemento tradicional: "+s[2]+"\n\n"+
+  "ESENCIA SIMBÓLICA\n"+p.essence+"\n\n"+
+  selected.map(t=>t[0].toUpperCase()+"\n"+t[1]).join("\n\n")+
+  "\n\nEJERCICIO DE INTEGRACIÓN\n"+p.practice+
+  "\n\nPREGUNTA DE AUTOCONOCIMIENTO\n"+p.question+
+  "\n\nPropuesta: anotá una idea de esta lectura y elegí una acción concreta para ponerla en práctica durante los próximos siete días.";
+
 
   renderResult(
     s[1]+" "+s[0]+" · Atlas Zodiacal",
