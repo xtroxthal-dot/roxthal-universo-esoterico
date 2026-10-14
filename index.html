@@ -593,10 +593,167 @@ function attachModule(key){
     const c=randomItem(modules.runas.cards);
     renderResult(c[0],c[1]+"\n\n¿Qué relación encontrás entre este símbolo y algo que estás viviendo?","Asociación simbólica inspirada en la tradición rúnica.");
   });
-  if(key==="zodiaco")on("showZodiac",()=>{
-    const s=modules.zodiaco.signs[Number($("zodiacSign").value)];
-    renderResult(s[1]+" "+s[0], "Elemento: "+s[2]+".\n\nAsociaciones tradicionales: "+s[3]+"\n\nReflexión: ¿Qué parte de esta descripción sentís que representa tu experiencia y cuál no?","Descripción astrológica general, no un análisis individual.");
-  });
+  
+if(key==="zodiaco")on("showZodiac",()=>{
+  const signs=modules.zodiaco.signs;
+  const index=Number($("zodiacSign").value);
+  const s=signs[index];
+  if(!s){notify("Elegí un signo zodiacal.");return}
+
+  const profiles=[
+    {
+      essence:"Aries representa el impulso de comenzar, la iniciativa y el valor de actuar. Su desafío es distinguir la valentía de la precipitación.",
+      strengths:"Iniciativa, franqueza, energía, capacidad de reacción y disposición para abrir caminos.",
+      challenges:"Impaciencia, competitividad excesiva, decisiones apresuradas y dificultad para aceptar límites.",
+      love:"En los vínculos necesita sinceridad, movimiento y autonomía. El aprendizaje consiste en escuchar sin convertir cada diferencia en una lucha.",
+      work:"Puede sentirse atraído por proyectos nuevos, liderazgo, emprendimientos y tareas que exigen decisión. Conviene aprender a sostener lo que empieza.",
+      growth:"Antes de actuar, preguntarse si está respondiendo a una oportunidad real o a la incomodidad de tener que esperar.",
+      practice:"Durante una semana, elegir un objetivo pequeño, avanzar cada día y terminarlo antes de comenzar otro.",
+      question:"¿Qué deseo iniciar y qué necesito aprender para no abandonarlo cuando desaparezca el entusiasmo?"
+    },
+    {
+      essence:"Tauro simboliza la construcción, la continuidad y el vínculo con lo concreto. Su desafío es conservar la estabilidad sin quedar atrapado en lo conocido.",
+      strengths:"Constancia, paciencia, sentido práctico, lealtad y capacidad para construir a largo plazo.",
+      challenges:"Resistencia al cambio, apego, terquedad y tendencia a confundir seguridad con inmovilidad.",
+      love:"Valora la confianza demostrada con hechos, el afecto constante y la seguridad emocional. Necesita evitar que la comodidad sustituya al diálogo.",
+      work:"Se asocia simbólicamente con procesos sostenidos, administración de recursos, oficios, producción y proyectos que requieren calidad y perseverancia.",
+      growth:"Distinguir entre aquello que merece ser protegido y aquello que se conserva únicamente por miedo a perderlo.",
+      practice:"Identificar una rutina que aporta estabilidad y otra que ya no sirve. Mantener la primera y modificar gradualmente la segunda.",
+      question:"¿Qué estoy construyendo de verdad y qué sigo sosteniendo solo porque me resulta familiar?"
+    },
+    {
+      essence:"Géminis representa la curiosidad, el intercambio de ideas y la capacidad de conectar perspectivas. Su desafío es transformar información en comprensión.",
+      strengths:"Adaptabilidad, ingenio, comunicación, curiosidad y facilidad para encontrar conexiones.",
+      challenges:"Dispersión, exceso de estímulos, cambios de opinión impulsivos y dificultad para profundizar.",
+      love:"El diálogo, el humor y la curiosidad compartida pueden ser importantes. El aprendizaje consiste en escuchar con presencia y no limitarse a responder rápidamente.",
+      work:"Se vincula simbólicamente con comunicación, enseñanza, escritura, ventas, investigación y actividades variadas que requieren aprender continuamente.",
+      growth:"Elegir qué merece atención sostenida y aceptar que comprender algo profundamente requiere tiempo.",
+      practice:"Dedicar veinte minutos diarios a un solo tema, sin cambiar de tarea ni consultar otras distracciones.",
+      question:"¿Estoy buscando nuevas respuestas porque tengo curiosidad o porque me cuesta permanecer ante una pregunta difícil?"
+    },
+    {
+      essence:"Cáncer simboliza la memoria emocional, el cuidado y la búsqueda de pertenencia. Su desafío es proteger su sensibilidad sin vivir a la defensiva.",
+      strengths:"Empatía, intuición personal, capacidad de cuidado, memoria afectiva y atención a las necesidades de los demás.",
+      challenges:"Retraimiento, susceptibilidad, apego al pasado y dificultad para expresar necesidades directamente.",
+      love:"Puede valorar la confianza, la intimidad y los gestos de cuidado. Necesita recordar que acompañar a alguien no significa hacerse responsable de todas sus emociones.",
+      work:"Se asocia con cuidado, hospitalidad, acompañamiento, creación de espacios seguros y actividades donde importa comprender a las personas.",
+      growth:"Reconocer sus necesidades antes de esperar que los demás las adivinen.",
+      practice:"Expresar una necesidad concreta con palabras claras, sin reproches ni expectativas de que la otra persona la interprete.",
+      question:"¿Estoy cuidando desde el afecto libremente elegido o desde el temor a que alguien se aleje?"
+    },
+    {
+      essence:"Leo representa la expresión creativa, la identidad y el deseo de aportar algo propio. Su desafío es compartir su brillo sin depender constantemente de la aprobación.",
+      strengths:"Generosidad, creatividad, entusiasmo, capacidad expresiva y disposición para asumir responsabilidades.",
+      challenges:"Orgullo defensivo, necesidad de reconocimiento, dificultad para admitir errores y sensibilidad ante la indiferencia.",
+      love:"Puede valorar la expresión abierta del afecto, la admiración mutua y la lealtad. El aprendizaje es reconocer al otro sin convertir la relación en una competencia por la atención.",
+      work:"Se vincula con creación, dirección, interpretación, comunicación pública y proyectos que permiten desarrollar una voz personal.",
+      growth:"Crear por convicción propia y aceptar la crítica útil sin interpretarla como una negación de su valor.",
+      practice:"Realizar una acción creativa que tenga sentido personal, aunque nadie la vea ni la elogie.",
+      question:"¿Qué parte de mi identidad seguiría expresando aunque no recibiera reconocimiento inmediato?"
+    },
+    {
+      essence:"Virgo simboliza la observación, el discernimiento y el perfeccionamiento de los procesos. Su desafío es mejorar las cosas sin exigir una perfección imposible.",
+      strengths:"Atención al detalle, organización, pensamiento analítico, responsabilidad y capacidad para detectar mejoras.",
+      challenges:"Autocrítica excesiva, preocupación, rigidez y tendencia a concentrarse en defectos.",
+      love:"Puede demostrar afecto mediante acciones concretas y atención cotidiana. Necesita equilibrar la ayuda práctica con la aceptación de que nadie es perfecto.",
+      work:"Se asocia con análisis, organización, investigación, revisión, planificación y tareas que requieren precisión.",
+      growth:"Distinguir entre un error que debe corregirse y una diferencia que simplemente debe aceptarse.",
+      practice:"Terminar una tarea cuando cumple su objetivo, aunque todavía sea posible hacer pequeños ajustes.",
+      question:"¿Mi deseo de mejorar esta situación está ayudando o está impidiéndome reconocer lo que ya funciona?"
+    },
+    {
+      essence:"Libra representa la búsqueda de equilibrio, reciprocidad y comprensión entre perspectivas diferentes. Su desafío es decidir sin necesitar que todo el mundo esté de acuerdo.",
+      strengths:"Diplomacia, sensibilidad estética, cooperación, consideración y capacidad para mediar.",
+      challenges:"Indecisión, evitación del conflicto, dependencia de la aprobación y postergación de necesidades propias.",
+      love:"Puede valorar el diálogo, el respeto mutuo y la construcción compartida. El equilibrio real requiere que ambas personas puedan expresar desacuerdos.",
+      work:"Se asocia con negociación, diseño, mediación, atención a clientes y actividades que requieren armonizar intereses o criterios.",
+      growth:"Comprender que una decisión justa no siempre satisface a todas las personas.",
+      practice:"Tomar una decisión pendiente utilizando tres criterios propios, en vez de intentar anticipar todas las opiniones ajenas.",
+      question:"¿Qué elegiría si pudiera escuchar a los demás sin entregarles la responsabilidad de decidir por mí?"
+    },
+    {
+      essence:"Escorpio simboliza la profundidad, la transformación y el examen de aquello que suele permanecer oculto. Su desafío es afrontar la vulnerabilidad sin recurrir al control.",
+      strengths:"Perseverancia, capacidad de observación, profundidad, determinación y disposición para atravesar procesos difíciles.",
+      challenges:"Desconfianza, secretismo, resentimiento y tendencia a interpretar la incertidumbre como amenaza.",
+      love:"Puede valorar la honestidad, la intimidad y la confianza profunda. El aprendizaje es hablar de los temores sin convertirlos en vigilancia o pruebas constantes.",
+      work:"Se relaciona simbólicamente con investigación, análisis, resolución de problemas complejos y procesos de transformación.",
+      growth:"Aceptar que la confianza se construye con acuerdos, coherencia y tiempo, no con control absoluto.",
+      practice:"Escribir qué situación genera desconfianza, qué hechos se conocen y qué parte corresponde a una interpretación personal.",
+      question:"¿Qué necesito afrontar o transformar para dejar de repetir una dinámica que ya no me sirve?"
+    },
+    {
+      essence:"Sagitario representa la exploración, la búsqueda de sentido y la apertura a otras perspectivas. Su desafío es conservar la curiosidad sin escapar de las responsabilidades cotidianas.",
+      strengths:"Entusiasmo, amplitud de miras, franqueza, curiosidad cultural y disposición para explorar.",
+      challenges:"Exceso de confianza, impaciencia con los límites, promesas exageradas y abandono de detalles importantes.",
+      love:"Puede valorar la libertad, el aprendizaje compartido y la honestidad. Necesita combinar autonomía con presencia y compromisos claros.",
+      work:"Se vincula con enseñanza, viajes, comunicación intercultural, investigación y proyectos que amplían conocimientos o perspectivas.",
+      growth:"Convertir las ideas inspiradoras en acciones sostenibles y reconocer los detalles que permiten realizarlas.",
+      practice:"Elegir una meta que represente un valor personal y definir tres pasos concretos para avanzar esta semana.",
+      question:"¿Estoy ampliando mis horizontes o utilizando la próxima aventura para evitar algo que requiere mi atención?"
+    },
+    {
+      essence:"Capricornio simboliza la responsabilidad, la estructura y la construcción paciente. Su desafío es alcanzar objetivos sin reducir toda su identidad al rendimiento.",
+      strengths:"Disciplina, planificación, perseverancia, sentido de responsabilidad y visión a largo plazo.",
+      challenges:"Exigencia extrema, rigidez, dificultad para descansar y tendencia a medir el valor propio por los resultados.",
+      love:"Puede expresar compromiso mediante constancia y responsabilidad. El aprendizaje es comunicar emociones y permitir que el vínculo también tenga espontaneidad.",
+      work:"Se asocia con gestión, planificación, organización, construcción de proyectos y responsabilidades que requieren continuidad.",
+      growth:"Reconocer que descansar, pedir ayuda y revisar un objetivo también forman parte de una estrategia sólida.",
+      practice:"Definir un objetivo realista, una pausa necesaria y un límite de trabajo para evitar convertir la exigencia en agotamiento.",
+      question:"¿Qué quiero construir y qué precio personal estoy dispuesto —o no— a pagar por conseguirlo?"
+    },
+    {
+      essence:"Acuario representa la innovación, la independencia intelectual y la reflexión sobre lo colectivo. Su desafío es conectar las ideas con las necesidades emocionales concretas.",
+      strengths:"Originalidad, pensamiento independiente, visión de conjunto, creatividad conceptual y apertura a nuevas posibilidades.",
+      challenges:"Distanciamiento emocional, oposición automática a las normas y dificultad para considerar perspectivas más personales.",
+      love:"Puede valorar la autonomía, la amistad y el respeto por las diferencias. El aprendizaje es acompañar emocionalmente sin sentir que pierde independencia.",
+      work:"Se vincula con innovación, tecnología, investigación, proyectos comunitarios y propuestas que buscan cambiar formas establecidas.",
+      growth:"Combinar pensamiento crítico con escucha empática y convertir una idea novedosa en una acción viable.",
+      practice:"Elegir una mejora que beneficie a otras personas y realizar un primer paso pequeño para ponerla a prueba.",
+      question:"¿Cómo puedo defender mi independencia y, al mismo tiempo, participar de manera comprometida en mis vínculos?"
+    },
+    {
+      essence:"Piscis simboliza la imaginación, la sensibilidad y la percepción subjetiva de los matices. Su desafío es mantener límites claros sin renunciar a la empatía.",
+      strengths:"Imaginación, sensibilidad artística, compasión, receptividad y capacidad para encontrar significado personal.",
+      challenges:"Idealización, evasión, límites difusos y dificultad para separar los deseos de los hechos.",
+      love:"Puede valorar la ternura, la comprensión y la conexión emocional. Necesita verificar expectativas, expresar límites y no confundir amar con rescatar.",
+      work:"Se relaciona simbólicamente con arte, música, escritura, acompañamiento y actividades que combinan sensibilidad e imaginación.",
+      growth:"Dar forma concreta a la inspiración y comprobar la realidad antes de tomar decisiones importantes.",
+      practice:"Transformar una emoción o idea en una creación, una conversación o una acción específica, y observar qué resultado produce.",
+      question:"¿Qué me está mostrando mi sensibilidad y qué hechos necesito comprobar antes de actuar?"
+    }
+  ];
+
+  const p=profiles[index];
+  const themes=[
+    ["Relaciones y afectos",p.love],
+    ["Trabajo y vocación",p.work],
+    ["Fortalezas",p.strengths],
+    ["Desafíos y contradicciones",p.challenges],
+    ["Camino de crecimiento",p.growth],
+    ["Práctica personal",p.practice],
+    ["Pregunta de autoconocimiento",p.question]
+  ];
+
+  const shuffled=themes.slice().sort(()=>Math.random()-.5);
+  const selected=shuffled.slice(0,3);
+  const content=
+    "ATLAS ZODIACAL ROXTHAL\n\n"+
+    "Arquetipo: "+s[0]+"\n"+
+    "Elemento tradicional: "+s[2]+"\n\n"+
+    "ESENCIA SIMBÓLICA\n"+p.essence+"\n\n"+
+    selected.map(t=>t[0].toUpperCase()+"\n"+t[1]).join("\n\n")+
+    "\n\nEXPLORACIÓN ADICIONAL\n"+
+    themes.filter(t=>!selected.includes(t)).map(t=>t[0]+": "+t[1]).join("\n\n")+
+    "\n\nEJERCICIO DE INTEGRACIÓN\n"+
+    "Anotá una idea de esta lectura que te resulte significativa. Describí una situación real en la que se manifieste y elegí una acción concreta que puedas probar durante los próximos siete días.";
+
+  renderResult(
+    s[1]+" "+s[0]+" · Atlas Zodiacal",
+    content,
+    "Lectura simbólica basada en tradiciones astrológicas. No es un diagnóstico psicológico ni una predicción científica. Las descripciones son generales y no determinan tu personalidad ni tu futuro."
+  );
+});
+
   if(key==="astral")on("saveAstral",()=>{
     const date=$("astralDate").value,time=$("astralTime").value,place=$("astralPlace").value.trim();
     if(!date||!place){notify("Completá la fecha y el lugar de nacimiento.");return}
