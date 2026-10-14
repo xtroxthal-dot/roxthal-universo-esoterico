@@ -14169,5 +14169,77 @@ body.rx-cosmic-active .card:hover{
 }
 
 </style>
+
+   
+<script>
+/* RoXThal Universo Esotérico — reparación puntual de Zodíaco */
+(function () {
+  "use strict";
+
+  var abrirAnterior = window.abrirModulo;
+  var abrirBase = window.rxAbrirModuloBase;
+
+  window.abrirModulo = function (nombre) {
+    var normalizado = String(nombre || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim();
+
+    if (normalizado !== "zodiaco") {
+      if (typeof abrirAnterior === "function") {
+        return abrirAnterior.apply(this, arguments);
+      }
+      return;
+    }
+
+    try {
+      if (typeof abrirBase !== "function") {
+        throw new Error("No se encontró el módulo base");
+      }
+
+      abrirBase("Zodíaco");
+
+      var modal = document.getElementById("rx-esoterico-modal");
+      var contenido = document.getElementById("rxModuloContenido");
+
+      if (!modal || !contenido) {
+        throw new Error("No se pudo crear la ventana");
+      }
+
+      if (!contenido.innerHTML.trim()) {
+        contenido.innerHTML = `
+          <div class="rx-esoterico-icono">♈</div>
+          <h2>Zodíaco</h2>
+          <p class="rx-esoterico-intro">
+            Explora las características simbólicas de tu signo.
+          </p>
+          <label for="rxZodiacoSigno">Tu signo</label>
+          <select id="rxZodiacoSigno">
+            <option>Aries</option><option>Tauro</option>
+            <option>Géminis</option><option>Cáncer</option>
+            <option>Leo</option><option>Virgo</option>
+            <option>Libra</option><option>Escorpio</option>
+            <option>Sagitario</option><option>Capricornio</option>
+            <option>Acuario</option><option>Piscis</option>
+          </select>
+          <button class="rx-esoterico-boton"
+            onclick="window.rxLeerZodiaco()">
+            ✦ Realizar lectura
+          </button>
+          <div id="rxResultado"></div>
+        `;
+      }
+
+      modal.classList.add("activo");
+      document.body.style.overflow = "hidden";
+
+    } catch (error) {
+      console.error("Error al abrir Zodíaco:", error);
+    }
+  };
+})();
+</script>
+
 </body>
 </html>
