@@ -739,21 +739,95 @@ const variableThemes=themes.slice(0,5);
 const shuffled=variableThemes.slice();
 
 for(let i=shuffled.length-1;i>0;i--){
-  const j=Math.floor(Math.random()*(i+1));
-  [shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]];
+const j=Math.floor(Math.random()*(i+1));
+[shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]];
 }
 
 const selected=shuffled.slice(0,3);
 
+const now=new Date();
+const dayNumber=Math.floor(
+(new Date(now.getFullYear(),now.getMonth(),now.getDate())-
+new Date(now.getFullYear(),0,0))/86400000
+);
+
+const dailyPick=(items,offset=0)=>
+items[(dayNumber+index*3+offset)%items.length];
+
+const forecasts={
+amor:[
+"Una conversación sincera puede ayudar a aclarar lo que sentís. Escuchá también lo que la otra persona necesita.",
+"Es un buen momento para revisar expectativas y expresar afecto con hechos concretos.",
+"Prestá atención a los pequeños gestos. No supongas: preguntá y comunicá lo que necesitás.",
+"Darle espacio al otro sin descuidarte puede mejorar el equilibrio del vínculo."
+],
+trabajo:[
+"Priorizá una tarea importante y terminá lo que ya empezaste antes de sumar nuevos compromisos.",
+"Una idea puede ganar fuerza si la organizás y la convertís en pasos concretos.",
+"La paciencia y la comunicación pueden ayudarte a resolver un asunto pendiente.",
+"Revisá tus objetivos y elegí qué merece realmente tu energía profesional."
+],
+dinero:[
+"Revisá gastos y compromisos antes de realizar una compra impulsiva.",
+"Organizar tus recursos puede darte más claridad que buscar resultados inmediatos.",
+"Antes de aceptar una propuesta económica, comprobá sus condiciones y posibles riesgos.",
+"Una decisión prudente hoy puede ayudarte a cuidar tus recursos a largo plazo."
+],
+suerte:[
+"Tu oportunidad simbólica del día está en prestar atención a una posibilidad que normalmente pasarías por alto.",
+"La iniciativa puede abrir una puerta, siempre que evalúes bien los riesgos.",
+"Una conversación o una colaboración puede aportarte una perspectiva útil.",
+"La mejor manera de favorecer tu suerte hoy es prepararte y actuar con criterio."
+],
+vida:[
+"El día invita a ordenar prioridades y dejar un poco de espacio para lo que te hace bien.",
+"Podés avanzar sin resolverlo todo de una vez. Elegí un paso posible y empezá por ahí.",
+"Revisar una costumbre puede ayudarte a recuperar tiempo y atención para lo importante.",
+"Una pausa consciente puede darte perspectiva antes de tomar una decisión."
+],
+bienestar:[
+"Buscá un ritmo equilibrado y reservá tiempo para descansar.",
+"Prestá atención a tus necesidades y evitá asumir más compromisos de los que podés sostener.",
+"Un momento de tranquilidad puede ayudarte a ordenar tus pensamientos.",
+"Respetar tus límites también forma parte de avanzar."
+]
+};
+
+const signs=modules.zodiaco.signs;
+const affinity=signs.find((item,i)=>i!==index&&item[2]===s[2]);
+const colors={
+Fuego:"dorado",
+Tierra:"verde",
+Aire:"celeste",
+Agua:"violeta"
+};
+
 const content=
-  "ATLAS ZODIACAL ROXTHAL\n\n"+
-  "Arquetipo: "+s[0]+"\n"+
-  "Elemento tradicional: "+s[2]+"\n\n"+
-  "ESENCIA SIMBÓLICA\n"+p.essence+"\n\n"+
-  selected.map(t=>t[0].toUpperCase()+"\n"+t[1]).join("\n\n")+
-  "\n\nEJERCICIO DE INTEGRACIÓN\n"+p.practice+
-  "\n\nPREGUNTA DE AUTOCONOCIMIENTO\n"+p.question+
-  "\n\nPropuesta: anotá una idea de esta lectura y elegí una acción concreta para ponerla en práctica durante los próximos siete días.";
+"HORÓSCOPO ROXTHAL · "+now.toLocaleDateString("es-AR",{
+weekday:"long",day:"numeric",month:"long",year:"numeric"
+})+"\n\n"+
+"SIGNO: "+s[1]+" "+s[0]+"\n"+
+"ELEMENTO: "+s[2]+"\n\n"+
+"✦ ESENCIA DE TU SIGNO\n"+p.essence+"\n\n"+
+"♥ AMOR Y VÍNCULOS\n"+p.love+
+"\nOrientación del día: "+dailyPick(forecasts.amor,0)+"\n\n"+
+"✧ TRABAJO Y VOCACIÓN\n"+p.work+
+"\nOrientación del día: "+dailyPick(forecasts.trabajo,1)+"\n\n"+
+"♙ DINERO Y RECURSOS\n"+dailyPick(forecasts.dinero,2)+"\n\n"+
+"☘ SUERTE Y OPORTUNIDADES\n"+dailyPick(forecasts.suerte,3)+"\n\n"+
+"☾ VIDA PERSONAL\n"+p.growth+
+"\nOrientación del día: "+dailyPick(forecasts.vida,4)+"\n\n"+
+"✦ BIENESTAR Y ENERGÍA\n"+dailyPick(forecasts.bienestar,5)+"\n\n"+
+"✧ FORTALEZAS\n"+p.strengths+"\n\n"+
+"⚑ DESAFÍO A OBSERVAR\n"+p.challenges+"\n\n"+
+"NÚMERO SIMBÓLICO DEL DÍA: "+((dayNumber+index*7)%9+1)+"\n"+
+"COLOR ASOCIADO: "+colors[s[2]]+"\n"+
+"AFINIDAD ELEMENTAL: "+(affinity?affinity[0]+" ("+s[2]+")":"consultá otro signo")+"\n\n"+
+"✦ TU EJERCICIO PERSONAL\n"+p.practice+"\n\n"+
+"PREGUNTA PARA REFLEXIONAR\n"+p.question+"\n\n"+
+"TEMAS ADICIONALES DE TU SIGNO\n"+
+selected.map(t=>t[0].toUpperCase()+"\n"+t[1]).join("\n\n")+
+"\n\nTomá esta lectura como una guía simbólica para reflexionar. No determina acontecimientos ni garantiza resultados.";
 
 
   renderResult(
